@@ -1,0 +1,725 @@
+--------- beginning of system
+02-24 20:42:27.207   714   983 W ActivityTaskManager: callingPackage for (uid=2000, pid=7329) has no WPC
+--------- beginning of main
+02-24 20:42:27.210   714   983 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@80b6c2d does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-24 20:42:27.211   714   983 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_USER_ASPECT_RATIO_OVERRIDE
+02-24 20:42:27.211   714   983 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_USER_ASPECT_RATIO_FULLSCREEN_OVERRIDE
+02-24 20:42:27.212   714   983 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_RESIZEABLE_ACTIVITY_OVERRIDES
+02-24 20:42:27.212   714   983 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_MIN_ASPECT_RATIO_OVERRIDE
+02-24 20:42:27.217   714   983 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_ORIENTATION_OVERRIDE
+02-24 20:42:27.223   714   983 I ActivityTaskManager: START u0 {flg=0x10000000 xflg=0x5 cmp=com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} with LAUNCH_SINGLE_TOP from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+02-24 20:42:27.225  1013  1080 V WindowManagerShell: Transition requested (#33): android.os.BinderProxy@59d0f35 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=44 effectiveUid=10218 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity } baseActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} topActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} origActivity=null realActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} numActivities=1 lastActiveTime=1862768 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@67fcfca} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{5f7353b com.nativephp.mobile.ui.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(142, 280 - 579, 1000) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 720, 1280) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive}} topActivityMainWindowFrame=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 33 }
+02-24 20:42:27.225  1013  1080 D ShellSplitScreen: logExit: no-op, mLoggerSessionId is null
+02-24 20:42:27.229  1166  1166 W SplitSelectStateCtor: Missing session instanceIds
+02-24 20:42:27.229  1166  1166 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+02-24 20:42:27.233   557   854 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+02-24 20:42:27.234   557   557 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+02-24 20:42:27.236   714   757 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@80b6c2d does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-24 20:42:27.240  1013  1080 D WindowManagerShell: setLauncherKeepClearAreaHeight: visible=false, height=350
+02-24 20:42:27.242  1013  1124 I ndroid.systemui: AssetManager2(0x7b7d45026f58) locale list changing from [] to [en-US]
+02-24 20:42:27.244   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:27.245   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.246   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.247   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.248   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.248   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.248   714   983 D CompatChangeReporter: Compat change id reported: 377864165; UID 10218; state: ENABLED
+02-24 20:42:27.248   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.249   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.250   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.250   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.250   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.251   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.251   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.251   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.252   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.252   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.252   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.252   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.252   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.253   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.253   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.253   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.253   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.253   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.253   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.254   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.254   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.254   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.255   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.255   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.255   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.255   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.256   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.257   484   484 D Zygote  : Forked child process 7332
+02-24 20:42:27.264  1013  1125 W HWUI    : Image decoding logging dropped!
+02-24 20:42:27.267   714   764 I ActivityManager: Start proc 7332:com.asustuff15.cloudcometcrystal/u0a218 for next-top-activity {com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity}
+02-24 20:42:27.268   714   764 I ActivityManager: ProcessObserver broadcast disabled
+02-24 20:42:27.287  7332  7332 I oudcometcrystal: Late-enabling -Xcheck:jni
+02-24 20:42:27.288   616   696 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.288   616   696 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:27.344   714   754 V WindowManager: Sent Transition (#33) createdAt=02-24 20:42:27.212 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=44 effectiveUid=10218 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity } baseActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} topActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} origActivity=null realActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} numActivities=1 lastActiveTime=1862768 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{c5b69a6 Task{b377f93 #44 type=standard A=10218:com.asustuff15.cloudcometcrystal}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{980bfe7 com.nativephp.mobile.ui.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(142, 280 - 579, 1000) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 720, 1280) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive}} topActivityMainWindowFrame=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 33 }
+02-24 20:42:27.345   714   754 V WindowManager:     startWCT=WindowContainerTransaction { changes= {} hops= [] errorCallbackToken=null taskFragmentOrganizer=null }
+02-24 20:42:27.345   714   754 V WindowManager:     info={id=33 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+02-24 20:42:27.345   714   754 V WindowManager:         {WCT{RemoteToken{c5b69a6 Task{b377f93 #44 type=standard A=10218:com.asustuff15.cloudcometcrystal}}} m=OPEN f=NONE leash=Surface(name=Task=44)/@0x433c4e8 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},
+02-24 20:42:27.345   714   754 V WindowManager:         {WCT{RemoteToken{dbb2609 Task{a814f19 #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xe34d016 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},
+02-24 20:42:27.345   714   754 V WindowManager:         {m=TO_BACK f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{aebff6c showWhenLocked=false})/@0x60d745b sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0}
+02-24 20:42:27.345   714   754 V WindowManager:     ]}
+02-24 20:42:27.346  1013  1028 V WindowManagerShell: onTransitionReady(transaction=3066606650640)
+02-24 20:42:27.347  1013  1080 V WindowManagerShell: onTransitionReady (#33) android.os.BinderProxy@59d0f35: {id=33 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+02-24 20:42:27.347  1013  1080 V WindowManagerShell:         {m=OPEN f=NONE leash=Surface(name=Task=44)/@0x2bed034 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},
+02-24 20:42:27.347  1013  1080 V WindowManagerShell:         {m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xae6ae5d sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},
+02-24 20:42:27.347  1013  1080 V WindowManagerShell:         {m=TO_BACK f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{aebff6c showWhenLocked=false})/@0x646c3d2 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0}
+02-24 20:42:27.347  1013  1080 V WindowManagerShell:     ]}
+02-24 20:42:27.347  1013  1080 V WindowManagerShell: Playing animation for (#33) android.os.BinderProxy@59d0f35@0
+02-24 20:42:27.347  1013  1080 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+02-24 20:42:27.347  1013  1080 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=33 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{m=OPEN f=NONE leash=Surface(name=Task=44)/@0x2bed034 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},{m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xae6ae5d sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},{m=TO_BACK f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{aebff6c showWhenLocked=false})/@0x646c3d2 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0}]}
+02-24 20:42:27.347  1013  1080 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=undefined independent=true modes=[CLOSE,TO_BACK] flags=IN_TASK_WITH_EMBEDDED_ACTIVITY mustBeTask=false order=ANY topActivity=null launchCookie=null taskFragmentToken=android.os.BinderProxy@92248e3 windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@86062e0, appThread = android.app.IApplicationThread$Stub$Proxy@86a8999, debugName = overlayBackTransition }}
+02-24 20:42:27.347  1013  1080 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=dream independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined},{atype=home independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@9f645e, appThread = android.app.IApplicationThread$Stub$Proxy@326903f, debugName = LauncherToDream }}
+02-24 20:42:27.347  1013  1080 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity} launchCookie=null windowingMode=undefined},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined},{NOT atype=undefined independent=true modes=[] flags=NONE mustBeTask=true order=ANY topActivity=null launchCookie=null customAnim=true windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@718cd0c, appThread = android.app.IApplicationThread$Stub$Proxy@7512655, debugName = QuickstepLaunchHome }}
+02-24 20:42:27.347  1013  1080 V WindowManagerShell:  Delegate animation for (#33) to null
+02-24 20:42:27.348  1013  1080 V WindowManagerShell: start default transition animation, info = {id=33 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{m=OPEN f=NONE leash=Surface(name=Task=44)/@0x2bed034 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},{m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xae6ae5d sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},{m=TO_BACK f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{aebff6c showWhenLocked=false})/@0x646c3d2 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0}]}
+02-24 20:42:27.349  1013  1080 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@f294b1e animAttr=0x13 type=OPEN isEntrance=false
+02-24 20:42:27.355  1013  1080 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@b1afb2a animAttr=0x12 type=OPEN isEntrance=true
+02-24 20:42:27.356  1013  1080 V WindowManagerShell:  animated by com.android.wm.shell.transition.DefaultTransitionHandler@8f418a9
+02-24 20:42:27.360  7332  7332 I oudcometcrystal: Using CollectorTypeCMC GC.
+02-24 20:42:27.367  7332  7332 W oudcometcrystal: Unexpected CPU variant for x86: x86_64.
+02-24 20:42:27.367  7332  7332 W oudcometcrystal: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+02-24 20:42:27.413  7332  7332 I berberis: Initialized Berberis (aarch64), version 16.0.0
+02-24 20:42:27.564   565   589 I adbd    : jdwp connection from 7332
+02-24 20:42:27.571  7332  7332 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+02-24 20:42:27.642   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:27.656  1013  1080 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#33) android.os.BinderProxy@59d0f35@0
+02-24 20:42:27.658   714   754 V WindowManager: Finish Transition (#33): created at 02-24 20:42:27.212 collect-started=0.063ms request-sent=9.996ms started=15.887ms ready=127.397ms sent=131.183ms commit=25.883ms finished=444.711ms
+02-24 20:42:27.658  1166  1166 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+02-24 20:42:27.659  1013  1080 V WindowManagerShell: Track 0 became idle
+02-24 20:42:27.659  1013  1080 V WindowManagerShell: All active transition animations finished
+02-24 20:42:27.668  1166  1166 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+02-24 20:42:27.690  7332  7332 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+02-24 20:42:27.690  7332  7332 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+02-24 20:42:28.037  7332  7332 D nativeloader: Configuring clns-9 for other apk /data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/lib/arm64:/data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.asustuff15.cloudcometcrystal
+02-24 20:42:28.079  7332  7332 I oudcometcrystal: AssetManager2(0x7b7d4501c9b8) locale list changing from [] to [en-US]
+02-24 20:42:28.095  7332  7332 V GraphicsEnvironment: Currently set values for:
+02-24 20:42:28.096  7332  7332 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+02-24 20:42:28.096  7332  7332 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+02-24 20:42:28.096  7332  7332 V GraphicsEnvironment: com.asustuff15.cloudcometcrystal is not listed in per-application setting
+02-24 20:42:28.096  7332  7332 V GraphicsEnvironment: ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+02-24 20:42:28.096  7332  7332 V GraphicsEnvironment: com.asustuff15.cloudcometcrystal is not listed in ANGLE allowlist or settings, returning default
+02-24 20:42:28.096  7332  7332 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+02-24 20:42:28.115  7332  7332 W FirebaseApp: Default FirebaseApp failed to initialize because no default options were found. This usually means that com.google.gms:google-services was not applied to your gradle project.
+02-24 20:42:28.115  7332  7332 I FirebaseInitProvider: FirebaseApp initialization unsuccessful
+02-24 20:42:28.168   714  1995 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ENABLE_FAKE_FOCUS
+02-24 20:42:28.172   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:28.173   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:28.180  7332  7351 I DisplayManager: Choreographer implicitly registered for the refresh rate.
+02-24 20:42:28.188  7332  7332 I oudcometcrystal: AssetManager2(0x7b7d4501c058) locale list changing from [] to [en-US]
+02-24 20:42:28.254  7332  7351 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+02-24 20:42:28.259  7332  7351 I EGL_emulation: Opening libGLESv2_emulation.so
+02-24 20:42:28.341  7332  7351 W HWUI    : Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+02-24 20:42:28.341  7332  7351 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+02-24 20:42:28.492  7332  7332 D nativeloader: Load /data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/lib/arm64/libcompat.so using class loader ns clns-9 (caller=/data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/base.apk!classes3.dex): ok
+02-24 20:42:28.547  7332  7332 D nativeloader: Load /data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/lib/arm64/libphp.so using class loader ns clns-9 (caller=/data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/base.apk!classes3.dex): ok
+02-24 20:42:28.552  7332  7332 I LINKER  : 📦 LOADED: /data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/lib/arm64/libphp_wrapper.so
+02-24 20:42:28.553  7332  7332 I SymbolExport: ✅ Re-opened libphp_wrapper.so with RTLD_GLOBAL
+02-24 20:42:28.553  7332  7332 I PHP-Wrapper: Initializing PHP wrapper
+02-24 20:42:28.554  7332  7332 I PHP-Wrapper: PHP wrapper initialized successfully
+02-24 20:42:28.554  7332  7332 D nativeloader: Load /data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/lib/arm64/libphp_wrapper.so using class loader ns clns-9 (caller=/data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/base.apk!classes3.dex): ok
+02-24 20:42:28.555  7332  7332 I BridgeJNI: 🔌 BridgeJNI: InitializeBridgeJNI called
+02-24 20:42:28.555  7332  7332 I BridgeJNI: 🔍 BridgeJNI: Looking for com/nativephp/mobile/bridge/BridgeRouterKt class...
+02-24 20:42:28.555  7332  7332 I BridgeJNI: ✅ BridgeJNI: Found BridgeRouterKt class
+02-24 20:42:28.555  7332  7332 I BridgeJNI: BridgeJNI: Initialization successful
+02-24 20:42:28.579  7332  7332 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+02-24 20:42:28.659  7332  7332 D CompatChangeReporter: Compat change id reported: 377864165; UID 10218; state: ENABLED
+02-24 20:42:28.662  7332  7332 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+02-24 20:42:28.677  7332  7332 D StatusBar: 🎨 System bars style: auto (system light mode)
+02-24 20:42:28.677  7332  7332 D StatusBar: 🎨 Using dark icons with transparent background
+02-24 20:42:28.698  7332  7332 I oudcometcrystal: AssetManager2(0x7b7d4501f258) locale list changing from [] to [en-US]
+02-24 20:42:28.699  7332  7332 I WebViewFactory: Loading com.google.android.webview version 133.0.6943.137 (code 694313738)
+02-24 20:42:28.699  7332  7332 I oudcometcrystal: AssetManager2(0x7b7d45020b58) locale list changing from [] to [en-US]
+02-24 20:42:28.700  7332  7332 I oudcometcrystal: AssetManager2(0x7b7d4501ad98) locale list changing from [] to [en-US]
+02-24 20:42:28.701  7332  7332 I oudcometcrystal: AssetManager2(0x7b7d450214b8) locale list changing from [] to [en-US]
+02-24 20:42:28.701  7332  7332 V ResourcesManager: The following library key has been added: ResourcesKey{ mHash=430cf04a mResDir=null mSplitDirs=[] mOverlayDirs=[] mLibDirs=[/data/app/~~JIRogMcMEPZXhGMVnCTS7w==/com.google.android.webview-NGx_ynA2e6WGsnJdYEbjUA==/WebViewGoogle.apk,/data/app/~~mvbyXCXR1M1dOsXb7i6DyQ==/com.google.android.trichromelibrary_694313738-I03ts8UYeHEiIUp5Lb-ILQ==/TrichromeLibrary.apk] mDisplayId=0 mOverrideConfig=v36 mCompatInfo={320dpi always-compat} mLoaders=[]}
+02-24 20:42:28.703  7332  7332 W oudcometcrystal: Failed to find entry 'classes.dex': Entry not found
+02-24 20:42:28.704  7332  7332 D nativeloader: Configuring clns-10 for other apk /data/app/~~mvbyXCXR1M1dOsXb7i6DyQ==/com.google.android.trichromelibrary_694313738-I03ts8UYeHEiIUp5Lb-ILQ==/TrichromeLibrary.apk. target_sdk_version=34, uses_libraries=ALL, library_path=/data/app/~~JIRogMcMEPZXhGMVnCTS7w==/com.google.android.webview-NGx_ynA2e6WGsnJdYEbjUA==/lib/x86_64:/data/app/~~JIRogMcMEPZXhGMVnCTS7w==/com.google.android.webview-NGx_ynA2e6WGsnJdYEbjUA==/WebViewGoogle.apk!/lib/x86_64:/data/app/~~mvbyXCXR1M1dOsXb7i6DyQ==/com.google.android.trichromelibrary_694313738-I03ts8UYeHEiIUp5Lb-ILQ==/TrichromeLibrary.apk!/lib/x86_64, permitted_path=/data:/mnt/expand
+02-24 20:42:28.707  7332  7332 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+02-24 20:42:28.713  7332  7332 D nativeloader: Configuring clns-11 for other apk /data/app/~~JIRogMcMEPZXhGMVnCTS7w==/com.google.android.webview-NGx_ynA2e6WGsnJdYEbjUA==/WebViewGoogle.apk. target_sdk_version=34, uses_libraries=, library_path=/data/app/~~JIRogMcMEPZXhGMVnCTS7w==/com.google.android.webview-NGx_ynA2e6WGsnJdYEbjUA==/lib/x86_64:/data/app/~~JIRogMcMEPZXhGMVnCTS7w==/com.google.android.webview-NGx_ynA2e6WGsnJdYEbjUA==/WebViewGoogle.apk!/lib/x86_64:/data/app/~~mvbyXCXR1M1dOsXb7i6DyQ==/com.google.android.trichromelibrary_694313738-I03ts8UYeHEiIUp5Lb-ILQ==/TrichromeLibrary.apk!/lib/x86_64, permitted_path=/data:/mnt/expand
+02-24 20:42:28.804  7332  7332 I cr_WVCFactoryProvider: version=133.0.6943.137 (694313738) minSdkVersion=29 isBundle=false multiprocess=true packageId=2
+02-24 20:42:28.828  7332  7332 D nativeloader: Load /data/app/~~mvbyXCXR1M1dOsXb7i6DyQ==/com.google.android.trichromelibrary_694313738-I03ts8UYeHEiIUp5Lb-ILQ==/TrichromeLibrary.apk!/lib/x86_64/libmonochrome_64.so using class loader ns clns-11 (caller=/data/app/~~JIRogMcMEPZXhGMVnCTS7w==/com.google.android.webview-NGx_ynA2e6WGsnJdYEbjUA==/WebViewGoogle.apk): ok
+02-24 20:42:28.831  7332  7332 D nativeloader: Load /system/lib64/libwebviewchromium_plat_support.so using class loader ns clns-11 (caller=/data/app/~~JIRogMcMEPZXhGMVnCTS7w==/com.google.android.webview-NGx_ynA2e6WGsnJdYEbjUA==/WebViewGoogle.apk): ok
+02-24 20:42:28.838  7332  7356 E chromium: [0224/204228.837572:ERROR:variations_seed_loader.cc(39)] Seed missing signature.
+02-24 20:42:28.839  7332  7356 I chromium: [0224/204228.839724:INFO:variations_seed_loader.cc(67)] Failed to open file for reading.: No such file or directory (2)
+02-24 20:42:28.851  7332  7332 I cr_LibraryLoader: Successfully loaded native library
+02-24 20:42:28.852  7332  7332 I cr_CachingUmaRecorder: Flushed 6 samples from 6 histograms, 0 samples were dropped.
+02-24 20:42:28.859  7332  7332 I cr_CombinedPProvider: #registerProvider() provider:WV.C8@3363292 isPolicyCacheEnabled:false policyProvidersSize:0
+02-24 20:42:28.863  7332  7332 I cr_PolicyProvider: #setManagerAndSource() 0
+02-24 20:42:28.870   714   747 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@dce0dd3a does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+02-24 20:42:28.881  1090  1090 D Zygote  : Forked child process 7361
+02-24 20:42:28.882  7332  7332 I cr_CombinedPProvider: #linkNativeInternal() 1
+02-24 20:42:28.885  7332  7332 I cr_AppResProvider: #getApplicationRestrictionsFromUserManager() Bundle[EMPTY_PARCEL]
+02-24 20:42:28.885  7332  7332 I cr_PolicyProvider: #notifySettingsAvailable() 0
+02-24 20:42:28.885  7332  7332 I cr_CombinedPProvider: #onSettingsAvailable() 0
+02-24 20:42:28.885  7332  7332 I cr_CombinedPProvider: #flushPolicies()
+02-24 20:42:28.886  7361  7361 I ocessService0:0: Using CollectorTypeCMC GC.
+02-24 20:42:28.888  7361  7361 W ocessService0:0: Unexpected CPU variant for x86: x86_64.
+02-24 20:42:28.888  7361  7361 W ocessService0:0: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+02-24 20:42:28.889   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:28.892  7361  7361 E ocessService0:0: Not starting debugger since process cannot load the jdwp agent.
+02-24 20:42:28.902  7361  7361 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+02-24 20:42:28.907   714   817 D ActivityManager: sync unfroze 4727 com.google.android.gms for 6
+02-24 20:42:28.913   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:28.915   714   817 D ActivityManager: sync unfroze 3507 com.google.android.apps.photos for 6
+02-24 20:42:28.929   714   817 D ActivityManager: sync unfroze 4172 com.google.android.apps.restore for 6
+02-24 20:42:28.932  7332  7332 I oudcometcrystal: AssetManager2(0x7b7d45016f18) locale list changing from [] to [en-US]
+02-24 20:42:28.935   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:28.935   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:28.937   616   696 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:28.939   714   764 W ActivityManager: Slow operation: 69ms so far, now at startProcess: done updating battery stats
+02-24 20:42:28.939   714   764 W ActivityManager: Slow operation: 69ms so far, now at startProcess: building log message
+02-24 20:42:28.939   714   764 I ActivityManager: Start proc 7361:com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0/u0i5 for  {com.asustuff15.cloudcometcrystal/org.chromium.content.app.SandboxedProcessService0:0}
+02-24 20:42:28.939   714   764 W ActivityManager: Slow operation: 69ms so far, now at startProcess: starting to update pids map
+02-24 20:42:28.939   714   764 I ActivityManager: ProcessObserver broadcast disabled
+02-24 20:42:28.939   714   764 W ActivityManager: Slow operation: 69ms so far, now at startProcess: done updating pids map
+02-24 20:42:28.939  7332  7332 I oudcometcrystal: AssetManager2(0x7b7d45022778) locale list changing from [] to [en-US]
+02-24 20:42:28.940   616   696 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:28.945  7361  7361 D CompatChangeReporter: Compat change id reported: 242716250; UID 99005; state: ENABLED
+02-24 20:42:28.955  4727  4727 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.safetynet.service.START xflg=0x4 pkg=com.google.android.gms }
+02-24 20:42:28.955  4727  4727 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.safetynet.service.START xflg=0x4 pkg=com.google.android.gms }
+02-24 20:42:28.965   714  1995 W ProcessStats: Tracking association SourceState{ddcac4 com.google.android.apps.restore/10140 BTop #6351} whose proc state 2 is better than process ProcessState{c61e3a0 com.google.android.apps.photos/10170 pkg=com.google.android.apps.photos} proc state 14 (3 skipped)
+02-24 20:42:28.970  7361  7361 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+02-24 20:42:28.972  7361  7361 I ocessService0:0: AssetManager2(0x7b7d4501aa78) locale list changing from [] to [en-US]
+02-24 20:42:28.988  7361  7361 I LoadedApk: No resource references to update in package com.google.android.trichromelibrary
+02-24 20:42:28.990  7361  7361 I cr_WebViewApkApp: version=133.0.6943.137 (694313738) minSdkVersion=29 isBundle=false processName=com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0
+02-24 20:42:28.994   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:29.013  7361  7361 I cr_ChildProcessService: Creating new ChildProcessService pid=7361
+02-24 20:42:29.018   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:29.027  4172  4181 V ClearcutMetricXmitter: Transmission is done.
+02-24 20:42:29.027  4172  5312 V ClearcutMetricXmitter: Transmission is done.
+02-24 20:42:29.036   714   747 D ActivityManager: sync unfroze 5949 com.google.android.webview:webview_service for 6
+02-24 20:42:29.036   714   747 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:29.044   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:29.057  4172  5312 V ClearcutMetricXmitter: Transmission is done.
+02-24 20:42:29.058  4172  5312 V ClearcutMetricXmitter: Transmission is done.
+02-24 20:42:29.059  4172  4181 V ClearcutMetricXmitter: Transmission is done.
+02-24 20:42:29.061  4172  4181 V ClearcutMetricXmitter: Transmission is done.
+02-24 20:42:29.061  4172  5312 V ClearcutMetricXmitter: Transmission is done.
+02-24 20:42:29.089   714  1995 D ConnectivityService: requestNetwork for uid/pid:10218/7332 activeRequest: null callbackRequest: 309 [NetworkRequest [ REQUEST id=310, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10218 RequestorUid: 10218 RequestorPkg: com.asustuff15.cloudcometcrystal UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOST|NC|LP
+02-24 20:42:29.093   714  1995 D CompatChangeReporter: Compat change id reported: 349487600; UID 10218; state: ENABLED
+02-24 20:42:29.095   714   902 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=310, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10218 RequestorUid: 10218 RequestorPkg: com.asustuff15.cloudcometcrystal UnderlyingNetworks: Null] ]
+02-24 20:42:29.095   714   902 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=310, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10218 RequestorUid: 10218 RequestorPkg: com.asustuff15.cloudcometcrystal UnderlyingNetworks: Null] ]
+02-24 20:42:29.095   714   902 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=310, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10218 RequestorUid: 10218 RequestorPkg: com.asustuff15.cloudcometcrystal UnderlyingNetworks: Null] ]
+02-24 20:42:29.095   714   902 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=310, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10218 RequestorUid: 10218 RequestorPkg: com.asustuff15.cloudcometcrystal UnderlyingNetworks: Null] ]
+02-24 20:42:29.095   714   910 D ConnectivityService: NetReassign [310 : null → 100] [c 1] [a 1] [i 4]
+02-24 20:42:29.096   714   910 D ConnectivityService: NetReassign [no changes] [c 0] [a 0] [i 0]
+02-24 20:42:29.139  7332  7332 D LaravelCookies: 📦 Stored cookies:
+02-24 20:42:29.139  7332  7332 D MainActivity: 🔌 Registering bridge functions...
+02-24 20:42:29.140  7332  7332 D MainActivity: ✅ Bridge functions registered
+02-24 20:42:29.152  7332  7401 D LaravelInit: 📦 Starting async Laravel extraction...
+02-24 20:42:29.168  7332  7332 D NativePHPLifecycle: 📤 Posting event: onResume with data: {}
+02-24 20:42:29.168  7332  7332 D NativePHPLifecycle: 📭 No listeners for event: onResume
+02-24 20:42:29.192  7332  7332 W HWUI    : Unknown dataspace 0
+02-24 20:42:29.225  7332  7405 I CameraManagerGlobal: Connecting to camera service
+02-24 20:42:29.228   714  1995 D CoreBackPreview: Window{6abd6ee u0 com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@e3e6a1c, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}
+02-24 20:42:29.228   714  1995 D CoreBackPreview: Window{6abd6ee u0 com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@28fe625, mPriority=0, mIsAnimationCallback=true, mOverrideBehavior=0}
+02-24 20:42:29.232  7332  7401 D LaravelEnvironment: 🔍 CHECKPOINT 1 - BEFORE setupDirectories: exists=true, files=
+02-24 20:42:29.232  7332  7401 D LaravelEnvironment: 🔍 CHECKPOINT 2 - AFTER setupDirectories: exists=true, files=
+02-24 20:42:29.245   616  6355 I AttributionAndPermissionUtils: checkPermission (forDataDelivery 0 startDataDelivery 0): Permission hard denied for client attribution [uid 10218, pid 7332, packageName "<unknown>"]
+02-24 20:42:29.793  7332  7338 I oudcometcrystal: Compiler allocated 5042KB to compile void android.view.ViewRootImpl.performTraversals()
+02-24 20:42:29.840  7332  7332 I oudcometcrystal: hiddenapi: Accessing hidden method Landroid/os/SystemProperties;->addChangeCallback(Ljava/lang/Runnable;)V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/compose/ui/platform/AndroidComposeView$Companion; (domain=app) using reflection: allowed
+02-24 20:42:30.024  7332  7332 D NativeSideNav: No side nav data - drawer will be disabled
+02-24 20:42:30.470  7332  7332 W libc    : Access denied finding property "vendor.mesa.log"
+02-24 20:42:30.470  7332  7332 W libc    : Access denied finding property "vendor.mesa.log.file"
+02-24 20:42:30.470  7332  7332 E MESA    : Failed to open rendernode: No such file or directory
+02-24 20:42:30.482  7332  7332 D vulkan  : searching for layers in '/data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/lib/arm64'
+02-24 20:42:30.484  7332  7332 D vulkan  : searching for layers in '/data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/base.apk!/lib/arm64-v8a'
+02-24 20:42:30.538  7332  7332 W libc    : Access denied finding property "vendor.mesa.vk.trace.per.submit"
+02-24 20:42:30.538  7332  7332 W libc    : Access denied finding property "vendor.mesa.gallium.print.optio"
+02-24 20:42:30.539  7332  7332 W libc    : Access denied finding property "vendor.mesa.vk.trace.frame"
+02-24 20:42:30.546  7332  7332 W libc    : Access denied finding property "vendor.mesa.vk.wsi.headless.swa"
+02-24 20:42:30.646   714   754 W system_server: Failed to determine oat file name for dex location /data/app/~~xiBnbOPGL4xvCUhprwx9Sw==/com.asustuff15.cloudcometcrystal-FRELhQNWL5duTfro88Xo9w==/base.apk: Dalvik cache directory does not exist
+02-24 20:42:30.648   714   754 I ActivityTaskManager: Displayed com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity for user 0: +3s437ms
+02-24 20:42:30.657  7332  7348 I HWUI    : Davey! duration=1451ms; Flags=1, FrameTimelineVsyncId=64207, IntendedVsync=1864746355220, Vsync=1864763021886, InputEventId=0, HandleInputStart=1864771999400, AnimationStart=1864772019000, PerformTraversalsStart=1864772046000, DrawStart=1865972012600, FrameDeadline=1864763021886, FrameStartTime=1864771987600, FrameInterval=16666666, WorkloadTarget=16666666, SyncQueued=1866166967200, SyncStart=1866167766300, IssueDrawCommandsStart=1866167979600, SwapBuffers=1866184327500, FrameCompleted=1866198229900, DequeueBufferDuration=38300, QueueBufferDuration=224300, GpuCompleted=1866198229900, SwapBuffersCompleted=1866186439200, DisplayPresentTime=0, CommandSubmissionCompleted=1866184327500, 
+02-24 20:42:30.658  7332  7332 D NativeSideNav: Drawer state changed: isOpen=false
+02-24 20:42:30.658  7332  7332 D SideDrawer: Drawer state changed: false
+02-24 20:42:30.666  7332  7332 I Choreographer: Skipped 75 frames!  The application may be doing too much work on its main thread.
+02-24 20:42:30.690  7332  7348 I HWUI    : Davey! duration=1284ms; Flags=0, FrameTimelineVsyncId=64229, IntendedVsync=1864946355212, Vsync=1866196355162, InputEventId=0, HandleInputStart=1866213065100, AnimationStart=1866213084700, PerformTraversalsStart=1866213275100, DrawStart=1866214352400, FrameDeadline=1866229688494, FrameStartTime=1866212410300, FrameInterval=16666666, WorkloadTarget=16666666, SyncQueued=1866215002200, SyncStart=1866215146900, IssueDrawCommandsStart=1866215208400, SwapBuffers=1866215681700, FrameCompleted=1866231051600, DequeueBufferDuration=21300, QueueBufferDuration=311300, GpuCompleted=1866231051600, SwapBuffersCompleted=1866221588000, DisplayPresentTime=0, CommandSubmissionCompleted=1866215681700, 
+02-24 20:42:30.690   714   869 I ImeTracker: com.asustuff15.cloudcometcrystal:ba5a3fd5: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+02-24 20:42:30.695  7332  7332 D InsetsController: hide(ime(), fromIme=false)
+02-24 20:42:30.695  7332  7332 I ImeTracker: com.asustuff15.cloudcometcrystal:ba5a3fd5: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+02-24 20:42:30.700  4903  4903 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043 
+02-24 20:42:30.700  1166  1166 D BaseDepthController: setSurface:
+02-24 20:42:30.700  1166  1166 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+02-24 20:42:30.700  1166  1166 D BaseDepthController: 	mBaseSurface: null
+02-24 20:42:30.701  1166  1166 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+02-24 20:42:30.702   714   748 I ImeTracker: system_server:3f43545d: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+02-24 20:42:30.703  4903  4903 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+02-24 20:42:30.704  1166  1166 D StateManager: goToState - fromState: Normal, toState: Normal, partial trace:
+02-24 20:42:30.704  1166  1166 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:4)
+02-24 20:42:30.704  1166  1166 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:1)
+02-24 20:42:30.704  1166  1166 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:34)
+02-24 20:42:30.707   714   757 I ImeTracker: system_server:3f43545d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+02-24 20:42:30.710  4903  4903 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.asustuff15.cloudcometcrystal, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+02-24 20:42:30.711  4710  4883 I FontLog : (REDACTED) Received query %s, URI %s
+02-24 20:42:30.721  4903  4903 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+02-24 20:42:30.723  1166  1166 D StatsLog: LAUNCHER_ONSTOP
+02-24 20:42:30.723  4710  4883 I FontLog : (REDACTED) Query [%s] resolved to %s
+02-24 20:42:30.725   714   983 W PackageConfigPersister: App-specific configuration not found for packageName: com.asustuff15.cloudcometcrystal and userId: 0
+02-24 20:42:30.758  1166  6067 D GmsPlayProvider: Forcefully shut down the binder channel
+02-24 20:42:30.762  1166  1166 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+02-24 20:42:30.800  4710  4883 I FontLog : (REDACTED) Fetch %s end status %s
+02-24 20:42:30.814   714  1731 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+02-24 20:42:30.818   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:30.820  4710  4883 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+02-24 20:42:30.852  4710  4883 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+02-24 20:42:30.928  1166  1182 W System  : A resource failed to call release. 
+02-24 20:42:30.928  1166  1182 W System  : A resource failed to call release. 
+02-24 20:42:30.928  1166  1182 W System  : A resource failed to call release. 
+02-24 20:42:31.010   616   696 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:31.010   616   696 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:31.124  1013  1024 W System  : A resource failed to call release. 
+02-24 20:42:31.124  1013  1024 W System  : A resource failed to call release. 
+02-24 20:42:31.124  1013  1024 W System  : A resource failed to call release. 
+02-24 20:42:31.124  1013  1024 W System  : A resource failed to call release. 
+02-24 20:42:31.124  1013  1024 W System  : A resource failed to call release. 
+02-24 20:42:31.124  1013  1024 W System  : A resource failed to call release. 
+02-24 20:42:31.941  1163  1406 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+02-24 20:42:31.942   714   747 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:32.465  7418  7418 W dumpsys : Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: package
+02-24 20:42:32.564  2481  4613 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/base.odex) is kOatUpToDate with filter 'speed-profile' executable 'false'
+02-24 20:42:32.570  2481  4613 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/split_AdsDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+02-24 20:42:32.576  2481  2510 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/split_CronetDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+02-24 20:42:32.582  2481  2510 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/split_DynamiteLoader_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+02-24 20:42:32.588  2481  2510 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/split_DynamiteModulesA_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+02-24 20:42:32.596  2481  2510 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/split_DynamiteModulesC_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+02-24 20:42:32.604  2481  2510 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/split_GoogleCertificates_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+02-24 20:42:32.611  2481  2510 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/split_MapsDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+02-24 20:42:32.616  2481  2510 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~K3KW8KS_0cXq4yXGkAWaxw==/com.google.android.gms-u-5ITP7TpqxvCvrAX-q0cA==/oat/x86_64/split_MeasurementDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+02-24 20:42:32.617  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000013/dl-PlayCloudSearch.optional_260632100000.apk has no usable artifacts
+02-24 20:42:32.619  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000001/CronetDynamite.apk has no usable artifacts
+02-24 20:42:32.619  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000002/DynamiteLoader.apk has no usable artifacts
+02-24 20:42:32.620  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000016/dl-MlkitBarcodeUi.optional_260632100800.apk has no usable artifacts
+02-24 20:42:32.626  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000012/dl-Appsearch.optional_260632100800.apk has no usable artifacts
+02-24 20:42:32.628  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000005/GoogleCertificates.apk has no usable artifacts
+02-24 20:42:32.630  2481  2510 I artd    : GetBestInfo: vdex next to the dex file (/data/user/0/com.google.android.gms/app_dg_cache/BF7C023AB90CCF01D1F467FC1CEBAF866511FF29/oat/x86_64/the.vdex) is kOatUpToDate with filter 'verify' executable 'false'
+02-24 20:42:32.632  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000c/dl-TfliteDynamiteDynamite.integ_252130102100800.apk has no usable artifacts
+02-24 20:42:32.651  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000009/dl-MlkitBarcodeUi.optional_250834100800.apk has no usable artifacts
+02-24 20:42:32.652  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000008/dl-Appsearch.optional_250834100800.apk has no usable artifacts
+02-24 20:42:32.653  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000e/dl-MlkitOcrCommon.optional_250834100800.apk has no usable artifacts
+02-24 20:42:32.655  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000f/dl-VisionOcr.optional_250834100000.apk has no usable artifacts
+02-24 20:42:32.656  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000d/dl-PlayCloudSearch.optional_250834100000.apk has no usable artifacts
+02-24 20:42:32.664  2481  2510 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000007/MeasurementDynamite.apk has no usable artifacts
+02-24 20:42:33.751  7332  7421 D ProfileInstaller: Installing profile for com.asustuff15.cloudcometcrystal
+02-24 20:42:33.932  4172  4181 I IPCThreadState: oneway function results for code 2 on binder at 0x7b7e15041df0 will be dropped but finished with status UNKNOWN_TRANSACTION
+02-24 20:42:33.941  4727  4738 I IPCThreadState: oneway function results for code 2 on binder at 0x7b7e15048b40 will be dropped but finished with status UNKNOWN_TRANSACTION
+02-24 20:42:34.083  7332  7401 D LaravelEnvironment: No BIFROST_APP_ID found in bundled .env
+02-24 20:42:34.083  7332  7401 D LaravelEnvironment: ℹ️ No BIFROST_APP_ID found, skipping OTA check
+02-24 20:42:34.083  7332  7401 D LaravelEnvironment: 🔍 CHECKPOINT 3a - BEFORE extractLaravelBundle: exists=true, files=
+02-24 20:42:34.084  7332  7401 D LaravelEnvironment: No BIFROST_APP_ID found in bundled .env
+02-24 20:42:34.084  7332  7401 D LaravelEnvironment: 🔍 DEBUG: embeddedVersion from bundle = '"DEBUG"'
+02-24 20:42:34.085  7332  7401 D LaravelEnvironment: 🔍 DEBUG: currentVersion = 'none'
+02-24 20:42:34.085  7332  7401 D LaravelEnvironment: 🔍 DEBUG: embeddedVersion.clean = 'DEBUG'
+02-24 20:42:34.085  7332  7401 D LaravelEnvironment: 🔍 DEBUG: isDebugOverride = true
+02-24 20:42:34.085  7332  7401 D LaravelEnvironment: 🔍 DEBUG: isUpToDate = false
+02-24 20:42:34.085  7332  7401 D LaravelEnvironment: 🔍 DEBUG: shouldExtract = true
+02-24 20:42:34.085  7332  7401 D LaravelEnvironment: 📦 Extracting Laravel bundle (new version: "DEBUG")
+02-24 20:42:34.085  7332  7401 D LaravelEnvironment: 📦 Current: none, Embedded: "DEBUG"
+02-24 20:42:34.085  7332  7401 D LaravelEnvironment: 🗑️ CALLING BASH RM NOW...
+02-24 20:42:34.112  7332  7401 D LaravelEnvironment: ✅ BASH RM COMPLETED (exit code: 0)
+02-24 20:42:34.402  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/
+02-24 20:42:34.405  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/
+02-24 20:42:34.405  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/.gitignore
+02-24 20:42:34.405  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/
+02-24 20:42:34.406  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/app.zip
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/temp-69986ebed61a5/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/temp-69986ebed61a5/lang/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/temp-69986ebed61a5/lang/vendor/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/temp-69986ebed61a5/lang/vendor/filament/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/temp-69986ebed61a5/lang/vendor/filament/ja/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/temp-69986ebed61a5/lang/vendor/filament/ja/components/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/native-build/temp-69986ebed61a5/lang/vendor/filament-forms/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/private/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/private/.gitignore
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/.gitignore
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/1/
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/1/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.023  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/10/
+02-24 20:42:35.024  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/10/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.025  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/11/
+02-24 20:42:35.025  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/11/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.026  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/12/
+02-24 20:42:35.026  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/12/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.027  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/13/
+02-24 20:42:35.027  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/13/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.028  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/14/
+02-24 20:42:35.029  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/14/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.030  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/15/
+02-24 20:42:35.030  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/15/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.031  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/16/
+02-24 20:42:35.031  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/16/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.032  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/17/
+02-24 20:42:35.032  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/17/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.033  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/18/
+02-24 20:42:35.033  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/18/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.033  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/19/
+02-24 20:42:35.034  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/19/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.034  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/2/
+02-24 20:42:35.034  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/2/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.036  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/2/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.037  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/20/
+02-24 20:42:35.037  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/20/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.038  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/21/
+02-24 20:42:35.038  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/21/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.038  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/22/
+02-24 20:42:35.038  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/22/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.039  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/23/
+02-24 20:42:35.039  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/23/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.040  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/24/
+02-24 20:42:35.041  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/24/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.042  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/25/
+02-24 20:42:35.042  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/25/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.043  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/26/
+02-24 20:42:35.043  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/26/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.044  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/27/
+02-24 20:42:35.044  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/27/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.045  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/28/
+02-24 20:42:35.045  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/28/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.046  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/3/
+02-24 20:42:35.046  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/3/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.047  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/3/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.048  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/4/
+02-24 20:42:35.048  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/4/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.049  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/4/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.049  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/5/
+02-24 20:42:35.049  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/5/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.050  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/6/
+02-24 20:42:35.050  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/6/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.051  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/7/
+02-24 20:42:35.051  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/7/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.052  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/7/photo-1522205408450-add114ad53fe.jpeg
+02-24 20:42:35.052  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/8/
+02-24 20:42:35.052  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/8/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.053  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/9/
+02-24 20:42:35.053  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/app/public/9/photo-1515886657613-9f3515b0c78f.jpeg
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/.gitignore
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/cache/
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/cache/.gitignore
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/cache/data/
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/cache/data/.gitignore
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/sessions/
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/sessions/Ul4g50Jv9SZqFRKxfvvJtAmjex4vEiUqizVRzntH
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/sessions/YwI5cVW7eFzP17pj51UHHzGUQLUor1Xn9DJ8AHgW
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/testing/
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/testing/.gitignore
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/views/
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/framework/views/.gitignore
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/logs/
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/logs/.gitignore
+02-24 20:42:35.055  7332  7401 D LaravelEnvironment: ⏭️ Skipping storage directory from bundle: storage/logs/laravel.log
+02-24 20:42:35.659   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:35.659   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:35.659   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={10168} in 0ms
+02-24 20:42:35.659   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:35.659   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:35.660   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={20168} in 1ms
+02-24 20:42:36.927  7332  7339 I oudcometcrystal: Background concurrent mark compact GC freed 11MB AllocSpace bytes, 432(17MB) LOS objects, 13% free, 153MB/177MB, paused 1.349ms,1.999ms total 102.510ms
+02-24 20:42:37.194  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.237  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 42.214ms
+02-24 20:42:37.334  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.380  7332  7339 I oudcometcrystal: Clamp target GC heap from 195MB to 192MB
+02-24 20:42:37.380  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 46.063ms
+02-24 20:42:37.429  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.485  7332  7339 I oudcometcrystal: Clamp target GC heap from 200MB to 192MB
+02-24 20:42:37.485  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 55.848ms
+02-24 20:42:37.525  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.586  7332  7339 I oudcometcrystal: Clamp target GC heap from 205MB to 192MB
+02-24 20:42:37.586  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 60.893ms
+02-24 20:42:37.613  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.671  7332  7339 I oudcometcrystal: Clamp target GC heap from 207MB to 192MB
+02-24 20:42:37.671  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 57.991ms
+02-24 20:42:37.694  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.751  7332  7339 I oudcometcrystal: Clamp target GC heap from 209MB to 192MB
+02-24 20:42:37.752  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 57.583ms
+02-24 20:42:37.773  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.832  7332  7339 I oudcometcrystal: Clamp target GC heap from 211MB to 192MB
+02-24 20:42:37.832  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 58.482ms
+02-24 20:42:37.848  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.904  7332  7339 I oudcometcrystal: Clamp target GC heap from 212MB to 192MB
+02-24 20:42:37.904  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 55.983ms
+02-24 20:42:37.915  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:37.976  7332  7339 I oudcometcrystal: Clamp target GC heap from 213MB to 192MB
+02-24 20:42:37.976  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 61.053ms
+02-24 20:42:37.984  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.043  7332  7339 I oudcometcrystal: Clamp target GC heap from 214MB to 192MB
+02-24 20:42:38.043  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 59.526ms
+02-24 20:42:38.049  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.107  7332  7339 I oudcometcrystal: Clamp target GC heap from 214MB to 192MB
+02-24 20:42:38.107  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 58.599ms
+02-24 20:42:38.113  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.176  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.176  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 63.513ms
+02-24 20:42:38.180  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.247  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.247  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 67.260ms
+02-24 20:42:38.250  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.306  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.307  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 56.416ms
+02-24 20:42:38.309  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.366  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.366  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 56.781ms
+02-24 20:42:38.368  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.426  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.426  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 57.986ms
+02-24 20:42:38.428  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.495  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.496  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 67.889ms
+02-24 20:42:38.496  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.564  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.564  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 67.507ms
+02-24 20:42:38.564  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.631  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.631  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 66.784ms
+02-24 20:42:38.632  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.696  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.697  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 64.330ms
+02-24 20:42:38.697  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.756  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.756  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 59.202ms
+02-24 20:42:38.757  7332  7401 I oudcometcrystal: Starting a blocking GC Alloc
+02-24 20:42:38.828  7332  7401 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.828  7332  7401 I oudcometcrystal: Alloc concurrent mark compact GC freed 92KB AllocSpace bytes, 0(0B) LOS objects, 0% free, 191MB/192MB, paused 1.302ms,2.075ms total 70.661ms
+02-24 20:42:38.828  7332  7339 I oudcometcrystal: WaitForGcToComplete blocked Background on Alloc for 70.810ms
+02-24 20:42:38.828  7332  7401 I oudcometcrystal: Forcing collection of SoftReferences for 7472B allocation
+02-24 20:42:38.909  7332  7401 I oudcometcrystal: Clamp target GC heap from 212MB to 192MB
+02-24 20:42:38.909  7332  7401 I oudcometcrystal: Alloc concurrent mark compact GC freed 3708KB AllocSpace bytes, 0(0B) LOS objects, 1% free, 188MB/192MB, paused 1.152ms,2.089ms total 80.754ms
+02-24 20:42:38.909  7332  7339 I oudcometcrystal: WaitForGcToComplete blocked Background on Alloc for 81.012ms
+02-24 20:42:38.929  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:38.953   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:38.953   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:38.953   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={10170} in 1ms
+02-24 20:42:38.953   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:38.954   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:38.954   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={20170} in 1ms
+02-24 20:42:38.955   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:38.955   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:38.955   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={10140} in 0ms
+02-24 20:42:38.955   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:38.955   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:38.956   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={20140} in 1ms
+02-24 20:42:38.958  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:38.958  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 29.065ms
+02-24 20:42:38.961  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:39.031  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:39.031  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 69.968ms
+02-24 20:42:39.033  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:39.061  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:39.061  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 27.897ms
+02-24 20:42:39.061  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:39.120  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:39.120  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 59.082ms
+02-24 20:42:39.121  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:39.180  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:39.181  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 59.151ms
+02-24 20:42:39.181  7332  7401 I oudcometcrystal: Forcing collection of SoftReferences for 12KB allocation
+02-24 20:42:39.181  7332  7341 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:39.242  7332  7401 I oudcometcrystal: Clamp target GC heap from 213MB to 192MB
+02-24 20:42:39.242  7332  7401 I oudcometcrystal: Alloc concurrent mark compact GC freed 2428KB AllocSpace bytes, 0(0B) LOS objects, 1% free, 189MB/192MB, paused 985us,1.449ms total 61.502ms
+02-24 20:42:39.242  7332  7339 I oudcometcrystal: WaitForGcToComplete blocked Background on Alloc for 61.724ms
+02-24 20:42:39.243  7332  7341 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Alloc for 61.805ms
+02-24 20:42:39.251  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:39.318  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:39.318  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on HeapTrim for 67.172ms
+02-24 20:42:39.321  7332  7401 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:39.387  7332  7339 I oudcometcrystal: Clamp target GC heap from 215MB to 192MB
+02-24 20:42:39.387  7332  7401 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Background for 66.452ms
+02-24 20:42:39.387  7332  7401 I oudcometcrystal: Forcing collection of SoftReferences for 11KB allocation
+02-24 20:42:39.387  7332  7341 I oudcometcrystal: Waiting for a blocking GC Alloc
+02-24 20:42:39.454  7332  7401 I oudcometcrystal: Clamp target GC heap from 214MB to 192MB
+02-24 20:42:39.454  7332  7401 I oudcometcrystal: Alloc concurrent mark compact GC freed 1680KB AllocSpace bytes, 0(0B) LOS objects, 0% free, 190MB/192MB, paused 918us,1.732ms total 66.646ms
+02-24 20:42:39.455  7332  7341 I oudcometcrystal: WaitForGcToComplete blocked Alloc on Alloc for 67.407ms
+02-24 20:42:39.455  7332  7339 I oudcometcrystal: WaitForGcToComplete blocked Background on Alloc for 67.113ms
+02-24 20:42:39.458  7332  7401 W oudcometcrystal: Throwing OutOfMemoryError "Failed to allocate a 11456 byte allocation with 1722800 free bytes and 1682KB until OOM, target footprint 201326592, growth limit 201326592; giving up on allocation because <1% of heap free after GC." (VmSize 50770124 kB)
+--------- beginning of crash
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: FATAL EXCEPTION: Thread-3
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: Process: com.asustuff15.cloudcometcrystal, PID: 7332
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: java.lang.OutOfMemoryError: Failed to allocate a 11456 byte allocation with 1722800 free bytes and 1682KB until OOM, target footprint 201326592, growth limit 201326592; giving up on allocation because <1% of heap free after GC.
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at java.util.Arrays.copyOf(Arrays.java:3785)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at java.io.ByteArrayOutputStream.grow(ByteArrayOutputStream.java:120)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at java.io.ByteArrayOutputStream.ensureCapacity(ByteArrayOutputStream.java:95)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at java.io.ByteArrayOutputStream.write(ByteArrayOutputStream.java:156)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at com.nativephp.mobile.bridge.LaravelEnvironment.unzip(LaravelEnvironment.kt:596)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at com.nativephp.mobile.bridge.LaravelEnvironment.extractLaravelBundle(LaravelEnvironment.kt:251)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at com.nativephp.mobile.bridge.LaravelEnvironment.initialize(LaravelEnvironment.kt:143)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at com.nativephp.mobile.ui.MainActivity.initializeEnvironmentAsync$lambda$7(MainActivity.kt:242)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at com.nativephp.mobile.ui.MainActivity.$r8$lambda$Fg1a3HTFCqsXdAZcEV7k1HF-4uU(Unknown Source:0)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at com.nativephp.mobile.ui.MainActivity$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+02-24 20:42:39.464  7332  7401 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:1119)
+02-24 20:42:39.492   714  7425 I DropBoxManagerService: add tag=data_app_crash isTagEnabled=true flags=0x2
+02-24 20:42:39.503   714   747 W ActivityTaskManager:   Force finishing activity com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity
+02-24 20:42:39.510  1013  1080 V WindowManagerShell: Transition requested (#34): android.os.BinderProxy@91c4cd0 TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=44 effectiveUid=10218 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity } baseActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} topActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} origActivity=null realActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} numActivities=1 lastActiveTime=1863715 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@95444c9} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{24cb7ce com.nativephp.mobile.ui.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(142, 280 - 579, 1000) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 720, 1280) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive}} topActivityMainWindowFrame=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 16, debugId = 34 }
+02-24 20:42:39.519   557   854 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+02-24 20:42:39.534   557   557 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+02-24 20:42:39.541  7332  7401 I Process : Sending signal. PID: 7332 SIG: 9
+02-24 20:42:39.581   714  2208 I ActivityManager: Process com.asustuff15.cloudcometcrystal (pid 7332) has died: fg  TOP 
+02-24 20:42:39.583   714  1073 I WindowManager: WIN DEATH: Window{6abd6ee u0 com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity}
+02-24 20:42:39.585   714   910 D ConnectivityService: releasing NetworkRequest [ REQUEST id=310, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10218 RequestorUid: 10218 RequestorPkg: com.asustuff15.cloudcometcrystal UnderlyingNetworks: Null] ] (release request)
+02-24 20:42:39.586   714  1994 I ImeTracker: com.asustuff15.cloudcometcrystal:dcefa75b: onRequestHide at ORIGIN_SERVER reason HIDE_REMOVE_CLIENT fromUser false
+02-24 20:42:39.586   714  1994 I ImeTracker: com.asustuff15.cloudcometcrystal:dcefa75b: onCancelled at PHASE_SERVER_SHOULD_HIDE
+02-24 20:42:39.595  4727  4727 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.safetynet.service.START xflg=0x4 pkg=com.google.android.gms }
+02-24 20:42:39.595   714  2208 I ActivityManager: Killing 7361:com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0/u0a218i5 (adj 0): isolated not needed
+02-24 20:42:39.599   484   484 I Zygote  : Process 7332 exited due to signal 9 (Killed)
+02-24 20:42:39.608   565   565 I adbd    : Remote process closed the socket (on MSG_PEEK)
+02-24 20:42:39.608   616  6355 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.608   616  6355 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.614  1090  1090 I Zygote  : Process 7361 exited due to signal 9 (Killed)
+02-24 20:42:39.615   714   765 I libprocessgroup: Removed cgroup /sys/fs/cgroup/apps/uid_10218/pid_7332
+02-24 20:42:39.616   714   765 I libprocessgroup: Removed cgroup /sys/fs/cgroup/apps/uid_99005/pid_7361
+02-24 20:42:39.631   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:39.633   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:39.633   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={10218} in 2ms
+02-24 20:42:39.634   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:39.635   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:39.635   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={20218} in 1ms
+02-24 20:42:39.635  1166  1166 D ViewRootImpl: Skipping stats log for color mode
+02-24 20:42:39.639  1166  1166 D StatsLog: LAUNCHER_ONRESUME
+02-24 20:42:39.640  1013  1080 D WindowManagerShell: setLauncherKeepClearAreaHeight: visible=true, height=350
+02-24 20:42:39.644   714   757 W ActivityManager: setHasOverlayUi called on unknown pid: 7332
+02-24 20:42:39.648   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:39.651  1166  1166 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=6}
+02-24 20:42:39.657   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:39.657   714   962 D BackgroundInstallControlService: Package event received: 0
+02-24 20:42:39.659   714   775 D KernelCpuUidUserSysTimeReader: Removing uids 99003-99003
+02-24 20:42:39.663  1166  1225 D QuickstepModelDelegate: notifyAppTargetEvent action=1 launchLocation=workspace/0/[-1,-1]/[1,1]
+02-24 20:42:39.671  1166  1166 D BaseDepthController: setSurface:
+02-24 20:42:39.671  1166  1166 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+02-24 20:42:39.671  1166  1166 D BaseDepthController: 	mBaseSurface: Surface(name=com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity)/@0xe744d4f
+02-24 20:42:39.751  1166  1166 I NotificationListener: Handling notification state refresh for com.android.systemui#0
+02-24 20:42:39.751  1166  1166 I NotificationListener: Handling notification state refresh for android#0
+02-24 20:42:39.762  1013  5865 V WindowManagerShell: onTransitionReady(transaction=3066606650685)
+02-24 20:42:39.763  1013  1080 V WindowManagerShell: onTransitionReady (#34) android.os.BinderProxy@91c4cd0: {id=34 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[
+02-24 20:42:39.763  1013  1080 V WindowManagerShell:         {m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0x1ff36ef sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},
+02-24 20:42:39.763  1013  1080 V WindowManagerShell:         {m=CLOSE f=NONE leash=Surface(name=Task=44)/@0x84165fc sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},
+02-24 20:42:39.763  1013  1080 V WindowManagerShell:         {m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{aebff6c showWhenLocked=false})/@0xdd36485 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0}
+02-24 20:42:39.763  1013  1080 V WindowManagerShell:     ]}
+02-24 20:42:39.795   714   754 V WindowManager: Sent Transition (#34) createdAt=02-24 20:42:39.505 via request=TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=44 effectiveUid=10218 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity } baseActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} topActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} origActivity=null realActivity=ComponentInfo{com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity} numActivities=1 lastActiveTime=1863715 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{c5b69a6 Task{b377f93 #44 type=standard A=10218:com.asustuff15.cloudcometcrystal}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{980bfe7 com.nativephp.mobile.ui.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(142, 280 - 579, 1000) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 720, 1280) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive}} topActivityMainWindowFrame=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 16, debugId = 34 }
+02-24 20:42:39.795   714   754 V WindowManager:     startWCT=WindowContainerTransaction { changes= {} hops= [] errorCallbackToken=null taskFragmentOrganizer=null }
+02-24 20:42:39.795   714   754 V WindowManager:     info={id=34 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[
+02-24 20:42:39.795   714   754 V WindowManager:         {WCT{RemoteToken{dbb2609 Task{a814f19 #1 type=home}}} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0xe34d016 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},
+02-24 20:42:39.795   714   754 V WindowManager:         {WCT{RemoteToken{c5b69a6 Task{b377f93 #44 type=standard A=10218:com.asustuff15.cloudcometcrystal}}} m=CLOSE f=NONE leash=Surface(name=Task=44)/@0x433c4e8 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},
+02-24 20:42:39.795   714   754 V WindowManager:         {m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{aebff6c showWhenLocked=false})/@0x60d745b sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0}
+02-24 20:42:39.795   714   754 V WindowManager:     ]}
+02-24 20:42:39.806  1013  1080 V WindowManagerShell: Playing animation for (#34) android.os.BinderProxy@91c4cd0@0
+02-24 20:42:39.807   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.807   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.807   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.807   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.807   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.808   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.808   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.808   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.808   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.808   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.809   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.809   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.809   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.809   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.810  1013  1080 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+02-24 20:42:39.810   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.810  1013  1080 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=34 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[{m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0x1ff36ef sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},{m=CLOSE f=NONE leash=Surface(name=Task=44)/@0x84165fc sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0 taskParent=-1},{m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{aebff6c showWhenLocked=false})/@0xdd36485 sb=Rect(0, 0 - 720, 1280) eb=Rect(0, 0 - 720, 1280) epz=Point(720, 1280) d=0}]}
+02-24 20:42:39.810  1013  1080 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=undefined independent=true modes=[CLOSE,TO_BACK] flags=IN_TASK_WITH_EMBEDDED_ACTIVITY mustBeTask=false order=ANY topActivity=null launchCookie=null taskFragmentToken=android.os.BinderProxy@92248e3 windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@86062e0, appThread = android.app.IApplicationThread$Stub$Proxy@86a8999, debugName = overlayBackTransition }}
+02-24 20:42:39.810   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.810  1013  1080 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=dream independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined},{atype=home independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@9f645e, appThread = android.app.IApplicationThread$Stub$Proxy@326903f, debugName = LauncherToDream }}
+02-24 20:42:39.810  1013  1080 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity} launchCookie=null windowingMode=undefined},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined},{NOT atype=undefined independent=true modes=[] flags=NONE mustBeTask=true order=ANY topActivity=null launchCookie=null customAnim=true windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@718cd0c, appThread = android.app.IApplicationThread$Stub$Proxy@7512655, debugName = QuickstepLaunchHome }}
+02-24 20:42:39.810   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.811  1013  1080 D RemoteTransitionHandler: Found filterPair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity} launchCookie=null windowingMode=undefined},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined},{NOT atype=undefined independent=true modes=[] flags=NONE mustBeTask=true order=ANY topActivity=null launchCookie=null customAnim=true windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@718cd0c, appThread = android.app.IApplicationThread$Stub$Proxy@7512655, debugName = QuickstepLaunchHome }}
+02-24 20:42:39.811  1013  1080 V WindowManagerShell:  Delegate animation for (#34) to RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@718cd0c, appThread = android.app.IApplicationThread$Stub$Proxy@7512655, debugName = QuickstepLaunchHome }
+02-24 20:42:39.812   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.812   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.812   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.813   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.813   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.813   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.813   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.813   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.814   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.814   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.815   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.816   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.816   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.816  1013  1080 V WindowManagerShell:  animated by com.android.wm.shell.transition.RemoteTransitionHandler@1f9686a
+02-24 20:42:39.816   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.817   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.818   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.818   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.819   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.819  1166  1166 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+02-24 20:42:39.819  1166  1166 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:22)
+02-24 20:42:39.819  1166  1166 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:11)
+02-24 20:42:39.819  1166  1166 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(go/retraceme 72a59688580715d19f0e415c69e80376c2f062d1648c80db6730905005a27c20:339)
+02-24 20:42:39.819   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.819   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.819   714   757 W IPCThreadState: Sending oneway calls to frozen process.
+02-24 20:42:39.822  1166  1166 D b/311077782: LauncherAnimationRunner.setAnimation
+02-24 20:42:39.839   714   869 I ImeTracker: com.google.android.apps.nexuslauncher:32bd8a5f: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+02-24 20:42:39.846  1166  1166 D InsetsController: hide(ime(), fromIme=false)
+02-24 20:42:39.846  4903  4903 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043 
+02-24 20:42:39.846  1166  1166 I ImeTracker: com.google.android.apps.nexuslauncher:32bd8a5f: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+02-24 20:42:39.848   714  1994 I ImeTracker: system_server:892b2ff3: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+02-24 20:42:39.850   714   757 I ImeTracker: system_server:892b2ff3: onCancelled at PHASE_SERVER_SHOULD_HIDE
+02-24 20:42:39.852  4903  4903 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+02-24 20:42:39.863  4903  4903 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+02-24 20:42:39.866  4903  4903 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+02-24 20:42:39.874   714  1994 W PackageConfigPersister: App-specific configuration not found for packageName: com.google.android.apps.nexuslauncher and userId: 0
+02-24 20:42:39.932  1654  1921 I AiAiEcho: Predicting[0]:  [CONTEXT sampling_count=5 ]
+02-24 20:42:39.932  1654  1921 I AiAiEcho: EchoTargets: 
+02-24 20:42:39.932  1654  1921 I AiAiEcho: Filtered by AiAi flag check: 
+02-24 20:42:39.932  1654  1921 I AiAiEcho: [CONTEXT ratelimit_period="10 SECONDS" ]
+02-24 20:42:39.934  1654  1921 I AiAiEcho: #remoteViewsTwiddler: feature disabled.
+02-24 20:42:39.937  1654  1921 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+02-24 20:42:39.945  1166  1166 D SsBaseTemplateCard: No text view can be set up
+02-24 20:42:39.945  1166  1166 D SsBaseTemplateCard: Passed-in item info is null
+02-24 20:42:39.946  1166  1166 D SsBaseTemplateCard: Passed-in item info is null
+02-24 20:42:39.946  1166  1166 D SsBaseTemplateCard: Passed-in item info is null
+02-24 20:42:39.946  1166  1166 I SsBaseTemplateCard: Secondary card pane is null
+02-24 20:42:40.168  1166  1166 D WorkspaceRevealAnim: onAnimationEnd: workspace alpha = 1.0
+02-24 20:42:40.169  1013  1080 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#34) android.os.BinderProxy@91c4cd0@0
+02-24 20:42:40.172   714   754 V WindowManager: Finish Transition (#34): created at 02-24 20:42:39.505 collect-started=1.095ms request-sent=1.298ms started=24.301ms ready=125.834ms sent=252.175ms commit=66.154ms finished=666.095ms
+02-24 20:42:40.179   714  1994 E IPCThreadState: Binder transaction failure. id: 472358, BR_*: 29189, error: -22 (Invalid argument)
+02-24 20:42:40.179   714  1994 W ActivityManager: pid 714 system sent binder code 7 with flags 1 to frozen apps and got error -32
+02-24 20:42:40.187   714  1994 W WindowManager: Exception thrown during dispatchAppVisibility Window{6abd6ee u0 com.asustuff15.cloudcometcrystal/com.nativephp.mobile.ui.MainActivity EXITING}
+02-24 20:42:40.187   714  1994 W WindowManager: android.os.DeadObjectException
+02-24 20:42:40.187   714  1994 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:592)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at android.view.IWindow$Stub$Proxy.dispatchAppVisibility(IWindow.java:557)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.WindowState.sendAppVisibilityToClients(WindowState.java:3151)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.WindowContainer.sendAppVisibilityToClients(WindowContainer.java:1311)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.WindowToken.setClientVisible(WindowToken.java:389)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.ActivityRecord.setClientVisible(ActivityRecord.java:6650)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5561)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.Transition.finishTransition(Transition.java:1391)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.TransitionController.finishTransition(TransitionController.java:1029)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.finishTransition(WindowOrganizerController.java:496)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at android.window.IWindowOrganizerController$Stub.onTransact(IWindowOrganizerController.java:261)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.onTransact(WindowOrganizerController.java:223)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at android.os.Binder.execTransactInternal(Binder.java:1421)
+02-24 20:42:40.187   714  1994 W WindowManager: 	at android.os.Binder.execTransact(Binder.java:1365)
+02-24 20:42:40.187   714  1994 W Process : Unable to open /proc/7332/status
+02-24 20:42:40.193  1013  1080 V WindowManagerShell: Track 0 became idle
+02-24 20:42:40.193  1013  1080 V WindowManagerShell: All active transition animations finished
+02-24 20:42:40.194  1166  1166 D RecentsView: onTaskRemoved: 44, not handling task stack changes
+02-24 20:42:40.195  1166  1166 D RecentsView: onTaskRemoved: 44, not handling task stack changes
+02-24 20:42:40.218   557   557 E BpTransactionCompletedListener: Failed to transact (-32)
+02-24 20:42:40.654   714   847 D ActivityManager: freezing 5949 com.google.android.webview:webview_service
+02-24 20:42:40.656   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+02-24 20:42:40.656   714   910 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+02-24 20:42:40.656   714   910 D InetDiagMessage: Destroyed live tcp sockets for uids={10168} in 0ms

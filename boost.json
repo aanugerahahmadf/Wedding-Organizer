@@ -1,0 +1,9 @@
+{
+    "agents": [
+        "gemini"
+    ],
+    "herd_mcp": false,
+    "mcp": true,
+    "nightwatch_mcp": false,
+    "sail": false
+}

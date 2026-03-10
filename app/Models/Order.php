@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $package_id
+ * @property string $order_number
+ * @property numeric $total_price
+ * @property string $status
+ * @property string $payment_status
+ * @property \Illuminate\Support\Carbon $booking_date
+ * @property string|null $notes
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $event_date
+ * @property-read \App\Models\Payment|null $latestPayment
+ * @property-read \App\Models\Package $package
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
+ * @property-read int|null $payments_count
+ * @property-read \App\Models\User $user
+ * @property-read \App\Models\WeddingOrganizer|null $weddingOrganizer
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereBookingDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereOrderNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order wherePackageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order wherePaymentStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTotalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUserId($value)
+ * @mixin \Eloquent
+ */
+class Order extends Model
+{
+    protected $fillable = [
+        'user_id',
+        'package_id',
+        'order_number',
+        'total_price',
+        'status',
+        'payment_status',
+        'booking_date',
+        'notes',
+    ];
+
+    protected $casts = [
+        'booking_date' => 'date',
+        'total_price' => 'decimal:2',
+    ];
+
+    protected $appends = ['event_date'];
+
+    public function getEventDateAttribute()
+    {
+        return \Carbon\Carbon::parse($this->booking_date)->format('Y-m-d');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
+
+    public function weddingOrganizer()
+    {
+        return $this->hasOneThrough(
+            WeddingOrganizer::class,
+            Package::class,
+            'id', // Foreign key on packages table...
+            'id', // Foreign key on wedding_organizers table...
+            'package_id', // Local key on orders table...
+            'wedding_organizer_id' // Local key on packages table...
+        );
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function latestPayment()
+    {
+        return $this->hasOne(Payment::class)->latestOfMany();
+    }
+}

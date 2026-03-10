@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class () extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        if (! Schema::hasTable('packages')) {
+            Schema::create('packages', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('wedding_organizer_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+                $table->string('name');
+                $table->string('slug')->unique();
+                $table->text('description')->nullable();
+                $table->decimal('price', 15, 2);
+                $table->json('features')->nullable();
+                $table->string('theme')->nullable();
+                $table->string('color')->nullable();
+                $table->integer('min_capacity')->nullable();
+                $table->integer('max_capacity')->nullable();
+                $table->timestamps();
+            });
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('packages');
+    }
+};
