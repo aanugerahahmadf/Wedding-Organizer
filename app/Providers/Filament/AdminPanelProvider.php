@@ -3,34 +3,22 @@
 namespace App\Providers\Filament;
 
 use Filament\Enums\ThemeMode;
-use App\Livewire\PersonalInfoComponent;
-use App\Livewire\UsernameComponent;
-use App\Livewire\MobileSettingsComponent;
-use App\Livewire\EditPasswordComponent;
-use App\Livewire\BrowserSessionsComponent;
-use App\Livewire\DeleteAccountComponent;
 use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
 use Filament\Navigation\NavigationGroup;
-use Filament\Pages;
- use App\Filament\Pages\Dashboard;
+use App\Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
-use Filament\View\PanelsRenderHook;
-use Filament\Widgets;
-use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-
 use App\Filament\Pages\EditProfilePage;
 use App\Http\Middleware\VerifyCsrfToken;
 use App\Http\Middleware\SuperAdmin;
@@ -43,12 +31,12 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login(\App\Filament\Pages\Auth\Login::class)
+            ->login(\App\Filament\Auth\Login::class)
             ->passwordReset(
-                \App\Filament\Pages\Auth\OtpRequestPasswordReset::class,
-                \App\Filament\Pages\Auth\OtpResetPassword::class
+                \App\Filament\Auth\OtpRequestPasswordReset::class,
+                \App\Filament\Auth\OtpResetPassword::class
             )
-            ->emailVerification(\App\Filament\Pages\Auth\OtpEmailVerificationPrompt::class)
+            ->emailVerification(\App\Filament\Auth\OtpEmailVerificationPrompt::class)
             ->sidebarFullyCollapsibleOnDesktop()
             ->brandName(config('app.name'))
             ->simplePageMaxContentWidth(MaxWidth::Small)
@@ -63,7 +51,6 @@ class AdminPanelProvider extends PanelProvider
             ->defaultThemeMode(ThemeMode::System)
             ->topNavigation()
             ->databaseNotifications()
-            // ->spa()
             ->plugins([
                 \App\Providers\Filament\LanguageSwitcherPlugin::make(),
             ])
@@ -98,7 +85,6 @@ class AdminPanelProvider extends PanelProvider
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
                 \App\Http\Middleware\SetLocale::class,
-                // AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
@@ -107,6 +93,9 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 SuperAdmin::class,
-            ]);
+            ])
+            ->routes(function (Panel $panel) {
+                \App\Filament\Auth\VerifyOtp::registerRoutes($panel);
+            });
     }
 }
