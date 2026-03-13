@@ -34,7 +34,7 @@ class SetLocale
 
         // Jika masih kosong, coba deteksi dari browser (Auto-adjust to country)
         if (!$locale) {
-            $locale = $request->getPreferredLanguage(array_keys(config('filament-language-switcher.languages', ['id', 'en'])));
+            $locale = $request->getPreferredLanguage(array_keys(config('filament-language-switcher.locals', ['id', 'en'])));
         }
 
         if ($locale) {

@@ -1,1 +1,15 @@
-/vendor
+/nativephp
+/node_modules
+/storage/*
+!/storage/app
+!/storage/framework
+!/storage/logs
+/.git
+/.github
+/.vscode
+/.idea
+/docker
+/stubs
+/tests
+/api
+/public/storage

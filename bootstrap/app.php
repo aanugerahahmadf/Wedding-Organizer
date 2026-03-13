@@ -14,19 +14,7 @@ use Illuminate\Support\Facades\Auth;
 | On Vercel, the filesystem is read-only. We need to redirect storage, 
 | cache, and views to /tmp during the build and at runtime.
 */
-if (env('VERCEL')) {
-    $storagePath = '/tmp/storage';
-    if (!is_dir($storagePath)) {
-        mkdir($storagePath, 0777, true);
-        mkdir($storagePath . '/framework/views', 0777, true);
-        mkdir($storagePath . '/framework/cache/data', 0777, true);
-        mkdir($storagePath . '/framework/sessions', 0777, true);
-        mkdir($storagePath . '/logs', 0777, true);
-    }
-    config(['view.compiled' => $storagePath . '/framework/views']);
-    config(['cache.stores.file.path' => $storagePath . '/framework/cache/data']);
-    config(['session.files' => $storagePath . '/framework/sessions']);
-}
+// Logic moved to AppServiceProvider to avoid premature config() calls.
 
 
 $app = Application::configure(basePath: dirname(__DIR__))

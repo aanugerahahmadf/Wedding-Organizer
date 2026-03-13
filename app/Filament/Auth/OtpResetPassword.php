@@ -11,9 +11,20 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Form;
 use App\Models\User;
+use Illuminate\Contracts\Support\Htmlable;
 
 class OtpResetPassword extends BaseResetPassword
 {
+    public function getHeading(): string|Htmlable
+    {
+        return __('Atur Ulang Kata Sandi');
+    }
+
+    public function getSubheading(): string|Htmlable|null
+    {
+        return __('Silakan buat kata sandi baru untuk akun Anda.');
+    }
+
     public function mount(?string $email = null, ?string $token = null): void
     {
         if (Filament::auth()->check()) {
@@ -83,8 +94,21 @@ class OtpResetPassword extends BaseResetPassword
     
     protected function getEmailFormComponent(): Component
     {
-        $field = parent::getEmailFormComponent();
-        $field->disabled()->dehydrated();
-        return $field;
+        return TextInput::make('email')
+            ->label(__('Alamat Email'))
+            ->disabled()
+            ->dehydrated();
+    }
+
+    protected function getPasswordFormComponent(): Component
+    {
+        return parent::getPasswordFormComponent()
+            ->label(__('Kata Sandi Baru'));
+    }
+
+    protected function getPasswordConfirmationFormComponent(): Component
+    {
+        return parent::getPasswordConfirmationFormComponent()
+            ->label(__('Konfirmasi Kata Sandi Baru'));
     }
 }

@@ -8,9 +8,26 @@ use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Filament\Notifications\Notification;
 use Filament\Pages\Auth\Login as BaseLogin;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Support\Htmlable;
 
 class Login extends BaseLogin
 {
+    protected function getPasswordFormComponent(): Component
+    {
+        return parent::getPasswordFormComponent()
+            ->label(__('Kata Sandi'));
+    }
+
+    public function getHeading(): string|Htmlable
+    {
+        return __('Masuk ke Sistem');
+    }
+
+    public function getSubheading(): string|Htmlable|null
+    {
+        return __('Silakan masukkan kredensial Anda untuk mengakses panel admin.');
+    }
+
     protected function getEmailFormComponent(): Component
     {
         return TextInput::make('login')
@@ -58,7 +75,7 @@ class Login extends BaseLogin
         if ($response) {
             Notification::make()
                 ->title(__('Selamat Datang Kembali!'))
-                ->body('Anda telah berhasil masuk ke sistem Weeding Organizer pada '.now()->format('H:i:s').'.')
+                ->body(__('Anda telah berhasil masuk ke sistem Weeding Organizer pada :time.', ['time' => now()->format('H:i:s')]))
                 ->success()
                 ->duration(5000)
                 ->send();

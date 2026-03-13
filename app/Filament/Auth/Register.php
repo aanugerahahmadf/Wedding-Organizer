@@ -8,13 +8,43 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
+use Filament\Forms\Components\Component;
 use Filament\Pages\Auth\Register as BaseRegister;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\HtmlString;
 use Spatie\Permission\Models\Role;
+use Illuminate\Contracts\Support\Htmlable;
 
 class Register extends BaseRegister
 {
+    public function getHeading(): string|Htmlable
+    {
+        return __('Daftar Akun Baru');
+    }
+
+    public function getSubheading(): string|Htmlable|null
+    {
+        return __('Silakan isi formulir di bawah ini untuk bergabung dengan kami.');
+    }
+
+    protected function getEmailFormComponent(): Component
+    {
+        return parent::getEmailFormComponent()
+            ->label(__('Alamat Email'));
+    }
+
+    protected function getPasswordFormComponent(): Component
+    {
+        return parent::getPasswordFormComponent()
+            ->label(__('Kata Sandi'));
+    }
+
+    protected function getPasswordConfirmationFormComponent(): Component
+    {
+        return parent::getPasswordConfirmationFormComponent()
+            ->label(__('Konfirmasi Kata Sandi'));
+    }
+
     public function form(Form $form): Form
     {
         return $form
@@ -53,7 +83,7 @@ class Register extends BaseRegister
                                 ->rows(3),
                         ]),
                 ])
-                    ->submitAction(new HtmlString('<button type="submit" style="background-color: #e11d48; color: white; padding: 0.5rem 1.5rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor=\'#be123c\'" onmouseout="this.style.backgroundColor=\'#e11d48\'">Daftar</button>')),
+                    ->submitAction(new HtmlString('<button type="submit" style="background-color: #e11d48; color: white; padding: 0.5rem 1.5rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor=\'#be123c\'" onmouseout="this.style.backgroundColor=\'#e11d48\'">' . __('Daftar') . '</button>')),
             ])
             ->statePath('data');
     }

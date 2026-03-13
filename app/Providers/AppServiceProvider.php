@@ -91,6 +91,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // 🚀 Vercel Read-Only Filesystem Fix
+        if (env('VERCEL')) {
+            $storagePath = '/tmp/storage';
+            if (!is_dir($storagePath)) {
+                @mkdir($storagePath, 0777, true);
+                @mkdir($storagePath . '/framework/views', 0777, true);
+                @mkdir($storagePath . '/framework/cache/data', 0777, true);
+                @mkdir($storagePath . '/framework/sessions', 0777, true);
+                @mkdir($storagePath . '/logs', 0777, true);
+            }
+            config([
+                'view.compiled' => $storagePath . '/framework/views',
+                'cache.stores.file.path' => $storagePath . '/framework/cache/data',
+                'session.files' => $storagePath . '/framework/sessions',
+            ]);
+        }
 
         // ═══════════════════════════════════════════════════════════
         // PERSISTENT SESSION CONFIGURATION (WEB & MOBILE)

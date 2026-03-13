@@ -52,11 +52,11 @@ class OtpEmailVerificationPrompt extends \Filament\Pages\Auth\EmailVerification\
 
         try {
             Mail::send('emails.otp', [
-                'title' => 'Verifikasi Email',
-                'description' => 'Kami menerima permintaan untuk memverifikasi alamat email Anda. Silakan gunakan kode berikut untuk menyelesaikan proses verifikasi. Kode ini berlaku selama 15 menit.',
+                'title' => __('Verifikasi Email'),
+                'description' => __('Kami menerima permintaan untuk memverifikasi alamat email Anda. Silakan gunakan kode berikut untuk menyelesaikan proses verifikasi. Kode ini berlaku selama 15 menit.'),
                 'otp' => $otp,
             ], function ($message) use ($user) {
-                $message->to($user->email)->subject('Kode Verifikasi Email');
+                $message->to($user->email)->subject(__('Kode Verifikasi Email'));
             });
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error("Gagal kirim email verifikasi ke {$user->email}: " . $e->getMessage());
@@ -116,5 +116,25 @@ class OtpEmailVerificationPrompt extends \Filament\Pages\Auth\EmailVerification\
     public function getHeading(): string|Htmlable
     {
         return __("Verifikasi Email Anda");
+    }
+
+    public function getSubheading(): string
+    {
+        return __('Silakan masukkan 6 digit kode verifikasi yang telah kami kirimkan ke alamat email Anda.');
+    }
+
+    public function resendNotificationAction(): Action
+    {
+        return Action::make('resendNotification')
+            ->label(__('Kirim ulang kode'))
+            ->color('gray')
+            ->action(function () {
+                $this->sendEmailVerificationNotification($this->getVerifiable());
+
+                Notification::make()
+                    ->title(__('Kode verifikasi baru telah dikirim.'))
+                    ->success()
+                    ->send();
+            });
     }
 }

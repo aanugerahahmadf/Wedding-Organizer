@@ -78,7 +78,7 @@ class VerifyOtp extends \Filament\Pages\SimplePage
         return $form
             ->schema([
                 TextInput::make('email')
-                    ->label(__('Email address'))
+                    ->label(__('Alamat Email'))
                     ->disabled()
                     ->dehydrated(),
                 ViewField::make('otp')

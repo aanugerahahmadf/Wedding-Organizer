@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Verification Code' }}</title>
+    <title>{{ $title ?? __('Verifikasi Kode') }}</title>
     <style>
         body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f7; color: #51545e; margin: 0; padding: 0; }
         .wrapper { width: 100%; background-color: #f4f4f7; padding: 40px 0; }
@@ -22,26 +22,26 @@
     <div class="wrapper">
         <div class="content">
             <div class="header">
-                <h1>{{ config('app.name', 'Admin Panel') }}</h1>
+                <h1>{{ config('app.name', __('Panel Admin')) }}</h1>
             </div>
             
             <div class="body">
-                <h2>{{ $title ?? 'Verification Code' }}</h2>
+                <h2>{{ $title ?? __('Kode Verifikasi') }}</h2>
                 
-                <p>Hello,</p>
-                <p>{{ $description ?? 'Please use the verification code below to complete your action. This code is valid for the next 15 minutes.' }}</p>
+                <p>{{ __('Halo') }},</p>
+                <p>{{ $description ?? __('Silakan gunakan kode verifikasi di bawah ini untuk menyelesaikan tindakan Anda. Kode ini berlaku selama 15 menit ke depan.') }}</p>
                 
                 <div class="otp-container">
                     <div class="otp-code">{{ $otp }}</div>
                 </div>
                 
-                <p>If you did not request this code, you can safely ignore this email. Do not share this code with anyone.</p>
+                <p>{{ __('Jika Anda tidak meminta kode ini, Anda dapat mengabaikan email ini dengan aman. Jangan bagikan kode ini kepada siapa pun.') }}</p>
                 
-                <p>Thank you,<br>The {{ config('app.name') }} Team</p>
+                <p>{{ __('Terima kasih') }},<br>{{ __('Tim') }} {{ config('app.name') }}</p>
             </div>
             
             <div class="footer">
-                <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} {{ config('app.name') }}. {{ __('Seluruh hak cipta dilindungi undang-undang.') }}</p>
             </div>
         </div>
     </div>

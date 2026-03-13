@@ -11,9 +11,20 @@ use App\Models\User;
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Component;
+use Illuminate\Contracts\Support\Htmlable;
 
 class OtpRequestPasswordReset extends BaseRequestPasswordReset
 {
+    public function getHeading(): string|Htmlable
+    {
+        return __('Lupa Kata Sandi?');
+    }
+
+    public function getSubheading(): string|Htmlable|null
+    {
+        return __('Masukkan alamat email Anda untuk menerima kode verifikasi OTP.');
+    }
+
     public function request(): void
     {
         $data = $this->form->getState();
@@ -28,11 +39,11 @@ class OtpRequestPasswordReset extends BaseRequestPasswordReset
 
             try {
                 Mail::send('emails.otp', [
-                    'title' => 'Atur Ulang Kata Sandi',
-                    'description' => 'Kami menerima permintaan untuk mengatur ulang kata sandi Anda. Silakan gunakan kode verifikasi di bawah ini untuk melanjutkan. Kode ini berlaku selama 15 menit.',
+                    'title' => __('Atur Ulang Kata Sandi'),
+                    'description' => __('Kami menerima permintaan untuk mengatur ulang kata sandi Anda. Silakan gunakan kode verifikasi di bawah ini untuk melanjutkan. Kode ini berlaku selama 15 menit.'),
                     'otp' => $otp,
                 ], function ($message) use ($email) {
-                    $message->to($email)->subject('Kode Atur Ulang Kata Sandi');
+                    $message->to($email)->subject(__('Kode Atur Ulang Kata Sandi'));
                 });
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::error("Gagal kirim email OTP ke $email: " . $e->getMessage());
@@ -54,7 +65,7 @@ class OtpRequestPasswordReset extends BaseRequestPasswordReset
     protected function getEmailFormComponent(): Component
     {
         return TextInput::make('email')
-            ->label(__('Email address'))
+            ->label(__('Alamat Email'))
             ->email()
             ->required()
             ->autocomplete()
