@@ -23,7 +23,4 @@ user.ini
 /.vercel
 /.vercel_build_output
 /auth.json
-# Vercel specific
 .vercelignore
-# Allow pre-built assets if we choose that route later
-# !/public/build
