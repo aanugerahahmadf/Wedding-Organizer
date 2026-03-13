@@ -18,7 +18,7 @@ use App\Models\User;
 class OtpEmailVerificationPrompt extends BasePrompt
 {
     use InteractsWithFormActions;
-    protected static string $view = 'filament.auth.otp-email-verification-prompt';
+    protected static string $view = 'filament.pages.auth.otp-email-verification-prompt';
 
     public ?array $data = [];
 
