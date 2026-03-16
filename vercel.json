@@ -8,27 +8,12 @@
             "memory": 1024
         }
     },
-    "routes": [
-        {
-            "src": "/build/(.*)",
-            "dest": "/public/build/$1"
-        },
-        {
-            "src": "/(css|js|images|fonts|storage|filament|vendor)/(.*)",
-            "dest": "/public/$1/$2"
-        },
-        {
-            "src": "/favicon.ico",
-            "dest": "/public/favicon.ico"
-        },
-        {
-            "src": "/robots.txt",
-            "dest": "/public/robots.txt"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/api/index.php"
-        }
+    "rewrites": [
+        { "source": "/build/(.*)", "destination": "/public/build/$1" },
+        { "source": "/(css|js|images|fonts|storage|filament|vendor)/(.*)", "destination": "/public/$1/$2" },
+        { "source": "/favicon.ico", "destination": "/public/favicon.ico" },
+        { "source": "/robots.txt", "destination": "/public/robots.txt" },
+        { "source": "/(.*)", "destination": "/api/index.php" }
     ],
     "env": {
         "APP_ENV": "production",
