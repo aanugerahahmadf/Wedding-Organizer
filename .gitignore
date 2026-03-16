@@ -1,5 +1,7 @@
 /node_modules
 /vendor
+/.env
+!/lang
 /public/storage
 /storage/*.key
 /storage/framework/cache/data/*
