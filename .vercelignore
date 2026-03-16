@@ -1,53 +1,38 @@
-# Exclude EVERYTHING that Vercel should build/install
-node_modules
-vendor
-
-# Core Exclusions
+# Exclude dev tools and OS files
 .git
 .github
 .vscode
 .idea
+.gemini
 
-# Laravel / PHP overhead
-tests
-tests/**
-storage/app/**
-storage/framework/cache/**
-storage/framework/sessions/**
-storage/framework/views/**
-storage/logs/**
-docker
-docker/**
-stubs
-stubs/**
+# Laravel dev/test overhead
+tests/
+storage/app/private/
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+storage/logs/
 
-# Static Asset source (only need built files in public/build)
-resources/css/**
-resources/js/**
+# docker
+docker/
+docker-compose.yml
+Dockerfile
+.dockerignore
 
-# NativePHP overhead
-native
-native/**
-nativephp
-nativephp/**
+# NativePHP
+native/
+nativephp/
 
-# Documentation and meta
+# Dev-only files
 *.md
 _ide_helper*
 rector.php
 sail
-server.php
 logcat_output.txt
 boost.json
-artisan
-package-lock.json
-vite.config.js
-build.sh
 phpunit.xml
+phpstan.neon
 .editorconfig
-.dockerignore
 .gitattributes
 .phpstorm.meta.php
-
-
-
+require.log
