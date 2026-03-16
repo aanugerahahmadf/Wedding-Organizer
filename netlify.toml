@@ -1,0 +1,8 @@
+[build]
+  publish = "public"
+  command = "npm run vite-build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.php"
+  status = 200
