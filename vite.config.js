@@ -11,7 +11,6 @@ export default defineConfig(async () => {
         'resources/css/app.css', 
         'resources/js/app.js', 
         'resources/css/filament/admin/theme.css', 
-        'resources/css/mobile-cards.css',
         'resources/js/echo.js'
     ];
 

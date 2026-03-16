@@ -2,28 +2,29 @@
     "$schema": "https://www.schemastore.org/package.json",
     "private": true,
     "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "vite-build": "vite build",
-    "deploy": "npm run prepare-deploy && vercel deploy --force --prod",
-    "prepare-deploy": "npm run vite-build && php artisan filament:assets && php artisan livewire:publish --assets && php artisan config:clear && php artisan route:clear && php artisan view:clear"
-  },
-  "devDependencies": {
-    "@tailwindcss/forms": "^0.5.11",
-    "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.0.0",
-    "axios": "^1.11.0",
-    "concurrently": "^9.0.1",
-    "laravel-echo": "^2.3.0",
-    "laravel-vite-plugin": "^2.0.0",
-    "pusher-js": "^8.4.0",
-    "tailwindcss": "^4.0.0",
-    "vite": "^7.0.7"
-  },
-  "imports": {
-    "#nativephp": "./vendor/nativephp/mobile/resources/dist/native.js"
-  },
-  "dependencies": {
-    "filament-lang": "^0.5.3"
-  }
+    "scripts": {
+        "dev": "vite",
+        "vite-build": "vite build",
+        "deploy": "npm run prepare-deploy && vercel deploy --force --prod",
+        "prepare-deploy": "npm run vite-build && php artisan filament:assets && php artisan livewire:publish --assets && php artisan config:clear && php artisan route:clear && php artisan view:clear"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.11",
+        "@tailwindcss/typography": "^0.5.19",
+        "@tailwindcss/vite": "^4.0.0",
+        "axios": "^1.11.0",
+        "concurrently": "^9.0.1",
+        "laravel-echo": "^2.3.0",
+        "laravel-vite-plugin": "^2.0.0",
+        "pusher-js": "^8.4.0",
+        "tailwindcss": "^4.0.0",
+        "vite": "^7.0.7"
+    },
+    "imports": {
+        "#nativephp": "./vendor/nativephp/mobile/resources/dist/native.js"
+    },
+    "dependencies": {
+        "@libsql/client": "^0.17.0",
+        "filament-lang": "^0.5.3"
+    }
 }

@@ -1,16 +1,1 @@
-{
-  "projectId": "prj_b6M8eOOphCQ6tE4KNfS7VoqV5Xgg",
-  "orgId": "team_RF7g9JAuCATvX8SeOQDyGfGU",
-  "projectName": "admin-panel-mobile-application",
-  "settings": {
-    "createdAt": 1773595069761,
-    "framework": null,
-    "devCommand": null,
-    "installCommand": null,
-    "buildCommand": null,
-    "outputDirectory": null,
-    "rootDirectory": null,
-    "directoryListing": false,
-    "nodeVersion": "24.x"
-  }
-}
+{"projectId":"prj_b6M8eOOphCQ6tE4KNfS7VoqV5Xgg","orgId":"team_RF7g9JAuCATvX8SeOQDyGfGU","projectName":"admin-panel-mobile-application"}

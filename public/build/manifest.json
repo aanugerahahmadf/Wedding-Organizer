@@ -17,15 +17,6 @@
       "theme.css"
     ]
   },
-  "resources/css/mobile-cards.css": {
-    "file": "assets/mobile-cards-Wq10tEQK.css",
-    "src": "resources/css/mobile-cards.css",
-    "isEntry": true,
-    "name": "mobile-cards",
-    "names": [
-      "mobile-cards.css"
-    ]
-  },
   "resources/js/app.js": {
     "file": "assets/app-CVCdWCSQ.js",
     "name": "app",
