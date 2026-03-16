@@ -6,6 +6,7 @@
             "runtime": "vercel-php@0.9.0"
         }
     },
+    "outputDirectory": "public",
     "routes": [
         {
             "src": "/(.*)",
@@ -24,8 +25,6 @@
         "CACHE_DRIVER": "array",
         "SESSION_DRIVER": "cookie",
         "LOG_CHANNEL": "stderr",
-        "DB_CONNECTION": "pgsql",
-        "VERCEL": "1",
-        "NODE_ENV": "production"
+        "DB_CONNECTION": "pgsql"
     }
 }
