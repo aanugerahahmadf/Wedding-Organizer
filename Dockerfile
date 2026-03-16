@@ -1,71 +1,41 @@
-FROM php:8.4-apache
+FROM php:8.2-fpm
 
-# 1. Install sistem dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libwebp-dev \
-    libzip-dev \
-    libonig-dev \
-    libxml2-dev \
-    libicu-dev \
-    zip \
-    unzip \
     git \
     curl \
-    nano \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# 2. Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install \
-    pdo_mysql \
-    mbstring \
-    exif \
-    pcntl \
-    bcmath \
-    gd \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
     zip \
-    intl \
-    opcache
+    unzip \
+    libpq-dev \
+    nginx
 
-# 3. Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# 4. Install Composer
+# Install PHP extensions
+RUN docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd
+
+# Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 5. Set working directory
-WORKDIR /var/www/html
+# Set working directory
+WORKDIR /var/www
 
-# 6. Set environment variable for build context
-ENV DOCKER_ENV=true
-ENV APP_ENV=local
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-    && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# Copy existing application directory contents
+COPY . /var/www
 
-# 7. Copy composer files DULU (supaya cache layer efisien saat composer tidak berubah)
-COPY composer.json composer.lock ./
+# Install dependencies
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# 8. Install dependencies di DALAM IMAGE (bukan mount dari Windows - ini penyebab hang!)
-RUN composer install --no-scripts --no-autoloader --ignore-platform-reqs
+# Copy nginx config
+COPY ./docker/nginx.conf /etc/nginx/sites-available/default
 
-# 9. Copy seluruh kode aplikasi
-COPY . .
+# Permissions
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# 10. Pastikan .env ada saat build (artisan butuh ini)
-RUN if [ ! -f .env ]; then cp .env.example .env && php artisan key:generate --ansi; fi
-
-# 11. Generate autoloader dan jalankan package discovery
-RUN composer dump-autoload --optimize \
-    && php artisan package:discover --ansi 2>/dev/null || true
-
-# 12. Set permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
-
+# Expose port and start
 EXPOSE 80
-
-CMD ["apache2-foreground"]
+CMD service nginx start && php-fpm
