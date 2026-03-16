@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "vite",
         "vite-build": "vite build",
-        "deploy": "npm run prepare-deploy && vercel deploy --force --prod",
+        "deploy": "npm run prepare-deploy && npx netlify deploy --prod",
+        "deploy-netlify": "npm run prepare-deploy && npx netlify deploy --prod",
         "prepare-deploy": "npm run vite-build && php artisan filament:assets && php artisan livewire:publish --assets && php artisan config:clear && php artisan route:clear && php artisan view:clear"
     },
     "devDependencies": {

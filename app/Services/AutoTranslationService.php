@@ -103,16 +103,20 @@ class AutoTranslationService
         }
 
         // 3. Cek Database via ORM (Eloquent)
-        $persistent = Translation::where('source_hash', $sourceHash)
-            ->where('target_locale', $targetLocale)
-            ->first(['*']);
+        try {
+            $persistent = Translation::where('source_hash', $sourceHash)
+                ->where('target_locale', $targetLocale)
+                ->first(['*']);
 
-        if ($persistent) {
-            $value = $persistent->translated_text;
-            Cache::put($cacheKey, $value, now()->addDays(30));
-            $this->memoryCache[$cacheKey] = $value;
+            if ($persistent) {
+                $value = $persistent->translated_text;
+                Cache::put($cacheKey, $value, now()->addDays(30));
+                $this->memoryCache[$cacheKey] = $value;
 
-            return $value;
+                return $value;
+            }
+        } catch (\Throwable $e) {
+            // Jika database belum siap atau tabel belum ada, biarkan lanjut ke API
         }
 
         // 4. Panggil API (Hanya jika belum ada di manapun)
@@ -125,10 +129,14 @@ class AutoTranslationService
 
         // Simpan via ORM jika berhasil
         if ($translated !== $text) {
-            Translation::updateOrCreate(
-                ['source_hash' => $sourceHash, 'target_locale' => $targetLocale],
-                ['source_text' => $text, 'translated_text' => $translated]
-            );
+            try {
+                Translation::updateOrCreate(
+                    ['source_hash' => $sourceHash, 'target_locale' => $targetLocale],
+                    ['source_text' => $text, 'translated_text' => $translated]
+                );
+            } catch (\Throwable $e) {
+                //abaikan error database saat menyimpan
+            }
             Cache::put($cacheKey, $translated, now()->addDays(30));
         }
 

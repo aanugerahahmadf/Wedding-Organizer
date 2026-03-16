@@ -1,6 +1,6 @@
 [build]
   publish = "public"
-  command = "npm run vite-build"
+  command = "npm run prepare-deploy"
 
 [[redirects]]
   from = "/*"

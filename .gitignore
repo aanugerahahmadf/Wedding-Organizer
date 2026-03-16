@@ -1,6 +1,5 @@
 /node_modules
 /vendor
-/.env
 /public/storage
 /storage/*.key
 /storage/framework/cache/data/*
@@ -14,7 +13,8 @@
 # /public/build
 
 .vercel
-.env*.local
 
 .vercel
-.env*.local
+nativephp
+# Local Netlify folder
+.netlify
