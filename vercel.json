@@ -8,8 +8,7 @@
             "memory": 1024
         }
     },
-    "installCommand": "composer install --no-dev --optimize-autoloader --ignore-platform-reqs && npm ci",
-    "buildCommand": "npm run vite-build && php artisan filament:assets",
+    "buildCommand": "npm ci && npm run vite-build && php artisan filament:assets",
     "outputDirectory": "public",
     "routes": [
         {
@@ -46,6 +45,7 @@
         "SESSION_DRIVER": "cookie",
         "LOG_CHANNEL": "stderr",
         "DB_CONNECTION": "pgsql",
-        "VERCEL": "1"
+        "VERCEL": "1",
+        "NODE_ENV": "production"
     }
 }
