@@ -5,20 +5,6 @@ namespace App\Models {
     /**
      * App\Models\Translation
      *
-     * @property \Illuminate\Support\Carbon|null $updated_at
-     * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string $translated_text
-     * @property string $target_locale
-     * @property string $source_hash
-     * @property string $source_text
-     * @property int $id
-     * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation whereId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation whereSourceText($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation whereSourceHash($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation whereTargetLocale($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation whereTranslatedText($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation whereCreatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Translation>|Translation query()
@@ -340,7 +326,6 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property \Illuminate\Support\Carbon|null $published_at
      * @property boolean $is_published
-     * @property string|null $video_url
      * @property string|null $image_url
      * @property string $content
      * @property string $slug
@@ -357,7 +342,6 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Article>|Article whereSlug($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Article>|Article whereContent($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Article>|Article whereImageUrl($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Article>|Article whereVideoUrl($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Article>|Article whereIsPublished($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Article>|Article wherePublishedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Article>|Article whereCreatedAt($value)

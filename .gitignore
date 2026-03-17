@@ -20,3 +20,4 @@
 nativephp
 # Local Netlify folder
 .netlify
+.idea
