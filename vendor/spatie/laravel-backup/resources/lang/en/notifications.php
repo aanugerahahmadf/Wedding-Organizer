@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => 'Exception message: :message',
     'exception_trace' => 'Exception trace: :trace',

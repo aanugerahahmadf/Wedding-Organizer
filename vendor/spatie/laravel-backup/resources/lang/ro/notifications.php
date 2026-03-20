@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => 'Cu excepția mesajului: :message',
     'exception_trace' => 'Urmă excepţie: :trace',

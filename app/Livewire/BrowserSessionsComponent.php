@@ -71,7 +71,7 @@ class BrowserSessionsComponent extends Component implements HasActions, HasForms
                                         ->label(__('Kata Sandi'))
                                         ->required(),
                                 ])
-                                ->action(function (array $data) {
+                                ->action(function (array $data): void {
                                     self::logoutOtherBrowserSessions($data['password']);
                                 })
                                 ->modalWidth('2xl'),

@@ -3,7 +3,6 @@
 use App\Providers\AppServiceProvider;
 use App\Providers\AutoTranslationServiceProvider;
 use App\Providers\Filament\AdminPanelProvider;
-use App\Providers\FilamentLanguageSwitcherServiceProvider;
 use App\Providers\NativeServiceProvider;
 use App\Providers\VoltServiceProvider;
 
@@ -13,6 +12,4 @@ return [
     AdminPanelProvider::class,
     NativeServiceProvider::class,
     VoltServiceProvider::class,
-    FilamentLanguageSwitcherServiceProvider::class,
-
 ];

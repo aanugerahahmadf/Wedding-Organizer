@@ -3,15 +3,6 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
-/**
- * Vercel Entry Point Fix
- * Force the script name to /index.php so Laravel correctly detects
- * the root path for Filament and Livewire assets.
- */
-if (isset($_SERVER['VERCEL_URL'])) {
-    $_SERVER['SCRIPT_NAME'] = '/index.php';
-}
-
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...

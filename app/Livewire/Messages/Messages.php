@@ -3,6 +3,8 @@
 namespace App\Livewire\Messages;
 
 use App\Enums\Messages\MediaCollectionType;
+use emmanpbarrameda\FilamentTakePictureField\Forms\Components\TakePicture;
+use TangoDevIt\FilamentEmojiPicker\EmojiPickerAction;
 use App\Livewire\Traits\CanMarkAsRead;
 use App\Livewire\Traits\CanValidateFiles;
 use App\Livewire\Traits\HasPollInterval;
@@ -41,6 +43,10 @@ class Messages extends Component implements HasForms
 
     public bool $showUpload = false;
 
+    public bool $showEmojiPicker = false;
+
+    public bool $showCamera = false;
+
     public function mount(): void
     {
         $this->setPollInterval();
@@ -54,7 +60,7 @@ class Messages extends Component implements HasForms
 
     public function pollMessages(): void
     {
-        $latestId = $this->conversationMessages->pluck('id')->first(['*']);
+        $latestId = $this->conversationMessages->pluck('id')->first();
 
         /** @var Builder $query */
         $query = $this->selectedConversation->messages();
@@ -71,7 +77,7 @@ class Messages extends Component implements HasForms
     public function loadMessages(): void
     {
         $this->conversationMessages->push(...$this->paginator->items());
-        $this->currentPage = $this->currentPage + 1;
+        $this->currentPage += 1;
     }
 
     public function form(Form $form): Form
@@ -97,13 +103,28 @@ class Messages extends Component implements HasForms
                             ->color('gray')
                             ->tooltip(__('Attach Files'))
                             ->action(fn () => $this->showUpload = ! $this->showUpload),
+                        Forms\Components\Actions\Action::make('toggle_camera')
+                            ->hiddenLabel()
+                            ->icon('heroicon-o-camera')
+                            ->color('gray')
+                            ->tooltip(__('Open Camera'))
+                            ->action(fn () => $this->showCamera = ! $this->showCamera),
                     ])->grow(false),
-                    Forms\Components\Textarea::make('message')
+                    Forms\Components\TextInput::make('message')
                         ->live()
                         ->hiddenLabel()
-                        ->rows(1)
-                        ->autosize(),
+                        ->placeholder(__('Write a message...'))
+                        ->suffixAction(EmojiPickerAction::make('emoji-message')),
                 ])->verticallyAlignEnd(),
+                TakePicture::make('camera_image')
+                    ->hiddenLabel()
+                    ->visible(fn () => $this->showCamera)
+                    ->disk('public') // Bisa disesuaikan dengan disk aplikasi Anda
+                    ->directory('messages-camera') // Folder penyimpanan sementara gambar
+                    ->visibility('public')
+                    ->showCameraSelector(true)
+                    ->aspect('16:9')
+                    ->imageQuality(80),
             ])->statePath('data');
     }
 
@@ -113,7 +134,7 @@ class Messages extends Component implements HasForms
         $rawData = $this->form->getRawState();
 
         try {
-            DB::transaction(function () use ($data, $rawData) {
+            DB::transaction(function () use ($data, $rawData): void {
                 $this->showUpload = false;
 
                 $newMessage = $this->selectedConversation->messages()->create([
@@ -125,10 +146,17 @@ class Messages extends Component implements HasForms
                 ]);
 
                 $this->conversationMessages->prepend($newMessage);
-                collect($rawData['attachments'])->each(function ($attachment) use ($newMessage) {
+                collect($rawData['attachments'] ?? [])->each(function ($attachment) use ($newMessage): void {
                     $newMessage->addMedia($attachment)->usingFileName(Str::slug(config('messages.slug'), '_').'_'.Str::random(20).'.'.$attachment->extension())->toMediaCollection(MediaCollectionType::FILAMENT_MESSAGES->value);
                 });
 
+                if (!empty($data['camera_image'])) {
+                    // Ambil config 'disk' aplikasi/gambar - jika pakai default public
+                    $newMessage->addMediaFromDisk($data['camera_image'], 'public')
+                         ->toMediaCollection(MediaCollectionType::FILAMENT_MESSAGES->value);
+                }
+
+                $this->showCamera = false;
                 $this->form->fill();
 
                 $this->selectedConversation->updated_at = now();

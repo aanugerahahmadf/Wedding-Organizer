@@ -3,11 +3,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "vite-build": "vite build",
-        "deploy": "npm run prepare-deploy && npx netlify deploy --prod",
-        "deploy-netlify": "npm run prepare-deploy && npx netlify deploy --prod",
-        "prepare-deploy": "npm run vite-build && php artisan filament:assets && php artisan livewire:publish --assets && php artisan config:clear && php artisan route:clear && php artisan view:clear"
+        "build": "vite build",
+        "dev": "vite"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.11",
@@ -25,7 +22,6 @@
         "#nativephp": "./vendor/nativephp/mobile/resources/dist/native.js"
     },
     "dependencies": {
-        "@libsql/client": "^0.17.0",
-        "filament-lang": "^0.5.3"
+        "emoji-picker-element": "^1.29.1"
     }
 }

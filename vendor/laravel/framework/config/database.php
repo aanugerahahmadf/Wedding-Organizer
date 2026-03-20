@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 use Illuminate\Support\Str;
 
 return [

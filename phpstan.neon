@@ -16,5 +16,7 @@ parameters:
         - node_modules/*
         - storage/*
         - bootstrap/cache/*
+        - _ide_helper*.php
+        - .phpstorm.meta.php
 
 

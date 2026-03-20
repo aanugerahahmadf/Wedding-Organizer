@@ -2,6 +2,7 @@
 
 /** @return array<string, mixed> */
 
+
 return [
 
     'label' => 'ការរុករក Pagination',

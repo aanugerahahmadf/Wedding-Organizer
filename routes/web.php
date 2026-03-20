@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LanguageSwitcherController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 use Native\Mobile\Facades\System;
 
@@ -16,5 +16,5 @@ Route::get('/mobile/settings', function () {
     return back();
 })->name('mobile.settings')->middleware(['auth']);
 
-Route::get('/filament/language-switcher', [LanguageSwitcherController::class, 'index'])
-    ->name('lang.switch');
+Route::get('/language/switch/{locale}', [LanguageController::class, 'switch'])
+    ->name('language.switch');

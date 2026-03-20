@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => 'Қате туралы хабарлама: :message',
     'exception_trace' => 'Қате туралы мәліметтер: :trace',

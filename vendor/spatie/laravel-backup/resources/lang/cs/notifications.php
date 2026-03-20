@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => 'Zpráva výjimky: :message',
     'exception_trace' => 'Stopa výjimky: :trace',

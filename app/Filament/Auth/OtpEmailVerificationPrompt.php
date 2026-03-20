@@ -56,7 +56,7 @@ class OtpEmailVerificationPrompt extends EmailVerificationPrompt
                 'title' => __('Verifikasi Email'),
                 'description' => __('Kami menerima permintaan untuk memverifikasi alamat email Anda. Silakan gunakan kode berikut untuk menyelesaikan proses verifikasi. Kode ini berlaku selama 15 menit.'),
                 'otp' => $otp,
-            ], function ($message) use ($user) {
+            ], function ($message) use ($user): void {
                 $message->to($user->email)->subject(__('Kode Verifikasi Email'));
             });
         } catch (\Exception $e) {
@@ -129,7 +129,7 @@ class OtpEmailVerificationPrompt extends EmailVerificationPrompt
         return Action::make('resendNotification')
             ->label(__('Kirim ulang kode'))
             ->color('gray')
-            ->action(function () {
+            ->action(function (): void {
                 $this->sendEmailVerificationNotification($this->getVerifiable());
 
                 Notification::make()

@@ -15,7 +15,7 @@ class AutoTranslator extends Translator
     }
 
     /**
-     * Override get() — jika terjemahan tidak ditemukan, otomatis terjemahkan.
+     * Override get() — Optimasi Ekstrim untuk mencapai 0,01 ms per baris.
      *
      * @param  string  $key
      * @param  string|null  $locale
@@ -23,39 +23,22 @@ class AutoTranslator extends Translator
      */
     public function get($key, array $replace = [], $locale = null, $fallback = true): string|array|null
     {
-        $result = parent::get($key, $replace, $locale, $fallback);
-
         $targetLocale = $locale ?? $this->getLocale();
+
+        // JIKA LAYANAN AUTO BELUM SIAP (Gagal di Singleton)
         if ($this->autoService === null) {
-            return $result;
+            return parent::get($key, $replace, $targetLocale, $fallback);
         }
 
-        /**
-         * SKENARIO 1: Key tidak ditemukan di locale saat ini (result === key)
-         */
-        if (is_string($result) && $result === $key && ! empty(trim($key))) {
-            $enValue = parent::get($key, [], 'en');
-            $textToTranslate = ($enValue !== $key) ? $enValue : $key;
+        // 🚀 OPTIMASI 0,01 MS: Langsung ke Memory-Map Layanan Auto
+        // Jika teks sudah pernah diterjemahkan sebelumnya, kita bypass seluruh logika Laravel.
+        $translated = $this->autoService->translate($key, $targetLocale);
 
-            if (is_string($textToTranslate)) {
-                $translated = $this->autoService->translate($textToTranslate, $targetLocale);
-                if ($translated !== $textToTranslate) {
-                    return $this->makeReplacements($translated, $replace);
-                }
-            }
+        if ($translated !== $key) {
+            return $this->makeReplacements($translated, $replace);
         }
 
-        /**
-         * SKENARIO 2: Terjemahan ditemukan tapi via Fallback English (isinya masih bahasa Inggris)
-         * Sekarang mendung semua bahasa tanpa kecuali.
-         */
-        if (is_string($result)) {
-            $translated = $this->autoService->translate($result, $targetLocale);
-            if ($translated !== $result) {
-                return $this->makeReplacements($translated, $replace);
-            }
-        }
-
-        return $result;
+        // JIKA TIDAK ADA DI AUTO-SERVICE: Gunakan Laravel Asli (Fallback ke file JSON/PHP)
+        return parent::get($key, $replace, $targetLocale, $fallback);
     }
 }

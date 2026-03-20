@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => 'अपवाद संदेश: :message',
     'exception_trace' => 'अपवाद निशान: :trace',

@@ -1,6 +1,7 @@
 import './bootstrap';
 import './echo';
 import './advanced-file-upload';
+import 'emoji-picker-element';
 import './pdf-preview-plugin';
 import './phpProtocolAdapter';
 

@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => 'Сообщение об ошибке: :message',
     'exception_trace' => 'Сведения об ошибке: :trace',

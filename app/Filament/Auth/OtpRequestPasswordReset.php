@@ -41,7 +41,7 @@ class OtpRequestPasswordReset extends BaseRequestPasswordReset
                     'title' => __('Atur Ulang Kata Sandi'),
                     'description' => __('Kami menerima permintaan untuk mengatur ulang kata sandi Anda. Silakan gunakan kode verifikasi di bawah ini untuk melanjutkan. Kode ini berlaku selama 15 menit.'),
                     'otp' => $otp,
-                ], function ($message) use ($email) {
+                ], function ($message) use ($email): void {
                     $message->to($email)->subject(__('Kode Atur Ulang Kata Sandi'));
                 });
             } catch (\Exception $e) {

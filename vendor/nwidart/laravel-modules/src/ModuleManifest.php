@@ -101,24 +101,11 @@ class ModuleManifest
 
                 return collect($manifests)
                     ->map(function ($manifest) {
-                        if (! is_string($manifest) || empty($manifest) || $manifest === '.' || $manifest === '..') {
-                            return null;
-                        }
-
-                        if (! str_ends_with(str_replace('\\', '/', $manifest), 'module.json')) {
-                            return null;
-                        }
-
-                        if (! $this->files->isFile($manifest)) {
-                            return null;
-                        }
-
                         return [
                             'module_directory' => dirname($manifest),
                             ...$this->files->json($manifest),
                         ];
-                    })
-                    ->filter();
+                    });
             })
             ->filter(fn ($module) => $this->activator->hasStatus($module['name'], true))
             ->sortBy(fn ($module) => $module['priority'] ?? 0);

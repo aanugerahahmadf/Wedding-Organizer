@@ -31,7 +31,6 @@
     'app.filament.auth.login' => 'App\\Filament\\Auth\\Login',
     'app.filament.auth.otp-request-password-reset' => 'App\\Filament\\Auth\\OtpRequestPasswordReset',
     'app.filament.auth.otp-reset-password' => 'App\\Filament\\Auth\\OtpResetPassword',
-    'app.filament.auth.register' => 'App\\Filament\\Auth\\Register',
   ),
   'clusters' => 
   array (

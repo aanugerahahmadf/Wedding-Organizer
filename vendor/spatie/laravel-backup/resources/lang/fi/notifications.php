@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => 'Virheilmoitus: :message',
     'exception_trace' => 'Virhe, jäljitys: :trace',

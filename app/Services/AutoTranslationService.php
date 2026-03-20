@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Http;
 class AutoTranslationService
 {
     /**
-     * Locale yang tidak perlu otomatis diterjemahkan (sudah ditangani manual/fallback).
+     * Locale yang tidak perlu otomatis diterjemahkan.
      */
-    protected array $skipLocales = [];
+    protected array $skipLocales = ['id'];
 
     /**
      * Pemetaan locale Laravel → kode bahasa MyMemory API.
      */
     protected array $localeMap = [
         'id' => 'id',
-        'en' => 'en-GB', // British English
-        'en_US' => 'en-US', // American English
+        'en' => 'en-GB',
+        'en_US' => 'en-US',
         'ar' => 'ar',
         'de' => 'de',
         'fr' => 'fr',
@@ -66,95 +66,124 @@ class AutoTranslationService
     ];
 
     /**
-     * Memory cache untuk menghindari pembacaan cache dari disk berulang kali dalam satu request.
+     * Budget waktu maksimal API per request (detik).
      */
-    protected array $memoryCache = [];
+    protected float $maxApiTimePerRequest = 3.0;
+    protected float $apiTimeSpent = 0.0;
+    protected int $maxApiCallsPerRequest = 8;
+    protected int $apiCallCount = 0;
 
     /**
-     * Terjemahkan teks dari Bahasa Indonesia ke locale target.
-     * Hasil di-cache permanen (30 hari) agar tidak berulang memanggil API.
+     * Cache terjemahan aktif di memory (Static agar awet di NativePHP/Octane).
+     */
+    protected static array $activeMap = [];
+    protected static ?string $activeLocale = null;
+
+    /**
+     * Daftar label yang harus diabaikan (seperti nama bahasa di switcher).
+     */
+    protected ?array $ignoredLabels = null;
+
+    /**
+     * Terjemahkan teks mendalam dengan sistem sinkron otomatis + optimasi 0,01ms.
      */
     public function translate(string $text, string $targetLocale): string
     {
-        if (empty(trim($text)) || is_numeric($text)) {
+        $cleanText = trim($text);
+        
+        // 1. Filter dasar
+        if ($targetLocale === 'id' || empty($cleanText) || is_numeric($cleanText)) {
             return $text;
         }
 
-        // Jika target adalah bahasa Indonesia, dan teks kemungkinan besar sudah Indonesia atau Fallback, skip
-        if ($targetLocale === 'id' && (preg_match('/[a-z]/i', $text) || preg_match('/[0-9]/', $text))) {
-            // Opsional: kita bisa tambahkan deteksi bahasa lebih lanjut di sini
-            // Tapi untuk performa 'Sinkron', kita asumsikan ID adalah default
+        // 2. Jangan terjemahkan Nama Bahasa (English, Indonesian, etc) agar tidak jadi "friend request"
+        if ($this->shouldIgnore($cleanText)) {
+            return $text;
         }
 
-        $sourceHash = md5($text);
-        $cacheKey = 'auto_trans.id.'.$targetLocale.'.'.$sourceHash;
-
-        // 1. Cek Memory Cache (Super Fast)
-        if (isset($this->memoryCache[$cacheKey])) {
-            return $this->memoryCache[$cacheKey];
-        }
-
-        // 2. Cek Cache Driver (Disk/DB Cache)
-        if (Cache::has($cacheKey)) {
-            $value = Cache::get($cacheKey);
-            $this->memoryCache[$cacheKey] = $value;
-
-            return $value;
-        }
-
-        // 3. Cek Database via ORM (Eloquent)
-        try {
-            $persistent = Translation::where('source_hash', $sourceHash)
-                ->where('target_locale', $targetLocale)
-                ->first(['*']);
-
-            if ($persistent) {
-                $value = $persistent->translated_text;
-                Cache::put($cacheKey, $value, now()->addDays(30));
-                $this->memoryCache[$cacheKey] = $value;
-
-                return $value;
+        // 3. Load Mapping (0,01ms Strategy)
+        if (self::$activeLocale !== $targetLocale) {
+            $cacheKey = "active_trans_map_{$targetLocale}";
+            self::$activeMap = Cache::get($cacheKey, []);
+            
+            if (empty(self::$activeMap)) {
+                self::$activeMap = Translation::query()->whereTargetLocale($targetLocale)
+                    ->pluck('translated_text', 'source_text')
+                    ->toArray();
+                Cache::put($cacheKey, self::$activeMap, now()->addHours(24));
             }
-        } catch (\Throwable $e) {
-            // Jika database belum siap atau tabel belum ada, biarkan lanjut ke API
+            self::$activeLocale = $targetLocale;
         }
 
-        // 4. Panggil API (Hanya jika belum ada di manapun)
-        if (strlen($text) > 500) {
+        // 4. Lookup Instan Memory
+        if (isset(self::$activeMap[$text])) {
+            return self::$activeMap[$text];
+        }
+
+        // 5. Sinkronisasi API dengan Budgeting (Cegah Timeout)
+        if (strlen($text) > 400 || $this->apiCallCount >= $this->maxApiCallsPerRequest || $this->apiTimeSpent >= $this->maxApiTimePerRequest) {
             return $text;
         }
 
+        $this->apiCallCount++;
+        $startTime = microtime(true);
         $targetLang = $this->localeMap[$targetLocale] ?? $targetLocale;
-        $translated = $this->callApi($text, $targetLang);
+        
+        $translated = $this->callApi($cleanText, $targetLang);
+        $this->apiTimeSpent += (microtime(true) - $startTime);
 
-        // Simpan via ORM jika berhasil
-        if ($translated !== $text) {
+        if ($translated !== $cleanText && !empty($translated)) {
             try {
+                // Simpan permanen
                 Translation::updateOrCreate(
-                    ['source_hash' => $sourceHash, 'target_locale' => $targetLocale],
+                    ['source_hash' => md5($text), 'target_locale' => $targetLocale],
                     ['source_text' => $text, 'translated_text' => $translated]
                 );
-            } catch (\Throwable $e) {
-                //abaikan error database saat menyimpan
-            }
-            Cache::put($cacheKey, $translated, now()->addDays(30));
+                
+                // Update local memory map
+                self::$activeMap[$text] = $translated;
+                
+                // Update Cache Global per-item tanpa menghapus yang sudah ada
+                $cacheKey = "active_trans_map_{$targetLocale}";
+                $currentCache = Cache::get($cacheKey, []);
+                $currentCache[$text] = $translated;
+                Cache::put($cacheKey, $currentCache, now()->addHours(24));
+            } catch (\Throwable $e) {}
         }
-
-        $this->memoryCache[$cacheKey] = $translated;
 
         return $translated;
     }
 
     /**
-     * Panggil MyMemory Translation API (gratis, tanpa key).
+     * Abaikan kata-kata navigasi atau bahasa di switcher.
+     */
+    protected function shouldIgnore(string $text): bool
+    {
+        if ($this->ignoredLabels === null) {
+            $this->ignoredLabels = collect(config('filament-language-switcher.locals', []))
+                ->pluck('label')
+                ->map(fn($l) => trim($l))
+                ->toArray();
+            
+            // Tambahkan label navigasi sensitif lainnya
+            $this->ignoredLabels[] = 'Indonesian';
+            $this->ignoredLabels[] = 'English (US)';
+            $this->ignoredLabels[] = 'English (UK)';
+            $this->ignoredLabels[] = 'Arabic';
+        }
+
+        return in_array($text, $this->ignoredLabels);
+    }
+
+    /**
+     * Request ke MyMemory API dengan perlindungan anti-sampah.
      */
     protected function callApi(string $text, string $targetLang): string
     {
         try {
-            // Timeout diperpendek (2 detik), skip SSL verify agar handshake network lebih kilat
             $response = Http::timeout(2)
                 ->withoutVerifying()
-                ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
+                ->withUserAgent('Mozilla/5.0')
                 ->get('https://api.mymemory.translated.net/get', [
                     'q' => $text,
                     'langpair' => "id|{$targetLang}",
@@ -162,25 +191,30 @@ class AutoTranslationService
 
             if ($response->successful()) {
                 $data = $response->json();
-                if (($data['responseStatus'] ?? 0) == 200 && ! empty($data['responseData']['translatedText'])) {
-                    $translated = $data['responseData']['translatedText'];
+                $result = $data['responseData']['translatedText'] ?? null;
+                
+                if ($result && ($data['responseStatus'] ?? 0) == 200) {
+                    $result = html_entity_decode(strip_tags($result), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                    
+                    // VALIDASI: Jika hasil berisi teks sampah/warning dari MyMemory, abaikan.
+                    $trash = ['QUERY SPECIFIED', 'MYMEMORY WARNING', 'FRIEND REQUEST', 'API LIMIT', 'PLEASE WAIT'];
+                    foreach ($trash as $word) {
+                        if (str_contains(strtoupper($result), $word)) {
+                            return $text;
+                        }
+                    }
 
-                    // Bersihkan tag XML/HTML
-                    $translated = html_entity_decode(strip_tags($translated), ENT_QUOTES | ENT_HTML5, 'UTF-8');
-
-                    // Validasi: Jika hasil malah pesan error API, abaikan
-                    if (str_contains(strtoupper($translated), 'QUERY SPECIFIED') || str_contains(strtoupper($translated), 'MYMEMORY WARNING')) {
+                    // Jika hasil terlalu jauh beda panjangnya (> 3x), kemungkinan sampah
+                    if (strlen($result) > strlen($text) * 4) {
                         return $text;
                     }
 
-                    return $translated;
+                    return $result;
                 }
             }
-        } catch (\Throwable $e) {
-            // Silently fail
-        }
+        } catch (\Throwable $e) {}
 
-        return $text; // Fallback ke teks asli jika error 403 atau lainnya
+        return $text;
     }
 
     public function shouldSkip(string $locale): bool

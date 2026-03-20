@@ -12,7 +12,7 @@ class CBIRService
 
     public function __construct()
     {
-        $this->baseUrl = config('services.ai_core.url', 'http://localhost:5000');
+        $this->baseUrl = config('services.ai_core_url', 'http://127.0.0.1:5000');
     }
 
     public function searchByImage($imageFile, $topK = 10)

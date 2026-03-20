@@ -12,7 +12,7 @@ trait HasMediaConvertionRegistrations
 
     public function modelMediaConvertionRegistrations(): callable
     {
-        return function () {
+        return function (): void {
             $this->addMediaConversion(MediaConversion::ORIGINAL->value)->nonOptimized()->nonQueued();
             $this->addMediaConversion(MediaConversion::SM->value)->fit(Fit::Crop, 300, 300)->nonQueued();
             $this->addMediaConversion(MediaConversion::MD->value)->fit(Fit::Crop, 500, 500)->nonQueued();

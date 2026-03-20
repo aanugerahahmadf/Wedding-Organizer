@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => 'Pesan pengecualian: :message',
     'exception_trace' => 'Jejak pengecualian: :trace',

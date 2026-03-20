@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Health\Components;
+namespace App\View\Components\vendor\health;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;

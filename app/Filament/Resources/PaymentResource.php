@@ -91,7 +91,7 @@ class PaymentResource extends Resource
                             ->maxLength(255),
                         Forms\Components\Select::make('payment_method')
                             ->label(__('Metode Pembayaran'))
-                            ->relationship('methodDetails', 'name', function (Builder $query) {
+                            ->relationship('methodDetails', 'name', function (Builder $query): void {
                                 $query->where('is_active', true);
                             })
                             ->searchable()

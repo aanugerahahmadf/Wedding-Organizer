@@ -9,7 +9,7 @@ trait CanMarkAsRead
 {
     public function markAsRead(): void
     {
-        $this->selectedConversation?->messages()->each(function (Message $message) {
+        $this->selectedConversation?->messages()->each(function (Message $message): void {
             $message->where(['inbox_id' => $message->inbox_id])->whereJsonDoesntContain('read_by', Auth::id())
                 ->update([
                     'read_by' => [

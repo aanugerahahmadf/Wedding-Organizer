@@ -19,6 +19,11 @@ class Dashboard extends BaseDashboard
         return static::$navigationIcon;
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return __('Beranda');
+    }
+
     public function getWidgets(): array
     {
         return [

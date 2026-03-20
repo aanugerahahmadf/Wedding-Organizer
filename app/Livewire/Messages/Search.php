@@ -42,7 +42,7 @@ class Search extends Component
             $query = Message::query();
 
             $this->messages = $query->with(['inbox'])
-                ->whereHas('inbox', function (Builder $q) {
+                ->whereHas('inbox', function (Builder $q): void {
                     $q->whereJsonContains('user_ids', Auth::id(), 'and', false);
                 })
                 ->where('message', 'like', "%$search%")

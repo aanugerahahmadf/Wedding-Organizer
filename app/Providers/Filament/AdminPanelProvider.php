@@ -50,8 +50,10 @@ class AdminPanelProvider extends PanelProvider
                 OtpResetPassword::class
             )
             ->emailVerification(OtpEmailVerificationPrompt::class)
-            ->sidebarFullyCollapsibleOnDesktop()
+            ->sidebarCollapsibleOnDesktop()
             ->brandName(config('app.name'))
+            ->brandLogo(asset('images/logo.png'))
+            ->brandLogoHeight('3rem')
             // ->simplePageMaxContentWidth(MaxWidth::Small)
             ->colors([
                 'danger' => Color::Rose,
@@ -66,11 +68,19 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotifications()
             ->renderHook(
                 'panels::global-search.after',
-                fn (): View => view('filament-language-switcher::language-switcher', [
-                    'otherLanguages' => config('filament-language-switcher.locals'),
-                    'currentLanguage' => collect(config('filament-language-switcher.locals'))->firstWhere('code', app()->getLocale()),
-                    'showFlags' => config('filament-language-switcher.show_flags'),
-                ])
+                fn (): View => view('filament.filament-language-switcher.language-switcher')
+            )
+            ->renderHook(
+                'panels::auth.form.before',
+                fn (): View => view('filament.filament-language-switcher.language-switcher')
+            )
+            ->renderHook(
+                'panels::footer',
+                fn (): ?View => ! str_contains(request()->route()?->getName() ?? '', 'auth') ? view('filament.footer') : null
+            )
+            ->renderHook(
+                'panels::auth.login.form.after',
+                fn (): View => view('filament.footer')
             )
             ->userMenuItems([
                 'profile' => MenuItem::make()
@@ -102,7 +112,6 @@ class AdminPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
-                SetLocale::class,
                 ShareErrorsFromSession::class,
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
@@ -112,7 +121,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
                 SuperAdmin::class,
             ])
-            ->routes(function (Panel $panel) {
+            ->routes(function (Panel $panel): void {
                 VerifyOtp::registerRoutes($panel);
             });
     }

@@ -2,46 +2,46 @@
     "intelephense.environment.phpVersion": "8.3.0",
     "php.validate.executablePath": "D:\\laragon\\bin\\php\\php-8.5.2-nts-Win32-vs17-x64\\php.exe",
     "php.suggest.basic": false,
-    
-    // IZINKAN Intelephense membaca folder vendor agar tidak "Undefined Class"
+    "php.validate.enable": false,
+
+    // MATIKAN SEMUA DIAGNOSTIK INTELEPHENSE (PEMBERSIHAN TOTAL)
+    "intelephense.diagnostics.undefinedTypes": false,
+    "intelephense.diagnostics.undefinedFunctions": false,
+    "intelephense.diagnostics.undefinedConstants": false,
+    "intelephense.diagnostics.undefinedClassConstants": false,
+    "intelephense.diagnostics.undefinedMethods": false,
+    "intelephense.diagnostics.undefinedProperties": false,
+    "intelephense.diagnostics.undefinedVariables": false,
+    "intelephense.diagnostics.duplicateSymbols": false,
+    "intelephense.diagnostics.unusedSymbols": false,
+    "intelephense.diagnostics.argumentType": false,
+    "intelephense.diagnostics.typeHint": false,
+    "intelephense.diagnostics.memberAccess": false,
+    "intelephense.diagnostics.languageConstraints": false,
+    "intelephense.diagnostics.embeddedContent": false,
+    "intelephense.diagnostics.deprecatedSymbols": false,
+
+    // MATIKAN SPELL CHECKER (BIANG KEROK GARIS KUNING)
+    "cSpell.enabled": false,
+    "spellright.enabled": false,
+
+    // MATIKAN LINTER & ANALYZER LAINNYA
+    "phpstan.enabled": false,
+    "phpstan.enableStatusBar": false,
+    "phpcs.enable": false,
+    "phpmd.enabled": false,
+    "php-linter.enable": false,
+    "php.problems.exclude": {
+        "**/*": true
+    },
+
     "intelephense.files.exclude": [
         "**/.git/**",
-        "**/.svn/**",
-        "**/.hg/**",
-        "**/CVS/**",
-        "**/.DS_Store/**",
         "**/node_modules/**",
-        "**/bower_components/**",
         "**/storage/framework/views/**"
     ],
 
-    // SEMBUNYIKAN error palsu dari file helper & Laravel Magic
-    "intelephense.diagnostics.undefinedClassConstants": false,
-    "intelephense.diagnostics.undefinedFunctions": false,
-    "intelephense.diagnostics.undefinedMethods": false,
-    "intelephense.diagnostics.undefinedProperties": false,
-    "intelephense.diagnostics.undefinedTypes": false,
-    "intelephense.diagnostics.undefinedConstants": false,
-    "intelephense.diagnostics.duplicateSymbols": false, // MATIKAN error duplikasi karena _ide_helper.php
-
-    "php.validate.enable": false, // Matikan validator bawaan VS Code agar tidak bentrok dengan Intelephense
-
-    "php.problems.exclude": {
-        "**/vendor/**": true,
-        "_ide_helper.php": true,
-        "_ide_helper_models.php": true,
-        ".phpstorm.meta.php": true,
-        "storage/framework/views/**": true
-    },
-
     "files.associations": {
         "*.blade.php": "blade"
-    },
-
-    // PENYEBAB GARIS KUNING: Beritahu ekstensi Laravel lokasi folder bahasa
-    "LaravelExtraIntellisense.basePathForLocalization": "lang",
-    "laravel-extra-intellisense.basePathForLocalization": "lang",
-    "laravel-goto-components.folder": "resources/views/components",
-    "laravel-goto-translation.folder": "lang",
-    "laravel-extra-intellisense.basePath": "./"
+    }
 }

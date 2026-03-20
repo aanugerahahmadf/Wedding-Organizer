@@ -1,5 +1,7 @@
 <?php
 
+/** @return array<string, mixed> */
+
 return [
     /*
      |--------------------------------------------------------------------------
@@ -11,8 +13,8 @@ return [
      */
     'locals' => [
         'id' => ['flag' => 'id', 'label' => 'Indonesian'],
-        'en' => ['flag' => 'gb', 'label' => 'English (UK)'],
-        'en_US' => ['flag' => 'us', 'label' => 'English (US)'],
+        'en' => ['flag' => 'gb', 'label' => 'English'],
+        'en_US' => ['flag' => 'us', 'label' => 'English US'],
         'ar' => ['flag' => 'sa', 'label' => 'Arabic'],
         'de' => ['flag' => 'de', 'label' => 'German'],
         'es' => ['flag' => 'es', 'label' => 'Spanish'],
@@ -51,7 +53,7 @@ return [
      |
      */
     'language_switcher_middlewares' => [
-        'web', 'set_locale', 'mobile', 'api', 'api:mobile',
+        'web', 'mobile', 
     ],
 
     /*

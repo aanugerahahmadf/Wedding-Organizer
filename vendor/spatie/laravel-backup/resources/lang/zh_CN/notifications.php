@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'exception_message' => '异常信息: :message',
     'exception_trace' => '异常跟踪: :trace',

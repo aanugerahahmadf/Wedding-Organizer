@@ -29,21 +29,23 @@ $app = Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Mendaftarkan middleware SetLocale ke group web agar session dan auth tersedia
         $middleware->web(append: [
             SetLocale::class,
         ]);
 
-        $middleware->api(append: [
-            SetLocale::class,
+        // Define mobile group for NativePHP
+        $middleware->group('mobile', [
+            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            SetLocale::class
         ]);
 
-        $middleware->web(replace: [
-            ValidateCsrfToken::class => VerifyCsrfToken::class,
-        ]);
+        $middleware->replace(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class, VerifyCsrfToken::class);
 
         // Cuma trust proxies kalau di Vercel/Production
         if (env('VERCEL') || env('APP_ENV') === 'production') {
-            $middleware->trustProxies(at: '*');
+            $middleware->trustProxies('*');
         }
     })
     ->withExceptions(function (Exceptions $exceptions): void {

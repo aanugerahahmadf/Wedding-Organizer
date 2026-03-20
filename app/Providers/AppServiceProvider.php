@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Database\MySqlProxyConnection;
+use App\Filament\Auth\Login;
 use App\Filament\Auth\OtpEmailVerificationPrompt;
 use App\Filament\Auth\OtpRequestPasswordReset;
 use App\Filament\Auth\OtpResetPassword;
@@ -17,11 +18,15 @@ use App\Livewire\Messages\Search;
 use App\Livewire\UsernameComponent;
 use App\Models\User;
 use App\Observers\MediaObserver;
+use Filament\Actions\Exports\ExportColumn;
+use Filament\Forms\Components\Field;
+use Filament\Tables\Filters\BaseFilter;
+use Filament\Infolists\Components\Entry;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Table;
-use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Login as LoginEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -72,7 +77,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->booting(function (): void {
             // Use object property via array storage per-instance (PHP macros run bound to $this = Table instance)
             Table::macro('extraTableAttributes', function (array $attributes) {
-                /** @var Table $this */
+                /** @var mixed $this */
                 $key = '__mobileExtraAttrs';
                 $existing = data_get((array) $this, $key, []);
                 $merged = array_merge($existing, $attributes);
@@ -82,13 +87,13 @@ class AppServiceProvider extends ServiceProvider
                 return $this;
             });
             Table::macro('getExtraTableAttributes', function () {
-                /** @var Table $this */
+                /** @var mixed $this */
                 $key = '__mobileExtraAttrs';
 
                 return property_exists($this, $key) ? $this->$key : [];
             });
             Table::macro('extraAttributes', function (array $attributes) {
-                /** @var Table $this */
+                /** @var mixed $this */
                 $key = '__mobileExtraAttrs';
                 $existing = data_get((array) $this, $key, []);
                 $merged = array_merge($existing, $attributes);
@@ -97,7 +102,7 @@ class AppServiceProvider extends ServiceProvider
                 return $this;
             });
             Table::macro('getExtraAttributes', function () {
-                /** @var Table $this */
+                /** @var mixed $this */
                 $key = '__mobileExtraAttrs';
 
                 return property_exists($this, $key) ? $this->$key : [];
@@ -147,7 +152,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Automatically activate user on login (Filament/Web/API)
         Event::listen(
-            Login::class,
+            LoginEvent::class,
             function ($event): void {
                 $user = $event->user;
                 if ($user instanceof User && ! $user->active_status) {
@@ -167,7 +172,7 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('username-component', UsernameComponent::class);
 
         // 🔐 AUTH COMPONENTS (FOR PASSWORD RESET FLOW)
-        Livewire::component('app.filament.auth.login', \App\Filament\Auth\Login::class);
+        Livewire::component('app.filament.auth.login', Login::class);
         Livewire::component('app.filament.auth.register', Register::class);
         Livewire::component('app.filament.auth.otp-request-password-reset', OtpRequestPasswordReset::class);
         Livewire::component('app.filament.auth.otp-reset-password', OtpResetPassword::class);
@@ -179,6 +184,8 @@ class AppServiceProvider extends ServiceProvider
         $isMobile = PHP_OS_FAMILY !== 'Windows' && ! isset($_SERVER['REMOTE_ADDR']) && ! env('DOCKER_ENV');
 
         Table::configureUsing(function (Table $table) use ($isMobile): void {
+            $table->searchable();
+
             if ($isMobile) {
                 // Native Filament Card-like grid for all tables on mobile
                 $table->contentGrid([
@@ -188,9 +195,54 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        // Use built-in column stacking for descriptions instead of forcing attributes
-        Column::configureUsing(function (Column $column): void {
-            // Already handled by native Filament behavior when contentGrid is used
+        // 🎯 GLOBAL ALIGNMENT CENTER UNTUK SEMUA TABLE & EXPORTER
+        Column::configureUsing(function (Column $column) use ($isMobile): void {
+            $column->alignCenter();
+            // Otomatis translasi Judul Kolom (Headers) sesuai bahasa terpilih
+            // $column->translateLabel();
+            
+            if ($isMobile) {
+                $column->alignCenter();
+            }
+        });
+
+        // 🎯 GLOBAL AUTO-TRANSLATE UNTUK SEMUA "ISI TABLE" (ROW DATA) PADA WEBDAN NATIVEPHP
+        \Filament\Tables\Columns\TextColumn::configureUsing(function (\Filament\Tables\Columns\TextColumn $column): void {
+            $column->formatStateUsing(function ($state, $record, \Filament\Tables\Columns\TextColumn $column) {
+                // Jangan paksa terjemahan untuk password, token, url, atau email
+                if (is_string($state) && !filter_var($state, FILTER_VALIDATE_EMAIL) && !str_contains($state, 'http')) {
+                    // Deteksi jika hanya angka dan titik/koma (seperti harga/telepon), dilewati.
+                    if (!preg_match('/^[0-9.,\-+() ]+$/', $state)) {
+                        return __($state);
+                    }
+                }
+                return $state;
+             });
+        });
+
+        // 🌐 AUTO TRANSLATE ALL FORM FIELDS & FILTERS
+        Field::configureUsing(function (Field $field): void {
+            // $field->translateLabel();
+        });
+
+        BaseFilter::configureUsing(function (BaseFilter $filter): void {
+            // $filter->translateLabel();
+        });
+
+        Entry::configureUsing(function (Entry $entry): void {
+            // $entry->translateLabel();
+        });
+
+        ExportColumn::configureUsing(function (ExportColumn $column): void {
+            $column->alignment('center');
+            $column->formatStateUsing(function ($state) {
+                if (is_string($state) && !filter_var($state, FILTER_VALIDATE_EMAIL) && !str_contains($state, 'http')) {
+                    if (!preg_match('/^[0-9.,\-+() ]+$/', $state)) {
+                        return __($state);
+                    }
+                }
+                return $state;
+            });
         });
 
         FilamentAsset::register([

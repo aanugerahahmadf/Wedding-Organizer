@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;

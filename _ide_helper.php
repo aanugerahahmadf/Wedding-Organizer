@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 12.54.1.
+ * Generated for Laravel 12.55.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -10812,7 +10812,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Override get() — jika terjemahan tidak ditemukan, otomatis terjemahkan.
+         * Override get() — Optimasi Ekstrim untuk mencapai 0,01 ms per baris.
          *
          * @param string $key
          * @param string|null $locale
@@ -15012,6 +15012,18 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Determine if the current request is asking for Markdown.
+         *
+         * @return bool
+         * @static
+         */
+        public static function wantsMarkdown()
+        {
+            /** @var \Illuminate\Http\Request $instance */
+            return $instance->wantsMarkdown();
+        }
+
+        /**
          * Determines whether the current requests accepts a given content type.
          *
          * @param string|array $contentTypes
@@ -15059,6 +15071,18 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Http\Request $instance */
             return $instance->acceptsJson();
+        }
+
+        /**
+         * Determines whether a request accepts Markdown.
+         *
+         * @return bool
+         * @static
+         */
+        public static function acceptsMarkdown()
+        {
+            /** @var \Illuminate\Http\Request $instance */
+            return $instance->acceptsMarkdown();
         }
 
         /**
@@ -23573,7 +23597,7 @@ namespace Jeffgreco13\FilamentBreezy\Facades {
 namespace Jenssegers\Agent\Facades {
     /**
      */
-    class Agent extends \Mobile_Detect {
+    class Agent {
         /**
          * Get all detection rules. These rules include the additional
          * platforms and browsers and utilities.
@@ -24154,7 +24178,7 @@ namespace Jenssegers\Agent\Facades {
 namespace Laravel\Socialite\Facades {
     /**
      */
-    class Socialite extends \Illuminate\Support\Manager {
+    class Socialite {
         /**
          * Get a driver instance.
          *
@@ -24493,7 +24517,7 @@ namespace Livewire {
     /**
      * @see \Livewire\LivewireManager
      */
-    class Livewire extends \Livewire\LivewireManager {
+    class Livewire {
         /**
          * {@inheritDoc}
          *
@@ -25216,7 +25240,7 @@ namespace Nwidart\Modules\Facades {
     /**
      * @method static array getCached()
      */
-    class Module extends \Nwidart\Modules\FileRepository {
+    class Module {
         /**
          * Add other module location.
          *
@@ -25510,7 +25534,7 @@ namespace Nwidart\Modules\Facades {
         /**
          * Get module used for cli session.
          *
-         * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
+         * @throws ModuleNotFoundException
          * @static
          */
         public static function getUsedNow()
@@ -25584,7 +25608,7 @@ namespace Nwidart\Modules\Facades {
         /**
          * Enabling a specific module.
          *
-         * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
+         * @throws ModuleNotFoundException
          * @static
          */
         public static function enable($name)
@@ -25597,7 +25621,7 @@ namespace Nwidart\Modules\Facades {
         /**
          * Disabling a specific module.
          *
-         * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
+         * @throws ModuleNotFoundException
          * @static
          */
         public static function disable($name)
@@ -25803,7 +25827,7 @@ namespace Spatie\Health\Facades {
 namespace Spatie\Menu\Laravel\Facades {
     /**
      */
-    class Menu extends \Spatie\Menu\Menu {
+    class Menu {
         /**
          * Set all relevant children active based on the current request's URL.
          *
@@ -29880,16 +29904,6 @@ namespace Livewire\Features\SupportTesting {
             return \Livewire\Features\SupportTesting\Testable::assertTableColumnSummarizerExists($columnName, $summarizerId);
         }
 
-            }
-    }
-
-namespace Illuminate\Database\Eloquent {
-    /**
-     * @template TKey of array-key
-     * @template TModel of \Illuminate\Database\Eloquent\Model
-     * @extends \Illuminate\Support\Collection<TKey, TModel>
-     */
-    class Collection extends \Illuminate\Support\Collection {
             }
     }
 
@@ -34695,6 +34709,20 @@ namespace  {
         }
 
         /**
+         * Add an "order by" clause to order results by a given sequence of values.
+         *
+         * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+         * @param \Illuminate\Contracts\Support\Arrayable|array $values
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function inOrderOf($column, $values)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->inOrderOf($column, $values);
+        }
+
+        /**
          * Add a raw "order by" clause to the query.
          *
          * @param string $sql
@@ -35879,6 +35907,7 @@ namespace  {
 namespace {
     
 
+use Carbon\CarbonInterval;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
@@ -36180,7 +36209,7 @@ if (! function_exists('retry')) {
      *
      * @param  int|array<int, int>  $times
      * @param  callable(int): TValue  $callback
-     * @param  int|\Closure(int, \Throwable): int  $sleepMilliseconds
+     * @param  CarbonInterval|int|\Closure(int, \Throwable): CarbonInterval|int  $sleepMilliseconds
      * @param  (callable(\Throwable): bool)|null  $when
      * @return TValue
      *
@@ -36212,7 +36241,11 @@ if (! function_exists('retry')) {
             $sleepMilliseconds = $backoff[$attempts - 1] ?? $sleepMilliseconds;
 
             if ($sleepMilliseconds) {
-                Sleep::usleep(value($sleepMilliseconds, $attempts, $e) * 1000);
+                $duration = value($sleepMilliseconds, $attempts, $e);
+
+                $duration instanceof CarbonInterval
+                    ? Sleep::usleep($duration->totalMicroseconds)
+                    : Sleep::usleep($duration * 1000);
             }
 
             goto beginning;

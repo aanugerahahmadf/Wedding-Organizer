@@ -13,6 +13,8 @@ trait InteractsWithLanguages
 
     public function getLangAttribute()
     {
+        // Langsung cek relation tanpa cache agar fitur Filament Language Switcher selalu terupdate real-time 
+        // ketika user menekan bendera bahasa tanpa terjebak cache lama.
         return $this->lang()->first(['*'])?->lang ?? 'en';
     }
 }

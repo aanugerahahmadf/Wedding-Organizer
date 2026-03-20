@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'laravel_health' => 'লারাভেল স্বাস্থ্য পরীক্ষা',
 

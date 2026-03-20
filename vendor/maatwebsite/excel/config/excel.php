@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 use Maatwebsite\Excel\Excel;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 

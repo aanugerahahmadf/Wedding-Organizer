@@ -39,23 +39,34 @@ class MobileSettingsComponent extends Component implements HasForms
 
     public function changeLanguage($locale): void
     {
-        if (array_key_exists($locale, config('filament-language-switcher.locals'))) {
-            app()->setLocale($locale);
+        $locals = config('filament-language-switcher.locals', []);
+        
+        if (array_key_exists($locale, $locals)) {
+            // 1. Force update Session
             session()->put('locale', $locale);
+            app()->setLocale($locale);
 
-            if (Auth::check()) {
-                $user = Auth::user();
-                if (isset($user->lang)) {
-                    $user->update(['lang' => $locale]);
-                } else {
-                    /** @var Builder $query */
-                    $query = UserLanguage::query();
-
-                    $query->updateOrCreate(
-                        ['model_type' => $user->getMorphClass(), 'model_id' => $user->id],
-                        ['lang' => $locale]
-                    );
+            // 2. Find authenticated user across all potential guards
+            $user = null;
+            $guards = ['web', 'filament', 'admin', 'api', 'mobile'];
+            foreach ($guards as $guard) {
+                if (Auth::guard($guard)->check()) {
+                    $user = Auth::guard($guard)->user();
+                    break;
                 }
+            }
+
+            // 3. Persist to Database if user found
+            if ($user) {
+                // Use the same robust updateOrCreate logic
+                UserLanguage::updateOrCreate(
+                    ['model_id' => (string) $user->id, 'model_type' => 'App\Models\User'],
+                    ['lang' => $locale]
+                );
+                
+                // Nuclear purge of user-specific caches
+                cache()->forget("user_lang_{$user->id}");
+                cache()->forget("active_trans_map_{$locale}");
             }
 
             $this->selectedLocale = $locale;

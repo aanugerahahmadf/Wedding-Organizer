@@ -12,6 +12,7 @@
         "codeat3/blade-eos-icons": "^1.15",
         "coolsam/modules": "^4.2",
         "danharrin/livewire-rate-limiting": "^2.1",
+        "emmanpbarrameda/filament-take-picture-field": "1.2.1",
         "filament/actions": "^3.3",
         "filament/filament": "^3.3",
         "filament/forms": "^3.3",
@@ -56,6 +57,7 @@
         "stechstudio/filament-impersonate": "^3.3",
         "stichoza/google-translate-php": "^5.3",
         "symfony/expression-language": "^8.0",
+        "tangodev-it/filament-emoji-picker": "1.0.3",
         "tomatophp/filament-language-switcher": "^1.0",
         "ysfkaya/filament-phone-input": "^3.2"
     },
@@ -89,10 +91,6 @@
         }
     },
     "scripts": {
-        "vercel": [
-            "npm install",
-            "npm run vite-build"
-        ],
         "setup": [
             "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
@@ -100,7 +98,7 @@
             "@php artisan migrate --force",
             "npm install",
             "npm run build"
-        ],
+        ],   
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
@@ -139,12 +137,13 @@
                 "laravel/pail",
                 "nativephp/laravel",
                 "jeddsaliba/filament-messages",
-                "joaopaulolndev/filament-edit-profile"
+                "joaopaulolndev/filament-edit-profile",
+                "tomatophp/filament-language-switcher"
             ]
         }
     },
     "config": {
-        "optimize-autoloader": false,
+        "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {

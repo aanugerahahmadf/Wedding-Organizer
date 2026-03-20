@@ -180,7 +180,7 @@ class UserResource extends Resource
                     ->badge()
                     ->searchable()
                     ->alignment('center')
-                    ->formatStateUsing(fn ($state): string => str($state)->headline()),
+                    ->formatStateUsing(fn ($state): string => __((string) str($state)->headline())),
 
                 Tables\Columns\ToggleColumn::make('active_status')
                     ->label(__('Status Aktif'))

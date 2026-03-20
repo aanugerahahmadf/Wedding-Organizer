@@ -1,24 +1,17 @@
 <div>
-    <x-filament::section
-        aside
-        icon="heroicon-o-language"
-        :heading="__('Bahasa Aplikasi')"
-        :description="__('Pilih bahasa yang ingin Anda gunakan di aplikasi ini.')"
-    >
+    <x-filament::section aside icon="heroicon-o-language" :heading="__('Bahasa Aplikasi')" :description="__('Pilih bahasa yang ingin Anda gunakan di aplikasi ini.')">
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            @foreach(config('filament-language-switcher.locals') as $key => $language)
-                <button
-                    wire:click="changeLanguage('{{ $key }}')"
-                    @class([
-                        'flex items-center gap-3 p-3 rounded-xl border transition-all duration-200',
-                        'bg-primary-50 border-primary-200 ring-1 ring-primary-500' => $selectedLocale === $key,
-                        'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:border-primary-300' => $selectedLocale !== $key,
-                    ])
-                >
-                    <div
-                        class="w-8 h-6 rounded shadow-sm bg-cover bg-center"
-                        style="background-image: url('https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/{{ $language['flag'] }}.svg')"
-                    ></div>
+            @foreach (config('filament-language-switcher.locals') as $key => $language)
+                <button wire:click="changeLanguage('{{ $key }}')" @class([
+                    'flex items-center gap-3 p-3 rounded-xl border transition-all duration-200',
+                    'bg-primary-50 border-primary-200 ring-1 ring-primary-500' =>
+                        $selectedLocale === $key,
+                    'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:border-primary-300' =>
+                        $selectedLocale !== $key,
+                ])>
+                    <div class="w-8 h-6 rounded shadow-sm bg-cover bg-center"
+                        style="background-image: url('https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/{{ $language['flag'] }}.svg')">
+                    </div>
                     <span @class([
                         'text-sm font-medium',
                         'text-primary-700 dark:text-primary-400' => $selectedLocale === $key,
@@ -31,20 +24,9 @@
         </div>
     </x-filament::section>
 
-    <x-filament::section
-        aside
-        class="mt-6"
-        icon="heroicon-o-device-phone-mobile"
-        :heading="__('Pengaturan Sistem')"
-        :description="__('Buka pengaturan aplikasi untuk memberikan izin (kamera, lokasi, dll) jika sebelumnya ditolak.')"
-    >
+    <x-filament::section aside class="mt-6" icon="heroicon-o-device-phone-mobile" :heading="__('Pengaturan Sistem')" :description="__('Buka pengaturan aplikasi untuk memberikan izin (kamera, lokasi, dll) jika sebelumnya ditolak.')">
         <div class="flex items-center justify-end gap-x-3">
-             <x-filament::button
-                wire:click="openSettings"
-                color="primary"
-                icon="heroicon-o-cog-6-tooth"
-                size="sm"
-            >
+            <x-filament::button wire:click="openSettings" color="primary" icon="heroicon-o-cog-6-tooth" size="sm">
                 {{ __('Buka Pengaturan HP') }}
             </x-filament::button>
         </div>
