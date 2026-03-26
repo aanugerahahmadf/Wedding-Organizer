@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'label' => '가져오기',

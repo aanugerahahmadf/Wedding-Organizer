@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Paroles maiņa',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Jūs saņemsiet e-pastu, ja Jūsu konts eksistē.',
-        ],
 
         'throttled' => [
             'title' => 'Pārāk daudz mēģinājumu',

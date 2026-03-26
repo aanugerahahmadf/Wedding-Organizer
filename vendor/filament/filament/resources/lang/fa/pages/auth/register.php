@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'ثبت‌نام',
@@ -13,7 +10,7 @@ return [
 
         'login' => [
             'before' => 'یا',
-            'label' => 'ورود به حساب کاربری',
+            'label' => 'وارد حساب خود شوید.',
         ],
 
     ],

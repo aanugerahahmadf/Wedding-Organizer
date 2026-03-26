@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Restablecer tu contraseña',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Si su cuenta no existe, no recibirá el correo electrónico.',
-        ],
 
         'throttled' => [
             'title' => 'Demasiadas solicitudes',

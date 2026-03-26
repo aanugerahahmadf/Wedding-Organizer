@@ -8,7 +8,6 @@ use Filament\Support\Concerns\HasExtraAlpineAttributes;
 class RichEditor extends Field implements Contracts\CanBeLengthConstrained, Contracts\HasFileAttachments
 {
     use Concerns\CanBeLengthConstrained;
-    use Concerns\CanDisableGrammarly;
     use Concerns\HasExtraInputAttributes;
     use Concerns\HasFileAttachments;
     use Concerns\HasPlaceholder;

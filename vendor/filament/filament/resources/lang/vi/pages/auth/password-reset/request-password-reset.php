@@ -1,11 +1,8 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
-    'title' => 'Đặt lại mật khẩu',
+    'title' => 'Khôi phục mật khẩu',
 
     'heading' => 'Quên mật khẩu?',
 
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Nếu tài khoản của bạn không tồn tại, bạn sẽ không nhận được email.',
-        ],
 
         'throttled' => [
             'title' => 'Quá nhiều yêu cầu',

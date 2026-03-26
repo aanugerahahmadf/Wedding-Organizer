@@ -113,6 +113,8 @@ trait HasActions
             ]);
 
             $result = $action->callAfter() ?? $result;
+
+            $action->commitDatabaseTransaction();
         } catch (Halt $exception) {
             $exception->shouldRollbackDatabaseTransaction() ?
                 $action->rollBackDatabaseTransaction() :
@@ -139,8 +141,6 @@ trait HasActions
 
             throw $exception;
         }
-
-        $action->commitDatabaseTransaction();
 
         if (store($this)->has('redirect')) {
             return $result;
@@ -306,7 +306,6 @@ trait HasActions
         try {
             return array_pop($this->mountedTableActions);
         } finally {
-            array_pop($this->mountedTableActionsArguments);
             array_pop($this->mountedTableActionsData);
         }
     }

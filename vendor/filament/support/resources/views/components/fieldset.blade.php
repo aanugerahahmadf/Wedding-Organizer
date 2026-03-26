@@ -1,7 +1,6 @@
 @props([
     'label' => null,
     'labelHidden' => false,
-    'required' => false,
 ])
 
 <fieldset
@@ -18,9 +17,7 @@
                 'sr-only' => $labelHidden,
             ])
         >
-            {{-- Deliberately poor formatting to ensure that the asterisk sticks to the final word in the label. --}}
-            {{ $label }}@if ($required)<sup class="text-danger-600 dark:text-danger-400 font-medium">*</sup>
-            @endif
+            {{ $label }}
         </legend>
     @endif
 

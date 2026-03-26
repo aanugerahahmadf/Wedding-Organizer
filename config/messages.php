@@ -27,7 +27,7 @@ return [
         |
         | This setting defines the navigation group displayed in the sidebar.
         */
-        'navigation_group' => 'Pengguna',
+        'navigation_group' => 'Pesan',
 
         /*
         |--------------------------------------------------------------------------

@@ -29,7 +29,7 @@ class PaymentController extends Controller
                 $data = [
                     'id' => $method->code,
                     'name' => $method->name,
-                    'icon' => $method->icon ? asset('storage/'.$method->icon) : null,
+                    'icon' => $method->icon ? \Illuminate\Support\Facades\Storage::disk('public')->url($method->icon) : null,
                     'enabled' => true,
                     'type' => $method->type,
                     'fee' => floatval($method->fee),
@@ -44,7 +44,7 @@ class PaymentController extends Controller
                 } elseif ($method->type === 'ewallet') {
                     $data['details'] = $method->account_number;
                 } elseif ($method->type === 'qris') {
-                    $data['qris_image'] = $method->qris_image ? asset('storage/'.$method->qris_image) : null;
+                    $data['qris_image'] = $method->qris_image_url;
                 } elseif ($method->type === 'cod') {
                     $data['instructions'] = $method->instructions ?? 'Bayar tunai di lokasi acara.';
                 } elseif ($method->type === 'wallet') {
@@ -336,7 +336,7 @@ class PaymentController extends Controller
                     ? 'Bukti pembayaran divalidasi otomatis oleh AI. Pesanan Anda kini aktif!'
                     : 'Bukti pembayaran berhasil diunggah. Menunggu verifikasi admin.',
                 'data' => [
-                    'payment_proof_url' => asset('storage/'.$path),
+                    'payment_proof_url' => \Illuminate\Support\Facades\Storage::disk('public')->url($path),
                     'payment' => $payment->fresh(),
                     'ai_verified' => $aiAnalysis['is_verified_by_ai'],
                 ],
@@ -486,7 +486,7 @@ class PaymentController extends Controller
         $data = [
             'id' => $method->code,
             'name' => $method->name,
-            'icon' => $method->icon ? asset('storage/'.$method->icon) : null,
+            'icon' => $method->icon ? \Illuminate\Support\Facades\Storage::disk('public')->url($method->icon) : null,
             'type' => $method->type,
             'fee' => floatval($method->fee),
             'instructions' => $method->instructions,
@@ -501,7 +501,7 @@ class PaymentController extends Controller
         } elseif ($method->type === 'ewallet') {
             $data['details'] = $method->account_number;
         } elseif ($method->type === 'qris') {
-            $data['qris_image'] = $method->qris_image ? asset('storage/'.$method->qris_image) : null;
+            $data['qris_image'] = $method->qris_image_url;
         }
 
         return $data;

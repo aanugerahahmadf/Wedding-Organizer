@@ -23,18 +23,14 @@
     @endif
     {{ $attributes->class(['fi-ta-header-cell px-3 py-3.5 sm:first-of-type:ps-6 sm:last-of-type:pe-6']) }}
 >
-    <span
+    <{{ $sortable ? 'button' : 'span' }}
         @if ($sortable)
             aria-label="{{ trim(strip_tags($slot)) }}"
-            role="button"
-            tabindex="0"
+            type="button"
             wire:click="sortTable('{{ $name }}')"
-            x-on:keydown.enter.prevent.stop="$wire.sortTable('{{ $name }}')"
-            x-on:keydown.space.prevent.stop="$wire.sortTable('{{ $name }}')"
         @endif
         @class([
             'group flex w-full items-center gap-x-1',
-            'cursor-pointer' => $sortable,
             'whitespace-nowrap' => ! $wrap,
             'whitespace-normal' => $wrap,
             match ($alignment) {
@@ -71,5 +67,5 @@
                 ])
             />
         @endif
-    </span>
+    </{{ $sortable ? 'button' : 'span' }}>
 </th>

@@ -85,6 +85,7 @@ class Topup extends Model
         'admin_fee' => 'decimal:2',
         'total_amount' => 'decimal:2',
         'paid_at' => 'datetime',
+        'status' => \App\Enums\TopupStatus::class,
     ];
 
     public function user(): BelongsTo

@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Reset your password',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'If your account doesn\'t exist, you will not receive the email.',
-        ],
 
         'throttled' => [
             'title' => 'Too many requests',

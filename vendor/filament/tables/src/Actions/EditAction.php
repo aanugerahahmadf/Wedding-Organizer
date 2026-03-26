@@ -33,37 +33,13 @@ class EditAction extends Action
 
         $this->successNotificationTitle(__('filament-actions::edit.single.notifications.saved.title'));
 
-        $this->defaultColor('primary');
-
         $this->icon(FilamentIcon::resolve('actions::edit-action') ?? 'heroicon-m-pencil-square');
 
         $this->fillForm(function (Model $record, Table $table): array {
-            $translatableContentDriver = $table->makeTranslatableContentDriver();
-
-            if ($translatableContentDriver) {
+            if ($translatableContentDriver = $table->makeTranslatableContentDriver()) {
                 $data = $translatableContentDriver->getRecordAttributesToArray($record);
             } else {
                 $data = $record->attributesToArray();
-            }
-
-            $relationship = $table->getRelationship();
-
-            if ($relationship instanceof BelongsToMany) {
-                $pivot = $record->getRelationValue($relationship->getPivotAccessor());
-
-                $pivotColumns = $relationship->getPivotColumns();
-
-                if ($translatableContentDriver) {
-                    $data = [
-                        ...$data,
-                        ...Arr::only($translatableContentDriver->getRecordAttributesToArray($pivot), $pivotColumns),
-                    ];
-                } else {
-                    $data = [
-                        ...$data,
-                        ...Arr::only($pivot->attributesToArray(), $pivotColumns),
-                    ];
-                }
             }
 
             if ($this->mutateRecordDataUsing) {
@@ -80,7 +56,7 @@ class EditAction extends Action
                 $translatableContentDriver = $table->makeTranslatableContentDriver();
 
                 if ($relationship instanceof BelongsToMany) {
-                    $pivot = $record->getRelationValue($relationship->getPivotAccessor());
+                    $pivot = $record->{$relationship->getPivotAccessor()};
 
                     $pivotColumns = $relationship->getPivotColumns();
                     $pivotData = Arr::only($data, $pivotColumns);

@@ -175,8 +175,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName, 
             return $this->hasRole('super_admin');
         }
 
-        if ($panel->getId() === 'app') {
-            return $this->hasRole(['super_admin', 'user']);
+        if ($panel->getId() === 'user') {
+            return true;
         }
 
         return false;
@@ -282,7 +282,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName, 
 
                 // Use asset() helper to get a dynamic URL based on the current request host.
                 // This ensures the URL is correct for both web (127.0.0.1) and mobile emulator (10.0.2.2).
-                return asset('storage/'.ltrim($path, '/'));
+                return \Illuminate\Support\Facades\Storage::disk('public')->url(ltrim($path, '/'));
             }
         );
     }

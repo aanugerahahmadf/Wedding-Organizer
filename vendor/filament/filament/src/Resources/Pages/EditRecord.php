@@ -26,6 +26,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Js;
 use Throwable;
 
+use function Filament\Support\is_app_url;
+
 /**
  * @property Form $form
  */
@@ -151,6 +153,8 @@ class EditRecord extends Page
             $this->handleRecordUpdate($this->getRecord(), $data);
 
             $this->callHook('afterSave');
+
+            $this->commitDatabaseTransaction();
         } catch (Halt $exception) {
             $exception->shouldRollbackDatabaseTransaction() ?
                 $this->rollBackDatabaseTransaction() :
@@ -163,8 +167,6 @@ class EditRecord extends Page
             throw $exception;
         }
 
-        $this->commitDatabaseTransaction();
-
         $this->rememberData();
 
         if ($shouldSendSavedNotification) {
@@ -172,7 +174,7 @@ class EditRecord extends Page
         }
 
         if ($shouldRedirect && ($redirectUrl = $this->getRedirectUrl())) {
-            $this->redirect($redirectUrl, navigate: FilamentView::hasSpaMode($redirectUrl));
+            $this->redirect($redirectUrl, navigate: FilamentView::hasSpaMode() && is_app_url($redirectUrl));
         }
     }
 
@@ -200,6 +202,8 @@ class EditRecord extends Page
             $this->handleRecordUpdate($this->getRecord(), $data);
 
             $this->callHook('afterSave');
+
+            $this->commitDatabaseTransaction();
         } catch (Halt $exception) {
             $exception->shouldRollbackDatabaseTransaction() ?
                 $this->rollBackDatabaseTransaction() :
@@ -211,8 +215,6 @@ class EditRecord extends Page
 
             throw $exception;
         }
-
-        $this->commitDatabaseTransaction();
 
         $this->rememberData();
     }
@@ -227,7 +229,7 @@ class EditRecord extends Page
 
         return Notification::make()
             ->success()
-            ->title($title);
+            ->title($this->getSavedNotificationTitle());
     }
 
     protected function getSavedNotificationTitle(): ?string

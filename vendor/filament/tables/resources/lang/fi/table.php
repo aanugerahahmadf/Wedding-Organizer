@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'column_toggle' => [
@@ -45,9 +42,9 @@ return [
         ],
 
         'search' => [
-            'label' => 'Haku',
-            'placeholder' => 'Hae',
-            'indicator' => 'Haku',
+            'label' => 'Etsi',
+            'placeholder' => 'Etsi',
+            'indicator' => 'Etsi',
         ],
 
     ],
@@ -121,7 +118,7 @@ return [
         'actions' => [
 
             'apply' => [
-                'label' => 'Aseta suodattimet',
+                'label' => 'Käytä suodattimet',
             ],
 
             'remove' => [
@@ -129,12 +126,12 @@ return [
             ],
 
             'remove_all' => [
-                'label' => 'Tyhjennä suodattimet',
-                'tooltip' => 'Tyhjennä suodattimet',
+                'label' => 'Poista suodattimet',
+                'tooltip' => 'Poista suodattimet',
             ],
 
             'reset' => [
-                'label' => 'Palauta',
+                'label' => 'Tyhjennä suodattimet',
             ],
 
         ],
@@ -176,7 +173,7 @@ return [
 
             'direction' => [
 
-                'label' => 'Ryhmitys',
+                'label' => 'Ryhmittelyn suunta',
 
                 'options' => [
                     'asc' => 'Nousevasti',
@@ -202,7 +199,7 @@ return [
             ],
 
             'deselect_all' => [
-                'label' => 'Poista valinnat',
+                'label' => 'Poista valinta kaikista',
             ],
 
         ],
@@ -219,7 +216,7 @@ return [
 
             'direction' => [
 
-                'label' => 'Järjestys',
+                'label' => 'Järjestyksen suunta',
 
                 'options' => [
                     'asc' => 'Nousevasti',

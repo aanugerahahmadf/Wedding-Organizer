@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'confirmation' => "Είστε σίγουρος/η γι' αυτή την ενέργεια;",

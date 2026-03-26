@@ -67,9 +67,7 @@ class CreateAction extends Action
 
                 if (
                     (! $relationship) ||
-                   (class_exists(HasOneOrManyThrough::class)
-                        ? ($relationship instanceof HasOneOrManyThrough)
-                        : ($relationship instanceof HasManyThrough))
+                    $relationship instanceof (class_exists(HasOneOrManyThrough::class) ? HasOneOrManyThrough::class : HasManyThrough::class)
                 ) {
                     $record->save();
 

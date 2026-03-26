@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'confirmation' => 'Unahakika unataka kufanya hili?',

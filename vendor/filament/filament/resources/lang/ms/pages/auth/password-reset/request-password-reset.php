@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Menetapkan semula kata laluan anda',

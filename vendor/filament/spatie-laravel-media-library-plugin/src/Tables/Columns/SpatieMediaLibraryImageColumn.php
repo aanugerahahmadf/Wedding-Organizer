@@ -40,10 +40,6 @@ class SpatieMediaLibraryImageColumn extends ImageColumn
             }
 
             foreach ($records as $record) {
-                if (! method_exists($record, 'getFallbackMediaUrl')) {
-                    continue;
-                }
-
                 $url = $record->getFallbackMediaUrl($collection, $column->getConversion() ?? '');
 
                 if (blank($url)) {

@@ -19,8 +19,6 @@ class RestoreAction extends Action
     {
         parent::setUp();
 
-        $this->requiresConfirmation();
-
         $this->label(__('filament-actions::restore.single.label'));
 
         $this->modalHeading(fn (): string => __('filament-actions::restore.single.modal.heading', ['label' => $this->getRecordTitle()]));
@@ -29,9 +27,11 @@ class RestoreAction extends Action
 
         $this->successNotificationTitle(__('filament-actions::restore.single.notifications.restored.title'));
 
-        $this->defaultColor('gray');
+        $this->color('gray');
 
         $this->groupedIcon(FilamentIcon::resolve('actions::restore-action.grouped') ?? 'heroicon-m-arrow-uturn-left');
+
+        $this->requiresConfirmation();
 
         $this->modalIcon(FilamentIcon::resolve('actions::restore-action.modal') ?? 'heroicon-o-arrow-uturn-left');
 

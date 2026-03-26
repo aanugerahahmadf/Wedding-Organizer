@@ -73,6 +73,7 @@ class PaymentMethod extends Model
     protected $casts = [
         'is_active' => 'boolean',
         'fee' => 'decimal:2',
+        'type' => \App\Enums\PaymentMethodType::class,
     ];
 
     /**
@@ -81,7 +82,16 @@ class PaymentMethod extends Model
     public function getIconUrlAttribute()
     {
         if ($this->icon) {
-            return asset('storage/'.$this->icon);
+            try {
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($this->icon)) {
+                    $content = \Illuminate\Support\Facades\Storage::disk('public')->get($this->icon);
+                    $mime = \Illuminate\Support\Facades\Storage::disk('public')->mimeType($this->icon);
+                    return 'data:' . $mime . ';base64,' . base64_encode($content);
+                }
+            } catch (\Exception $e) {
+                // Return fallback if reading fails
+            }
+            return \Illuminate\Support\Facades\Storage::disk('public')->url($this->icon);
         }
 
         return null;
@@ -93,7 +103,35 @@ class PaymentMethod extends Model
     public function getQrisImageUrlAttribute()
     {
         if ($this->qris_image) {
-            return asset('storage/'.$this->qris_image);
+            // Check if it's a raw QRIS payload (not a file path with extension)
+            if (!preg_match('/\.(jpg|jpeg|png|gif|svg|webp)$/i', $this->qris_image)) {
+                try {
+                    $result = \Endroid\QrCode\Builder\Builder::create()
+                        ->writer(new \Endroid\QrCode\Writer\PngWriter())
+                        ->data($this->qris_image)
+                        ->encoding(new \Endroid\QrCode\Encoding\Encoding('UTF-8'))
+                        ->errorCorrectionLevel(\Endroid\QrCode\ErrorCorrectionLevel::Low)
+                        ->size(300)
+                        ->margin(10)
+                        ->build();
+                        
+                    return $result->getDataUri();
+                } catch (\Exception $e) {
+                    return null;
+                }
+            }
+
+            // Old behavior for uploaded images
+            try {
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($this->qris_image)) {
+                    $content = \Illuminate\Support\Facades\Storage::disk('public')->get($this->qris_image);
+                    $mime = \Illuminate\Support\Facades\Storage::disk('public')->mimeType($this->qris_image);
+                    return 'data:' . $mime . ';base64,' . base64_encode($content);
+                }
+            } catch (\Exception $e) {
+                // Return fallback if reading fails
+            }
+            return \Illuminate\Support\Facades\Storage::disk('public')->url($this->qris_image);
         }
 
         return null;

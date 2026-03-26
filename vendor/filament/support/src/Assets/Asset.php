@@ -3,7 +3,6 @@
 namespace Filament\Support\Assets;
 
 use Composer\InstalledVersions;
-use Filament\Support\Facades\FilamentAsset;
 use Throwable;
 
 abstract class Asset
@@ -14,7 +13,7 @@ abstract class Asset
 
     protected bool $isLoadedOnRequest = false;
 
-    protected ?string $package = null;
+    protected string $package;
 
     final public function __construct(string $id, ?string $path = null)
     {
@@ -39,14 +38,14 @@ abstract class Asset
         return $this->id;
     }
 
-    public function package(?string $package): static
+    public function package(string $package): static
     {
         $this->package = $package;
 
         return $this;
     }
 
-    public function getPackage(): ?string
+    public function getPackage(): string
     {
         return $this->package;
     }
@@ -63,21 +62,8 @@ abstract class Asset
 
     public function getVersion(): string
     {
-        $package = $this->getPackage();
-
-        if (blank($package)) {
-            return InstalledVersions::getVersion('filament/support');
-        }
-
-        if (
-            ($package === 'app') &&
-            filled($appVersion = FilamentAsset::getAppVersion())
-        ) {
-            return $appVersion;
-        }
-
         try {
-            return InstalledVersions::getVersion($package);
+            return InstalledVersions::getVersion($this->getPackage());
         } catch (Throwable $exception) {
             return InstalledVersions::getVersion('filament/support');
         }

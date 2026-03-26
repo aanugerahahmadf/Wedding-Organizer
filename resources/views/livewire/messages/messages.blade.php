@@ -17,9 +17,9 @@
                     @endphp
                     <x-filament::avatar src="{{ $avatar }}" alt="{{ $alt }}" size="lg" />
                     <div class="overflow-hidden">
-                        <p class="text-base font-bold truncate">{{ $selectedConversation->inbox_title }}</p>
+                        <p class="text-base font-bold truncate text-gray-900 dark:text-white">{{ $selectedConversation->inbox_title }}</p>
                         @if ($selectedConversation->title)
-                            <p class="text-base truncate">
+                            <p class="text-base truncate text-gray-600 dark:text-gray-400">
                                 {{ $selectedConversation->other_users->pluck('name')->implode(', ') }}</p>
                         @endif
                     </div>
@@ -45,7 +45,7 @@
                     @endif
                     <div>
                         @if ($message->user_id !== auth()->id())
-                            <p class="text-xs mb-2">{{ $message->sender->name }}</p>
+                            <p class="text-xs mb-2 text-gray-500 dark:text-gray-400">{{ $message->sender->name }}</p>
                         @endif
                         <div @class([
                             'max-w-md p-2 rounded-xl mb-2',
@@ -106,9 +106,9 @@
                             </div>
                         </div>
                         <p @class([
-                            'text-xs',
-                            'text-end' => $message->user_id === auth()->id(),
-                            'text-start' => $message->user_id !== auth()->id(),
+                            'text-[10px] opacity-70',
+                            'text-end text-white/80' => $message->user_id === auth()->id(),
+                            'text-start text-gray-500 dark:text-gray-400' => $message->user_id !== auth()->id(),
                         ])>
                             @php
                                 $createdAt = \Carbon\Carbon::parse($message->created_at)->setTimezone(
@@ -147,7 +147,7 @@
             @endforeach
             @if ($this->paginator->hasMorePages())
                 <div x-intersect="$wire.loadMessages">
-                    <div class="w-full py-6 text-center text-gray-900">{{ __('Getting more messages...') }}</div>
+                    <div class="w-full py-6 text-center text-gray-900 dark:text-gray-200">{{ __('Getting more messages...') }}</div>
                 </div>
             @endif
         </div>
@@ -159,8 +159,8 @@
                     {{ $this->form }}
                 </div>
                 <div class="p-1">
-                    <x-filament::button type="submit" icon="heroicon-o-paper-airplane"
-                        :disabled="$this->validateMessage()">Send</x-filament::button>
+                    <x-filament::button wire:click="sendMessage" icon="heroicon-o-paper-airplane"
+                        wire:loading.attr="disabled">{{ __('Kirim') }}</x-filament::button>
                 </div>
             </form>
             <x-filament-actions::modals />

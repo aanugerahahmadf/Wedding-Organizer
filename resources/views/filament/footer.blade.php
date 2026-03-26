@@ -4,7 +4,7 @@
 
 <footer class="fi-main-footer {{ $isAuth ? 'fi-auth-footer' : '' }}">
     <div class="footer-text">
-        &copy; {{ date('Y') }} Devi Make up {{ __('All rights reserved') }}
+        &copy; {{ date('Y') }} {{ __(config('app.name')) }}. {{ __('All rights reserved') }}
     </div>
 </footer>
 

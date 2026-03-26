@@ -2,18 +2,18 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Auth\Login;
-use App\Filament\Auth\OtpEmailVerificationPrompt;
-use App\Filament\Auth\OtpRequestPasswordReset;
-use App\Filament\Auth\OtpResetPassword;
-use App\Filament\Auth\Register;
-use App\Filament\Auth\VerifyOtp;
-use App\Filament\Pages\Dashboard;
-use App\Filament\Pages\EditProfilePage;
-use App\Filament\Widgets\OrdersChart;
-use App\Filament\Widgets\RecentOrders;
-use App\Filament\Widgets\RevenueChart;
-use App\Filament\Widgets\StatsOverview;
+use App\Filament\Admin\Auth\Login;
+use App\Filament\Admin\Auth\OtpEmailVerificationPrompt;
+use App\Filament\Admin\Auth\OtpRequestPasswordReset;
+use App\Filament\Admin\Auth\OtpResetPassword;
+use App\Filament\Admin\Auth\Register;
+use App\Filament\Admin\Auth\VerifyOtp;
+use App\Filament\Admin\Pages\Dashboard;
+use App\Filament\Admin\Pages\EditProfilePage;
+use App\Filament\Admin\Widgets\OrdersChart;
+use App\Filament\Admin\Widgets\RecentOrders;
+use App\Filament\Admin\Widgets\RevenueChart;
+use App\Filament\Admin\Widgets\StatsOverview;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\SuperAdmin;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -43,14 +43,15 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->authGuard('web')
             ->login(Login::class)
-            // ->registration(Register::class)
+            ->registration(Register::class)
             ->passwordReset(
                 OtpRequestPasswordReset::class,
                 OtpResetPassword::class
             )
             ->emailVerification(OtpEmailVerificationPrompt::class)
-            ->sidebarCollapsibleOnDesktop()
+            // ->sidebarFullyCollapsibleOnDesktop()
             ->brandName(config('app.name'))
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('3rem')
@@ -65,6 +66,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->defaultThemeMode(ThemeMode::System)
             ->topNavigation()
+            // ->maxContentWidth(MaxWidth::Full)
             ->databaseNotifications()
             ->renderHook(
                 'panels::global-search.after',
@@ -90,17 +92,17 @@ class AdminPanelProvider extends PanelProvider
                     ->visible(fn (): bool => Auth::check()),
             ])
             ->navigationGroups([
-                NavigationGroup::make()->label(__('Pengguna')),
-                NavigationGroup::make()->label(__('Blog & Media')),
-                NavigationGroup::make()->label(__('Studio')),
-                NavigationGroup::make()->label(__('Transaksi')),
+                NavigationGroup::make()->label(fn () => __('Beranda')),
+                NavigationGroup::make()->label(fn () => __('Data Master')),
+                NavigationGroup::make()->label(fn () => __('Transaksi')),
+                NavigationGroup::make()->label(fn () => __('Pesan')),
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
+            ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
             ->widgets([
                 StatsOverview::class,
                 RevenueChart::class,
@@ -112,6 +114,7 @@ class AdminPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
+                SetLocale::class,
                 ShareErrorsFromSession::class,
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,

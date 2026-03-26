@@ -1,34 +1,23 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
-    'title' => ':label ပြင်ဆင်ရန်',
+    'title' => ':label ကိုတည်းဖြတ်ပါ',
 
-    'breadcrumb' => 'ပြင်ဆင်ရန်',
+    'breadcrumb' => 'တည်းဖြတ်ပါ',
 
     'form' => [
 
         'actions' => [
 
             'cancel' => [
-                'label' => 'ပယ်ဖျက်ရန်',
+                'label' => 'မလုပ်တော့ပါ',
             ],
 
             'save' => [
-                'label' => 'သိမ်းဆည်းရန်',
+                'label' => 'မှတ်ပါ',
             ],
 
-        ],
-
-    ],
-
-    'content' => [
-
-        'tab' => [
-            'label' => 'ပြင်ဆင်ရန်',
         ],
 
     ],
@@ -36,7 +25,7 @@ return [
     'notifications' => [
 
         'saved' => [
-            'title' => 'သိမ်းဆည်းပြီးပါပြီ',
+            'title' => 'သိမ်းဆည်းထားသည်',
         ],
 
     ],

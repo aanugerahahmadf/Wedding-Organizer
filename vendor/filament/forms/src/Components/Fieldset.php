@@ -8,7 +8,6 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class Fieldset extends Component implements CanEntangleWithSingularRelationships
 {
-    use Concerns\CanBeMarkedAsRequired;
     use Concerns\EntanglesStateWithSingularRelationship;
 
     /**
@@ -36,10 +35,5 @@ class Fieldset extends Component implements CanEntangleWithSingularRelationships
         $this->columnSpan('full');
 
         $this->columns(2);
-    }
-
-    public function isRequired(): bool
-    {
-        return false;
     }
 }

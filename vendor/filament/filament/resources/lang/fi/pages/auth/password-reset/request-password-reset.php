@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Salasana hukassa?',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Jos tiliä ei ole olemassa, et vastaanota sähköpostia.',
-        ],
 
         'throttled' => [
             'title' => 'Liian monta pyyntöä',

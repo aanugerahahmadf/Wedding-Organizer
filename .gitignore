@@ -21,3 +21,4 @@ nativephp
 # Local Netlify folder
 .netlify
 .idea
+sqlite.db

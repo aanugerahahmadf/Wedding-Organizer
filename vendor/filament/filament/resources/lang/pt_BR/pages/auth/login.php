@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Login',
@@ -13,7 +10,7 @@ return [
 
         'register' => [
             'before' => 'ou',
-            'label' => 'crie uma conta',
+            'label' => 'criar uma conta',
         ],
 
         'request_password_reset' => [

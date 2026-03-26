@@ -76,6 +76,36 @@ Transition dialogs with fade a slight scale effect...
     background-color: rgba(0, 0, 0, 0.10);
 }
 
+/*
+Transition content of dialogs with scroll="body"
+*/
+[data-flux-modal] > dialog[data-flux-modal-overflow] {
+    max-width: none;
+    max-height: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-y: auto;
+    background: transparent;
+    transform: none;
+}
+
+[data-flux-modal-content] {
+    transform: scale(0.95);
+    transition: transform 0.075s allow-discrete;
+}
+
+dialog[open] [data-flux-modal-content] {
+    transform: scale(1);
+    transition: transform 0.15s allow-discrete;
+}
+
+@starting-style {
+    dialog[open] [data-flux-modal-content] {
+        transform: scale(0.95);
+    }
+}
+
 /**
 Native select styles...
 */
@@ -313,11 +343,14 @@ Timeline
         --flux-timeline-content-gap: calc(var(--spacing) * 2);
     }
 
-    :where([data-flux-timeline-size="lg"]) {
+    :where([data-flux-timeline][data-flux-timeline-size="lg"]) {
         --flux-timeline-item-gap: calc(var(--spacing) * 8);
         --flux-timeline-content-gap: calc(var(--spacing) * 4);
         --flux-timeline-line-gap: 0px;
         --flux-timeline-line-width: 2px;
+    }
+
+    :where([data-flux-timeline-size="lg"]) {
         --flux-timeline-indicator-size: calc(var(--spacing) * 12);
     }
 
@@ -371,6 +404,7 @@ Timeline
         grid-column: 3;
         grid-row: 2 / 5;
         align-self: center;
+        min-width: 0;
     }
 
     [data-flux-timeline-line-leading] {

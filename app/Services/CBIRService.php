@@ -22,22 +22,19 @@ class CBIRService
             $response = Http::attach(
                 'image',
                 file_get_contents($imageFile->getRealPath()),
-                $imageFile->getClientOriginalName()
+                method_exists($imageFile, 'getClientOriginalName') ? $imageFile->getClientOriginalName() : $imageFile->getFilename()
             )->post("{$this->baseUrl}/search?k={$topK}");
 
             if ($response->successful()) {
                 $results = $response->json();
-
                 return $results['results'] ?? [];
             }
 
             Log::error('AI Core search error: '.$response->body());
-
-            return [];
+            return ['error' => true, 'message' => __('Pencarian visual sedang gangguan. Coba lagi nanti.')];
         } catch (\Exception $e) {
             Log::error('AI Core connection error: '.$e->getMessage());
-
-            return [];
+            return ['error' => true, 'message' => __('Layanan AI Scanner sedang offline. Silakan coba beberapa saat lagi.')];
         }
     }
 

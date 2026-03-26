@@ -2,13 +2,11 @@
 
 namespace Filament\Panel\Concerns;
 
-use Closure;
-
 trait HasTopbar
 {
-    protected bool | Closure $hasTopbar = true;
+    protected bool $hasTopbar = true;
 
-    public function topbar(bool | Closure $condition = true): static
+    public function topbar(bool $condition = true): static
     {
         $this->hasTopbar = $condition;
 
@@ -17,6 +15,6 @@ trait HasTopbar
 
     public function hasTopbar(): bool
     {
-        return (bool) $this->evaluate($this->hasTopbar);
+        return $this->hasTopbar;
     }
 }

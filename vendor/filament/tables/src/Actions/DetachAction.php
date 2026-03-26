@@ -21,8 +21,6 @@ class DetachAction extends Action
     {
         parent::setUp();
 
-        $this->requiresConfirmation();
-
         $this->label(__('filament-actions::detach.single.label'));
 
         $this->modalHeading(fn (): string => __('filament-actions::detach.single.modal.heading', ['label' => $this->getRecordTitle()]));
@@ -31,9 +29,11 @@ class DetachAction extends Action
 
         $this->successNotificationTitle(__('filament-actions::detach.single.notifications.detached.title'));
 
-        $this->defaultColor('danger');
+        $this->color('danger');
 
         $this->icon(FilamentIcon::resolve('actions::detach-action') ?? 'heroicon-m-x-mark');
+
+        $this->requiresConfirmation();
 
         $this->modalIcon(FilamentIcon::resolve('actions::detach-action.modal') ?? 'heroicon-o-x-mark');
 
@@ -43,7 +43,7 @@ class DetachAction extends Action
                 $relationship = $table->getRelationship();
 
                 if ($table->allowsDuplicates()) {
-                    $record->getRelationValue($relationship->getPivotAccessor())->delete();
+                    $record->{$relationship->getPivotAccessor()}->delete();
                 } else {
                     $relationship->detach($record);
                 }

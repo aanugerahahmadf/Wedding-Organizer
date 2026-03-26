@@ -4,7 +4,6 @@ namespace Filament\Tables\Concerns;
 
 use Filament\Forms\Form;
 use Filament\Tables\Filters\BaseFilter;
-use Filament\Tables\Filters\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
@@ -68,25 +67,20 @@ trait HasFilters
         $filterResetState = $filter->getResetState();
 
         $filterFormGroup = $this->getTableFiltersForm()->getComponent($filterName);
+        $filterFields = $filterFormGroup?->getChildComponentContainer()->getFlatFields();
 
-        if (($filter instanceof QueryBuilder) && blank($field)) {
-            $filterFormGroup->getChildComponentContainer()->fill();
-        } else {
-            $filterFields = $filterFormGroup?->getChildComponentContainer()->getFlatFields();
+        if (filled($field) && array_key_exists($field, $filterFields)) {
+            $filterFields = [$field => $filterFields[$field]];
+        }
 
-            if (filled($field) && array_key_exists($field, $filterFields)) {
-                $filterFields = [$field => $filterFields[$field]];
-            }
+        foreach ($filterFields as $fieldName => $field) {
+            $state = $field->getState();
 
-            foreach ($filterFields as $fieldName => $field) {
-                $state = $field->getState();
-
-                $field->state($filterResetState[$fieldName] ?? match (true) {
-                    is_array($state) => [],
-                    is_bool($state) => false,
-                    default => null,
-                });
-            }
+            $field->state($filterResetState[$fieldName] ?? match (true) {
+                is_array($state) => [],
+                is_bool($state) => false,
+                default => null,
+            });
         }
 
         if ($isRemovingAllFilters) {
@@ -184,7 +178,7 @@ trait HasFilters
 
     public function getTableFiltersSessionKey(): string
     {
-        $table = md5($this::class);
+        $table = class_basename($this::class);
 
         return "tables.{$table}_filters";
     }

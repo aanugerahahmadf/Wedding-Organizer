@@ -1,11 +1,8 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
-    'label' => 'Constructor de Consultas',
+    'label' => 'Construtor de Consultas',
 
     'form' => [
 

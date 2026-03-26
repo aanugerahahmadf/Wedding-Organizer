@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 12.55.1.
+ * Generated for Laravel 12.56.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -24360,6 +24360,15 @@ namespace Flux {
         /**
          * @static
          */
+        public static function nonce()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->nonce();
+        }
+
+        /**
+         * @static
+         */
         public static function scripts($options = [])
         {
             /** @var \Flux\FluxManager $instance */
@@ -29907,7 +29916,7 @@ namespace Livewire\Features\SupportTesting {
             }
     }
 
-namespace App\Filament\Resources\ArticleResource\Pages {
+namespace App\Filament\Admin\Resources\ArticleResource\Pages {
     /**
      * @property-read \App\Filament\Resources\ArticleResource $resource
      */
@@ -29949,7 +29958,7 @@ namespace Filament\Pages {
             }
     }
 
-namespace App\Filament\Resources\BannerResource\Pages {
+namespace App\Filament\Admin\Resources\BannerResource\Pages {
     /**
      * @property-read \App\Filament\Resources\BannerResource $resource
      */
@@ -29957,7 +29966,7 @@ namespace App\Filament\Resources\BannerResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\CategoryResource\Pages {
+namespace App\Filament\Admin\Resources\CategoryResource\Pages {
     /**
      * @property-read \App\Filament\Resources\CategoryResource $resource
      */
@@ -29965,7 +29974,7 @@ namespace App\Filament\Resources\CategoryResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\OrderResource\Pages {
+namespace App\Filament\Admin\Resources\OrderResource\Pages {
     /**
      * @property-read \App\Filament\Resources\OrderResource $resource
      */
@@ -29973,7 +29982,7 @@ namespace App\Filament\Resources\OrderResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\OrderResource\RelationManagers {
+namespace App\Filament\Admin\Resources\OrderResource\RelationManagers {
     /**
      */
     class PaymentsRelationManager extends \Filament\Resources\RelationManagers\RelationManager {
@@ -29987,7 +29996,7 @@ namespace Filament\Resources\RelationManagers {
             }
     }
 
-namespace App\Filament\Resources\PackageResource\Pages {
+namespace App\Filament\Admin\Resources\PackageResource\Pages {
     /**
      * @property-read \App\Filament\Resources\PackageResource $resource
      */
@@ -29995,7 +30004,7 @@ namespace App\Filament\Resources\PackageResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\PaymentMethodResource\Pages {
+namespace App\Filament\Admin\Resources\PaymentMethodResource\Pages {
     /**
      * @property-read \App\Filament\Resources\PaymentMethodResource $resource
      */
@@ -30003,7 +30012,7 @@ namespace App\Filament\Resources\PaymentMethodResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\PaymentResource\Pages {
+namespace App\Filament\Admin\Resources\PaymentResource\Pages {
     /**
      * @property-read \App\Filament\Resources\PaymentResource $resource
      */
@@ -30011,7 +30020,7 @@ namespace App\Filament\Resources\PaymentResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\ReviewResource\Pages {
+namespace App\Filament\Admin\Resources\ReviewResource\Pages {
     /**
      * @property-read \App\Filament\Resources\ReviewResource $resource
      */
@@ -30019,7 +30028,7 @@ namespace App\Filament\Resources\ReviewResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\TopupResource\Pages {
+namespace App\Filament\Admin\Resources\TopupResource\Pages {
     /**
      * @property-read \App\Filament\Resources\TopupResource $resource
      */
@@ -30027,7 +30036,7 @@ namespace App\Filament\Resources\TopupResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\UserResource\Pages {
+namespace App\Filament\Admin\Resources\UserResource\Pages {
     /**
      * @property-read \App\Filament\Resources\UserResource $resource
      */
@@ -30035,7 +30044,7 @@ namespace App\Filament\Resources\UserResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\VoucherResource\Pages {
+namespace App\Filament\Admin\Resources\VoucherResource\Pages {
     /**
      * @property-read \App\Filament\Resources\VoucherResource $resource
      */
@@ -30043,7 +30052,7 @@ namespace App\Filament\Resources\VoucherResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\WeddingOrganizerResource\Pages {
+namespace App\Filament\Admin\Resources\WeddingOrganizerResource\Pages {
     /**
      * @property-read \App\Filament\Resources\WeddingOrganizerResource $resource
      */
@@ -30051,7 +30060,7 @@ namespace App\Filament\Resources\WeddingOrganizerResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\WishlistResource\Pages {
+namespace App\Filament\Admin\Resources\WishlistResource\Pages {
     /**
      * @property-read \App\Filament\Resources\WishlistResource $resource
      */
@@ -30059,7 +30068,7 @@ namespace App\Filament\Resources\WishlistResource\Pages {
             }
     }
 
-namespace App\Filament\Resources\WithdrawalResource\Pages {
+namespace App\Filament\Admin\Resources\WithdrawalResource\Pages {
     /**
      * @property-read \App\Filament\Resources\WithdrawalResource $resource
      */
@@ -30067,7 +30076,7 @@ namespace App\Filament\Resources\WithdrawalResource\Pages {
             }
     }
 
-namespace App\Filament\Pages {
+namespace App\Filament\Admin\Pages {
     /**
      */
     class Dashboard extends \Filament\Pages\Dashboard {
@@ -30082,7 +30091,7 @@ namespace App\Filament\Pages {
             }
     }
 
-namespace App\Filament\Widgets {
+namespace App\Filament\Admin\Widgets {
     /**
      */
     class OrdersChart extends \Filament\Widgets\ChartWidget {
@@ -30157,9 +30166,14 @@ namespace Filament\Pages\Auth {
      */
     class Login extends \Filament\Pages\SimplePage {
             }
+    /**
+     * @property Form $form
+     */
+    class Register extends \Filament\Pages\SimplePage {
+            }
     }
 
-namespace App\Filament\Auth {
+namespace App\Filament\Admin\Auth {
     /**
      */
     class OtpEmailVerificationPrompt extends \Filament\Pages\Auth\EmailVerification\EmailVerificationPrompt {
@@ -30175,6 +30189,10 @@ namespace App\Filament\Auth {
     /**
      */
     class OtpResetPassword extends \Filament\Pages\Auth\PasswordReset\ResetPassword {
+            }
+    /**
+     */
+    class Register extends \Filament\Pages\Auth\Register {
             }
     /**
      */
@@ -30200,6 +30218,130 @@ namespace Filament\Pages\Auth\PasswordReset {
      * @property Form $form
      */
     class ResetPassword extends \Filament\Pages\SimplePage {
+            }
+    }
+
+namespace App\Filament\User\Resources\ArticleResource\Pages {
+    /**
+     */
+    class ManageArticles extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Resources\OrderResource\Pages {
+    /**
+     */
+    class ManageOrders extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Resources\PackageResource\Pages {
+    /**
+     */
+    class ManagePackages extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Resources\PaymentResource\Pages {
+    /**
+     */
+    class ManagePayments extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Resources\ReviewResource\Pages {
+    /**
+     */
+    class ManageReviews extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Resources\TopupResource\Pages {
+    /**
+     */
+    class ManageTopups extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Resources\VoucherResource\Pages {
+    /**
+     */
+    class ManageVouchers extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Resources\WeddingOrganizerResource\Pages {
+    /**
+     */
+    class ManageWeddingOrganizers extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Resources\WishlistResource\Pages {
+    /**
+     */
+    class ManageWishlists extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\User\Pages {
+    /**
+     */
+    class Dashboard extends \Filament\Pages\Dashboard {
+            }
+    /**
+     */
+    class EditProfilePage extends \Filament\Pages\Page {
+            }
+    /**
+     */
+    class MessagesPage extends \Filament\Pages\Page {
+            }
+    }
+
+namespace App\Filament\User\Widgets {
+    /**
+     */
+    class LatestBookings extends \Filament\Widgets\TableWidget {
+            }
+    /**
+     */
+    class StatsOverview extends \Filament\Widgets\StatsOverviewWidget {
+            }
+    /**
+     */
+    class UserOrdersChart extends \Filament\Widgets\ChartWidget {
+            }
+    /**
+     */
+    class UserSpendingChart extends \Filament\Widgets\ChartWidget {
+            }
+    }
+
+namespace App\Filament\User\Auth {
+    /**
+     */
+    class OtpEmailVerificationPrompt extends \Filament\Pages\Auth\EmailVerification\EmailVerificationPrompt {
+            }
+    /**
+     */
+    class Login extends \Filament\Pages\Auth\Login {
+            }
+    /**
+     */
+    class OtpRequestPasswordReset extends \Filament\Pages\Auth\PasswordReset\RequestPasswordReset {
+            }
+    /**
+     */
+    class OtpResetPassword extends \Filament\Pages\Auth\PasswordReset\ResetPassword {
+            }
+    /**
+     */
+    class Register extends \Filament\Pages\Auth\Register {
+            }
+    /**
+     */
+    class VerifyOtp extends \Filament\Pages\SimplePage {
             }
     }
 

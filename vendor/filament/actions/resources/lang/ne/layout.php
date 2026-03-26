@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'direction' => 'ltr', // 'ltr' (left-to-right) is standard for Nepali text, but if you're accommodating for languages that read right-to-left, you might dynamically switch this.

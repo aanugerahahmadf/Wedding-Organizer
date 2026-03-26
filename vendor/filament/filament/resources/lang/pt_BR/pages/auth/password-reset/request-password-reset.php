@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Redefina sua senha',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Se sua conta não existir, você não receberá o e-mail.',
-        ],
 
         'throttled' => [
             'title' => 'Muitas solicitações',

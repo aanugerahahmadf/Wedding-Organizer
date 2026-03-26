@@ -13,14 +13,14 @@ class TranslateJsonKeys extends Command
      *
      * @var string
      */
-    protected $signature = 'lang:sync-json';
+    protected $signature = 'lang:sync-json {--force : Terjemahkan ulang semua key}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sinksronisasi dan terjemahkan otomatis seluruh isi Column dan Table yang hilang dari JSON Bahasa lain menggunakan Stichoza Google Translate.';
+    protected $description = 'Sinkronisasi otomatis seluruh text __( ) dari source code ke JSON bahasa (id, en, dll) menggunakan Google Translate.';
 
     /**
      * Execute the console command.
@@ -31,28 +31,51 @@ class TranslateJsonKeys extends Command
         $idFile = $langPath . '/id.json';
         
         if (!File::exists($idFile)) {
-            $this->error("File id.json tidak ditemukan.");
+            $this->error("File id.json tidak ditemukan di folder /lang.");
             return;
         }
 
-        $this->info("Menscan source code untuk mencari text translasi baru...");
-        // Scan semua __( ) dari seluruh Laravel (App, Livewire, Controllers, Views) Web + Mobile NativePHP
+        $this->info("🔍 Menscan source code untuk mencari label baru (__(...))...");
+        
         $scanPaths = [
             app_path(),
-            resource_path('views')
+            resource_path('views'),
+            config_path(),
+            database_path('seeders'),
+            base_path('routes'),
         ];
         
         $foundKeys = [];
         foreach ($scanPaths as $path) {
+            if (!File::isDirectory($path) && !File::exists($path)) continue;
+            
             $filesSrc = File::allFiles($path);
             foreach ($filesSrc as $file) {
-                // Hanya periksa file php/blade
-                if ($file->getExtension() === 'php') {
+                if ($file->getExtension() === 'php' || $file->getExtension() === 'blade.php') {
                     $content = $file->getContents();
-                    preg_match_all("/__\(['\"](.*?)['\"]\)/", $content, $matches);
-                    if (!empty($matches[1])) {
-                        foreach ($matches[1] as $key) {
-                            $foundKeys[$key] = $key;
+                    
+                    // 🔍 Regex lebih 'Deep': Mengambil __(), trans(), @lang(), label(), description(), tooltip(), placeholder()
+                    $patterns = [
+                        "/__\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/trans\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/@lang\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/->label\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/->description\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/->placeholder\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/->tooltip\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/->heading\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/->title\(\s*['\"](.*?)['\"]\s*\)/",
+                        "/->modalHeading\(\s*['\"](.*?)['\"]\s*\)/"
+                    ];
+
+                    foreach ($patterns as $pattern) {
+                        preg_match_all($pattern, $content, $matches);
+                        if (!empty($matches[1])) {
+                            foreach ($matches[1] as $key) {
+                                // Abaikan teks teknis, variabel, path, atau yang terlalu pendek
+                                if (str_contains($key, '$') || str_contains($key, '/') || strlen($key) <= 1) continue;
+                                $foundKeys[$key] = $key;
+                            }
                         }
                     }
                 }
@@ -60,19 +83,23 @@ class TranslateJsonKeys extends Command
         }
 
         $idTranslations = json_decode(File::get($idFile), true) ?? [];
-        $addedToId = false;
+        $addedCount = 0;
 
         foreach ($foundKeys as $k => $v) {
             if (!isset($idTranslations[$k])) {
                 $idTranslations[$k] = $v;
-                $addedToId = true;
-                $this->line("Teks baru ditemukan: " . $k);
+                $addedCount++;
+                $this->line(" ✨ Baru: <info>$k</info>");
             }
         }
 
-        if ($addedToId) {
-            File::put($idFile, json_encode($idTranslations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-            $this->info("id.json telah diupdate dengan kata kunci baru.");
+        if ($addedCount > 0) {
+            // Sort keys alphabetically
+            ksort($idTranslations);
+            File::put($idFile, json_encode($idTranslations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+            $this->info("✅ id.json diperbarui ($addedCount key baru).");
+        } else {
+            $this->info("ℹ️ Tidak ada label baru ditemukan.");
         }
 
         $files = File::glob($langPath . '/*.json');
@@ -82,42 +109,60 @@ class TranslateJsonKeys extends Command
             if ($fileName === 'id.json') continue;
             
             $targetLangCode = str_replace('.json', '', $fileName);
-            $gCode = $targetLangCode;
-            if ($gCode === 'zh') $gCode = 'zh-CN';
-            if ($gCode === 'ko') $gCode = 'ko';
-            
-            $this->info("Menyinkronkan bahasa: " . strtoupper($targetLangCode) . "...");
+            $this->info("🌍 Menyelaraskan Bahasa: " . strtoupper($targetLangCode) . "...");
             
             $content = File::get($file);
             $targetTranslations = json_decode($content, true) ?? [];
             
+            // Normalize target lang code for Google Translate
+            $gCode = match($targetLangCode) {
+                'zh' => 'zh-CN',
+                'sr' => 'sr',
+                default => $targetLangCode,
+            };
+
             $tr = new GoogleTranslate($gCode);
             $tr->setSource('id');
             
-            $updated = false;
-            
+            $missingKeys = [];
             foreach ($idTranslations as $key => $value) {
-                if (!isset($targetTranslations[$key])) {
-                    $this->line(" - Menerjemahkan '$key' ke $targetLangCode...");
-                    try {
-                        $translatedText = $tr->translate($key);
-                        $targetTranslations[$key] = $translatedText;
-                        $updated = true;
-                    } catch (\Exception $e) {
-                        $this->error("Gagal menerjemahkan '$key': " . $e->getMessage());
-                    }
-                    usleep(100000); 
+                // SINKRONISASI LEBIH DALAM: Jika belum ada terjemahan ATAU terjemahan masih sama dengan bahasa Indonesia (indikasi gagal sinkron sebelumnya)
+                if (!isset($targetTranslations[$key]) || ($targetTranslations[$key] === $key && !in_array($targetLangCode, ['id', 'id_new'])) || $this->option('force')) {
+                    $missingKeys[$key] = $value;
                 }
             }
-            
-            if ($updated) {
-                File::put($file, json_encode($targetTranslations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-                $this->info("File $fileName berhasil diupdate!");
-            } else {
-                $this->info("File $fileName sudah sepenuhnya sinkron.");
+
+            if (empty($missingKeys)) {
+                $this->info(" ✅ $fileName sudah sinkron.");
+                continue;
+            }
+
+            $bar = $this->output->createProgressBar(count($missingKeys));
+            $bar->start();
+
+            $updatedCount = 0;
+            foreach ($missingKeys as $key => $value) {
+                try {
+                    $translatedText = $tr->translate($key);
+                    $targetTranslations[$key] = $translatedText;
+                    $updatedCount++;
+                } catch (\Exception $e) {
+                    $this->error("\n ❌ Gagal menerjemahkan '$key': " . $e->getMessage());
+                }
+                $bar->advance();
+                usleep(50000); // 50ms delay to avoid rate limiting
+            }
+
+            $bar->finish();
+            $this->line("");
+
+            if ($updatedCount > 0) {
+                ksort($targetTranslations);
+                File::put($file, json_encode($targetTranslations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+                $this->info(" ✅ $fileName berhasil diupdate!");
             }
         }
         
-        $this->info("Proses sinkronisasi dan Auto-Translate selesai!");
+        $this->info("🏁 Selesai! Seluruh aplikasi sekarang sudah terhubung ke sistem bahasa.");
     }
 }

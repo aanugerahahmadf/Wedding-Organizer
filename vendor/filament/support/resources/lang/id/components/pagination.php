@@ -1,13 +1,10 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'label' => 'Navigasi halaman',
 
-    'overview' => '{1} Menampilkan 1 hasil|[2,*] Menampilkan :first sampai :last dari :total hasil',
+    'overview' => 'Menampilkan :first sampai :last dari :total hasil',
 
     'fields' => [
 

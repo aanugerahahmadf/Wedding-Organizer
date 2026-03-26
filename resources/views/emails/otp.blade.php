@@ -29,7 +29,7 @@
                 <h2>{{ $title ?? __('Kode Verifikasi') }}</h2>
                 
                 <p>{{ __('Halo') }},</p>
-                <p>{{ $description ?? __('Silakan gunakan kode verifikasi di bawah ini untuk menyelesaikan tindakan Anda. Kode ini berlaku selama 15 menit ke depan.') }}</p>
+                <p>{{ $description ?? __('Silakan gunakan kode verifikasi di bawah ini untuk menyelesaikan tindakan Anda. Kode ini berlaku selama 30 menit ke depan.') }}</p>
                 
                 <div class="otp-container">
                     <div class="otp-code">{{ $otp }}</div>

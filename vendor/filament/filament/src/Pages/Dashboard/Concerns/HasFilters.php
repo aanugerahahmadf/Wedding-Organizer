@@ -78,7 +78,7 @@ trait HasFilters
 
     public function getFiltersSessionKey(): string
     {
-        $livewire = md5($this::class);
+        $livewire = class_basename($this::class);
 
         return "{$livewire}_filters";
     }

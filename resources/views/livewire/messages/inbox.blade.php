@@ -1,14 +1,19 @@
-@php
-    use App\Filament\Pages\MessagesPage;
-    use Jeddsaliba\FilamentMessages\Enums\MediaCollectionType;
-@endphp
+    @php
+        $panelId = filament()->getCurrentPanel()?->getId();
+        $messagesPage = match($panelId) {
+            'admin' => \App\Filament\Admin\Pages\MessagesPage::class,
+            'user' => \App\Filament\User\Pages\MessagesPage::class,
+            default => \App\Filament\User\Pages\MessagesPage::class,
+        };
+        use Jeddsaliba\FilamentMessages\Enums\MediaCollectionType;
+    @endphp
 
 @props(['selectedConversation'])
 <div wire:poll.visible.{{ $pollInterval }}="loadConversations" style="--col-span-default: span 1 / span 1; height: inherit" class="col-[--col-span-default] bg-white shadow-sm rounded-xl ring-1 ring-gray-950/5 dark:divide-white/10 dark:bg-gray-900 dark:ring-white/10 p-6">
     <div class="grid grid-cols-[--cols-default] lg:grid-cols-[--cols-lg] fi-fo-component-ctn gap-6" style="--cols-default: repeat(1, minmax(0, 1fr)); --cols-lg: repeat(5, minmax(0, 1fr));">
         <div style="--col-span-default: span 3 / span 3;" class="col-[--col-span-default]">
             <div class="flex gap-6">
-                <p class="text-lg font-bold">{{__('Inbox')}}</p>
+                <p class="text-lg font-bold text-gray-950 dark:text-white">{{__('Inbox')}}</p>
                 @if ($this->unreadCount() > 0)
                     <x-filament::badge>
                         {{ $this->unreadCount() }}
@@ -39,10 +44,10 @@
             <div class="grid w-full">
                 @foreach ($this->conversations as $conversation)
                     <a wire:key="{{ $conversation->id }}" wire:navigate
-                        href="{{ MessagesPage::getUrl(tenant: filament()->getTenant()) . '/' . $conversation->id }}"
+                        href="{{ $messagesPage::getUrl(tenant: filament()->getTenant()) . '/' . $conversation->id }}"
                         @class([
                             'p-2 rounded-xl w-full mb-2',
-                            'hover:bg-gray-100 hover:bg-gray-100 dark:hover:bg-white/10' => $conversation->id != $selectedConversation?->id,
+                            'hover:bg-gray-100 dark:hover:bg-white/10' => $conversation->id != $selectedConversation?->id,
                             'bg-gray-100 dark:bg-white/10 dark:text-white' => $conversation->id == $selectedConversation?->id,
                             'bg-gray-100 dark:bg-white/10' => !in_array(auth()->id(), $conversation->latestMessage()->read_by)
                         ])>
@@ -60,14 +65,14 @@
                                         <p
                                             @class([
                                                 'text-sm font-semibold truncate',
-                                                'italic text-gray-900' => !in_array(auth()->id(), $conversation->latestMessage()->read_by)
+                                                'italic text-gray-950 dark:text-white' => !in_array(auth()->id(), $conversation->latestMessage()->read_by)
                                             ])
                                         >{{ $conversation->inbox_title }}</p>
                                         <p
                                             @class([
                                                 'text-sm truncate dark:text-gray-400',
                                                 'text-gray-600' => in_array(auth()->id(), $conversation->latestMessage()->read_by),
-                                                'italic text-gray-900' => !in_array(auth()->id(), $conversation->latestMessage()->read_by)
+                                                'italic text-gray-950 dark:text-gray-200' => !in_array(auth()->id(), $conversation->latestMessage()->read_by)
                                             ])
                                         >
                                             <span class="font-bold">
@@ -87,7 +92,7 @@
                                     @class([
                                         'text-sm font-light text-end',
                                         'text-gray-600 dark:text-gray-500' => in_array(auth()->id(), $conversation->latestMessage()->read_by),
-                                        'italic font-semibold text-gray-900 dark:text-gray-500' => !in_array(auth()->id(), $conversation->latestMessage()->read_by)
+                                        'italic font-semibold text-gray-950 dark:text-gray-300' => !in_array(auth()->id(), $conversation->latestMessage()->read_by)
                                     ])
                                 >
                                     {{ \Carbon\Carbon::parse($conversation->updated_at)->setTimezone(config('messages.timezone', 'app.timezone'))->shortAbsoluteDiffForHumans() }}

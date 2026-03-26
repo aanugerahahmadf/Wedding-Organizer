@@ -6,7 +6,6 @@ use Filament\Facades\Filament;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 
 if (! function_exists('Filament\authorize')) {
@@ -18,7 +17,7 @@ if (! function_exists('Filament\authorize')) {
         $user = Filament::auth()->user();
 
         if (! $shouldCheckPolicyExistence) {
-            return Gate::forUser($user)->authorize($action, Arr::wrap($model));
+            return Gate::forUser($user)->authorize($action, $model);
         }
 
         $policy = Gate::getPolicyFor($model);
@@ -45,6 +44,6 @@ if (! function_exists('Filament\authorize')) {
             return $response->authorize();
         }
 
-        return Gate::forUser($user)->authorize($action, Arr::wrap($model));
+        return Gate::forUser($user)->authorize($action, $model);
     }
 }

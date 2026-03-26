@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Atur ulang kata sandi',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Jika akun Anda tidak ada, Anda tidak akan menerima email.',
-        ],
 
         'throttled' => [
             'title' => 'Terlalu banyak permintaan',

@@ -36,8 +36,6 @@ class RepeatableEntry extends Entry
 
             if ($itemData instanceof Model) {
                 $container->record($itemData);
-            } elseif (is_array($itemData)) {
-                $container->state($itemData);
             }
 
             $containers[$itemKey] = $container;

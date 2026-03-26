@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Réinitialiser votre mot de passe',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Vous ne recevrez aucun email si aucun compte n’est associé à cette adresse.',
-        ],
 
         'throttled' => [
             'title' => 'Trop de requêtes',

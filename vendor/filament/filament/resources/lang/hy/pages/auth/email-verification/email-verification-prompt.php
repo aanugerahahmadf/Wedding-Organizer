@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Հաստատեք Ձեր էլ. փոստի հասցեն',

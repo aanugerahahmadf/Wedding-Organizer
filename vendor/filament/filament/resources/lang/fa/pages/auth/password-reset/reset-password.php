@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'بازنشانی رمز عبور',
@@ -16,7 +13,7 @@ return [
         ],
 
         'password' => [
-            'label' => 'رمز عبور',
+            'label' => 'رمر عبور',
             'validation_attribute' => 'رمز عبور',
         ],
 

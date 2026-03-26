@@ -30,7 +30,7 @@ class Wizard extends Component
 
     protected int | Closure $startStep = 1;
 
-    protected ?int $currentStepIndex = null;
+    protected int $currentStepIndex = 0;
 
     /**
      * @var view-string
@@ -59,6 +59,8 @@ class Wizard extends Component
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->setCurrentStepIndex($this->getStartStep() - 1);
 
         $this->registerActions([
             fn (Wizard $component): Action => $component->getNextAction(),
@@ -266,7 +268,7 @@ class Wizard extends Component
 
     public function getCurrentStepIndex(): int
     {
-        return $this->currentStepIndex ??= ($this->getStartStep() - 1);
+        return $this->currentStepIndex;
     }
 
     protected function setCurrentStepIndex(int $index): static

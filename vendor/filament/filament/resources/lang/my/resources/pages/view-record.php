@@ -1,20 +1,7 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
-    'title' => ':label ကိုကြည့်ရန်',
-
-    'breadcrumb' => 'ကြည့်ရန်',
-
-    'content' => [
-
-        'tab' => [
-            'label' => 'ကြည့်ရန်',
-        ],
-
-    ],
+    'breadcrumb' => 'စစ်ဆေးပါ',
 
 ];

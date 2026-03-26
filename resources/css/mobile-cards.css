@@ -573,9 +573,11 @@ button:active,
 }
 
 /* Smooth but fast transitions using Hardware Acceleration */
-.fi-main, .fi-topbar, .fi-sidebar {
-    will-change: transform, opacity !important;
-    backface-visibility: hidden !important;
+@media (max-width: 1024px) {
+    .fi-main, .fi-topbar, .fi-sidebar {
+        will-change: transform, opacity !important;
+        backface-visibility: hidden !important;
+    }
 }
 
 /* Optimization for mobile CPUs - Kurangi delay animasi */
@@ -583,5 +585,18 @@ button:active,
     .fi-mobile-card-table tr {
         transition: transform 0.1s ease, box-shadow 0.1s ease !important;
         will-change: transform !important;
+    }
+}
+/* Force Sticky Sidebar */
+@media (min-width: 1024px) {
+    aside.fi-sidebar {
+        align-self: flex-start !important;
+        position: sticky !important;
+        top: 0 !important;
+        height: 100vh !important;
+    }
+    .fi-layout {
+        overflow-x: visible !important;
+        clip-path: none !important;
     }
 }

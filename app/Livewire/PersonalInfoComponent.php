@@ -58,15 +58,27 @@ class PersonalInfoComponent extends Component implements HasForms
                     ->description(__('Perbarui informasi profil dan alamat email akun Anda.'))
                     ->schema([
                         FileUpload::make('avatar_url')
-                            ->label(__('Foto'))
+                            ->label(__('Foto Profil'))
                             ->image()
                             ->avatar()
+                            ->imageEditor()
                             ->directory('avatars')
+                            ->extraAttributes(['class' => 'flex flex-col items-center justify-center'])
+                            ->alignCenter()
                             ->columnSpanFull(),
                         TextInput::make('full_name')
                             ->label(__('Nama Lengkap'))
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function ($state, \Filament\Forms\Set $set) {
+                                if (blank($state)) return;
+                                $parts = explode(' ', trim($state));
+                                $firstName = array_shift($parts);
+                                $lastName = count($parts) > 0 ? implode(' ', $parts) : '';
+                                $set('first_name', $firstName);
+                                $set('last_name', $lastName);
+                            }),
                         TextInput::make('first_name')
                             ->label(__('Nama Depan'))
                             ->maxLength(255),

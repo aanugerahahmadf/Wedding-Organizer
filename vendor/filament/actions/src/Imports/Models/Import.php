@@ -50,7 +50,6 @@ class Import extends Model
             return $this->morphTo();
         }
 
-        /** @var ?Authenticatable $authenticatable */
         $authenticatable = app(Authenticatable::class);
 
         if ($authenticatable) {

@@ -39,11 +39,6 @@ trait Macroable
         static::$macros = [];
     }
 
-    public static function hasMacro(string $name): bool
-    {
-        return (bool) static::getMacro($name);
-    }
-
     /**
      * @param  array<array-key>  $parameters
      */

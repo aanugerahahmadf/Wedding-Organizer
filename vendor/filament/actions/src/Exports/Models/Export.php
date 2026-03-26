@@ -44,7 +44,6 @@ class Export extends Model
             return $this->morphTo();
         }
 
-        /** @var ?Authenticatable $authenticatable */
         $authenticatable = app(Authenticatable::class);
 
         if ($authenticatable) {
@@ -98,15 +97,5 @@ class Export extends Model
     public function getFileDirectory(): string
     {
         return 'filament_exports' . DIRECTORY_SEPARATOR . $this->getKey();
-    }
-
-    public function deleteFileDirectory(): void
-    {
-        $disk = $this->getFileDisk();
-        $directory = $this->getFileDirectory();
-
-        if ($disk->directoryExists($directory)) {
-            $disk->deleteDirectory($directory);
-        }
     }
 }

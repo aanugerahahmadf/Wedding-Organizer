@@ -3,12 +3,18 @@
 namespace App\Providers;
 
 use App\Database\MySqlProxyConnection;
-use App\Filament\Auth\Login;
-use App\Filament\Auth\OtpEmailVerificationPrompt;
-use App\Filament\Auth\OtpRequestPasswordReset;
-use App\Filament\Auth\OtpResetPassword;
-use App\Filament\Auth\Register;
-use App\Filament\Auth\VerifyOtp;
+use App\Filament\Admin\Auth\Login as AdminLogin;
+use App\Filament\Admin\Auth\OtpEmailVerificationPrompt as AdminOtpEmailVerificationPrompt;
+use App\Filament\Admin\Auth\OtpRequestPasswordReset as AdminOtpRequestPasswordReset;
+use App\Filament\Admin\Auth\OtpResetPassword as AdminOtpResetPassword;
+use App\Filament\Admin\Auth\Register as AdminRegister;
+use App\Filament\Admin\Auth\VerifyOtp as AdminVerifyOtp;
+use App\Filament\User\Auth\Login as UserLogin;
+use App\Filament\User\Auth\OtpEmailVerificationPrompt as UserOtpEmailVerificationPrompt;
+use App\Filament\User\Auth\OtpRequestPasswordReset as UserOtpRequestPasswordReset;
+use App\Filament\User\Auth\OtpResetPassword as UserOtpResetPassword;
+use App\Filament\User\Auth\Register as UserRegister;
+use App\Filament\User\Auth\VerifyOtp as UserVerifyOtp;
 use App\Livewire\BrowserSessionsComponent;
 use App\Livewire\DeleteAccountComponent;
 use App\Livewire\EditPasswordComponent;
@@ -107,6 +113,19 @@ class AppServiceProvider extends ServiceProvider
 
                 return property_exists($this, $key) ? $this->$key : [];
             });
+
+            Table::macro('mobileCards', function (bool $condition = true) {
+                /** @var mixed $this */
+                return $this->extraTableAttributes(['mobile-cards' => $condition]);
+            });
+
+            Table::macro('mobileCardFeatured', function (string $column, string $color = 'primary') {
+                /** @var mixed $this */
+                return $this->extraTableAttributes([
+                    'mobile-card-featured-column' => $column,
+                    'mobile-card-featured-color' => $color,
+                ]);
+            });
         });
     }
 
@@ -171,39 +190,29 @@ class AppServiceProvider extends ServiceProvider
         Livewire::component('fm-search', Search::class);
         Livewire::component('username-component', UsernameComponent::class);
 
-        // 🔐 AUTH COMPONENTS (FOR PASSWORD RESET FLOW)
-        Livewire::component('app.filament.auth.login', Login::class);
-        Livewire::component('app.filament.auth.register', Register::class);
-        Livewire::component('app.filament.auth.otp-request-password-reset', OtpRequestPasswordReset::class);
-        Livewire::component('app.filament.auth.otp-reset-password', OtpResetPassword::class);
-        Livewire::component('app.filament.auth.verify-otp', VerifyOtp::class);
-        Livewire::component('app.filament.auth.otp-email-verification-prompt', OtpEmailVerificationPrompt::class);
+        // 🔐 ADMIN PANEL — AUTH COMPONENTS
+        Livewire::component('app.filament.admin.auth.login', AdminLogin::class);
+        Livewire::component('app.filament.admin.auth.register', AdminRegister::class);
+        Livewire::component('app.filament.admin.auth.otp-request-password-reset', AdminOtpRequestPasswordReset::class);
+        Livewire::component('app.filament.admin.auth.otp-reset-password', AdminOtpResetPassword::class);
+        Livewire::component('app.filament.admin.auth.verify-otp', AdminVerifyOtp::class);
+        Livewire::component('app.filament.admin.auth.otp-email-verification-prompt', AdminOtpEmailVerificationPrompt::class);
 
-        // 📱 GLOBAL MOBILE AREA OPTIMIZATION
-        // Automatically make ALL Tables into a Card-like layout natively on Mobile
-        $isMobile = PHP_OS_FAMILY !== 'Windows' && ! isset($_SERVER['REMOTE_ADDR']) && ! env('DOCKER_ENV');
+        // 🔐 USER PANEL — AUTH COMPONENTS
+        Livewire::component('app.filament.user.auth.login', UserLogin::class);
+        Livewire::component('app.filament.user.auth.register', UserRegister::class);
+        Livewire::component('app.filament.user.auth.otp-request-password-reset', UserOtpRequestPasswordReset::class);
+        Livewire::component('app.filament.user.auth.otp-reset-password', UserOtpResetPassword::class);
+        Livewire::component('app.filament.user.auth.verify-otp', UserVerifyOtp::class);
+        Livewire::component('app.filament.user.auth.otp-email-verification-prompt', UserOtpEmailVerificationPrompt::class);
 
-        Table::configureUsing(function (Table $table) use ($isMobile): void {
+        Table::configureUsing(function (Table $table): void {
             $table->searchable();
-
-            if ($isMobile) {
-                // Native Filament Card-like grid for all tables on mobile
-                $table->contentGrid([
-                    'md' => 1,
-                    'lg' => 1,
-                ]);
-            }
         });
 
         // 🎯 GLOBAL ALIGNMENT CENTER UNTUK SEMUA TABLE & EXPORTER
-        Column::configureUsing(function (Column $column) use ($isMobile): void {
+        Column::configureUsing(function (Column $column): void {
             $column->alignCenter();
-            // Otomatis translasi Judul Kolom (Headers) sesuai bahasa terpilih
-            // $column->translateLabel();
-            
-            if ($isMobile) {
-                $column->alignCenter();
-            }
         });
 
         // 🎯 GLOBAL AUTO-TRANSLATE UNTUK SEMUA "ISI TABLE" (ROW DATA) PADA WEBDAN NATIVEPHP

@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'label' => 'Abfragegenerator',
@@ -36,7 +33,7 @@ return [
 
     ],
 
-    'no_rules' => '(Keine Bedingungen)',
+    'no_rules' => '(Keine Bedinungen)',
 
     'item_separators' => [
         'and' => 'UND',
@@ -82,13 +79,13 @@ return [
             'is_after' => [
 
                 'label' => [
-                    'direct' => 'ist nach',
-                    'inverse' => 'ist nicht nach',
+                    'direct' => 'nach',
+                    'inverse' => 'vor',
                 ],
 
                 'summary' => [
-                    'direct' => ':attribute ist nach :date',
-                    'inverse' => ':attribute ist nicht nach :date',
+                    'direct' => ':attribute is after :date',
+                    'inverse' => ':attribute is not after :date',
                 ],
 
             ],
@@ -97,7 +94,7 @@ return [
 
                 'label' => [
                     'direct' => 'ist vor',
-                    'inverse' => 'ist nicht vor',
+                    'inverse' => 'ist nach',
                 ],
 
                 'summary' => [
@@ -110,7 +107,7 @@ return [
             'is_date' => [
 
                 'label' => [
-                    'direct' => 'ist ein Datum',
+                    'direct' => 'ist Datum',
                     'inverse' => 'ist kein Datum',
                 ],
 
@@ -124,7 +121,7 @@ return [
             'is_month' => [
 
                 'label' => [
-                    'direct' => 'ist ein Monat',
+                    'direct' => 'ist ein ',
                     'inverse' => 'ist kein Monat',
                 ],
 

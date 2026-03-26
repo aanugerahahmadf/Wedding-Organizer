@@ -1,13 +1,10 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'label' => 'Navigasi penomboran',
 
-    'overview' => '{1} Memaparkan 1 rekod|[2,*] Memaparkan :first hingga :last daripada :total rekod',
+    'overview' => '{1} Memaparkan 1 rekod|Memaparkan :first hingga :last daripada :total rekod',
 
     'fields' => [
 

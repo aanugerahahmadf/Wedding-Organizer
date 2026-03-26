@@ -9,7 +9,7 @@ class WidgetConfiguration
      * @param  array<string, mixed>  $properties
      */
     public function __construct(
-        public readonly string $widget,
+        readonly public string $widget,
         protected array $properties = [],
     ) {}
 

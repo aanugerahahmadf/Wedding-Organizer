@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'column_toggle' => [
@@ -12,10 +9,6 @@ return [
     ],
 
     'columns' => [
-
-        'actions' => [
-            'label' => 'Azione|Azioni',
-        ],
 
         'text' => [
 
@@ -118,10 +111,6 @@ return [
     'filters' => [
 
         'actions' => [
-
-            'apply' => [
-                'label' => 'Applica filtri',
-            ],
 
             'remove' => [
                 'label' => 'Rimuovi filtro',

@@ -63,6 +63,11 @@ class Withdrawal extends Model
         'admin_notes',
     ];
 
+    protected $casts = [
+        'status' => \App\Enums\WithdrawalStatus::class,
+        'amount' => 'decimal:2',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

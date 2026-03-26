@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'confirmation' => 'តើអ្នកប្រាកដទេថាអ្នកចង់ធ្វើបែបនេះ?',

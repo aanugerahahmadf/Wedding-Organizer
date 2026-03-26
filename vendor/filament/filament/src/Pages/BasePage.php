@@ -124,9 +124,9 @@ abstract class BasePage extends Component implements HasActions, HasForms, HasIn
         (static::$reportValidationErrorUsing)($exception);
     }
 
-    protected function halt(bool $shouldRollbackDatabaseTransaction = false): void
+    protected function halt(): void
     {
-        throw (new Halt)->rollBackDatabaseTransaction($shouldRollbackDatabaseTransaction);
+        throw new Halt;
     }
 
     protected function callHook(string $hook): void

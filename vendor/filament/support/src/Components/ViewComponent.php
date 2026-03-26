@@ -6,7 +6,6 @@ use Closure;
 use Exception;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Arr;
 use Illuminate\View\ComponentAttributeBag;
 
 abstract class ViewComponent extends Component implements Htmlable
@@ -22,7 +21,7 @@ abstract class ViewComponent extends Component implements Htmlable
     protected string | Closure | null $defaultView = null;
 
     /**
-     * @var array<array<string, mixed> | Closure>
+     * @var array<string, mixed>
      */
     protected array $viewData = [];
 
@@ -30,9 +29,9 @@ abstract class ViewComponent extends Component implements Htmlable
 
     /**
      * @param  view-string | null  $view
-     * @param  array<string, mixed> | Closure  $viewData
+     * @param  array<string, mixed>  $viewData
      */
-    public function view(?string $view, array | Closure $viewData = []): static
+    public function view(?string $view, array $viewData = []): static
     {
         if ($view === null) {
             return $this;
@@ -40,7 +39,7 @@ abstract class ViewComponent extends Component implements Htmlable
 
         $this->view = $view;
 
-        if (filled($viewData)) {
+        if ($viewData !== []) {
             $this->viewData($viewData);
         }
 
@@ -66,11 +65,14 @@ abstract class ViewComponent extends Component implements Htmlable
     }
 
     /**
-     * @param  array<string, mixed> | Closure  $data
+     * @param  array<string, mixed>  $data
      */
-    public function viewData(array | Closure $data): static
+    public function viewData(array $data): static
     {
-        $this->viewData[] = $data;
+        $this->viewData = [
+            ...$this->viewData,
+            ...$data,
+        ];
 
         return $this;
     }
@@ -99,17 +101,6 @@ abstract class ViewComponent extends Component implements Htmlable
         return $this->evaluate($this->defaultView);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function getViewData(): array
-    {
-        return Arr::mapWithKeys(
-            $this->viewData,
-            fn (mixed $data): array => $this->evaluate($data) ?? [],
-        );
-    }
-
     public function toHtml(): string
     {
         return $this->render()->render();
@@ -123,7 +114,7 @@ abstract class ViewComponent extends Component implements Htmlable
                 'attributes' => new ComponentAttributeBag,
                 ...$this->extractPublicMethods(),
                 ...(isset($this->viewIdentifier) ? [$this->viewIdentifier => $this] : []),
-                ...$this->getViewData(),
+                ...$this->viewData,
             ],
         );
     }

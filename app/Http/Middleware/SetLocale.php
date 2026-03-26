@@ -17,7 +17,7 @@ class SetLocale
 
         // Force check across all guards
         $user = null;
-        $guards = ['web', 'filament', 'admin', 'api'];
+        $guards = ['web'];
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 $user = Auth::guard($guard)->user();

@@ -26,6 +26,8 @@ use Illuminate\Support\Js;
 use Illuminate\Validation\Rules\Password;
 use Throwable;
 
+use function Filament\Support\is_app_url;
+
 /**
  * @property Form $form
  */
@@ -158,6 +160,8 @@ class EditProfile extends Page
             $this->handleRecordUpdate($this->getUser(), $data);
 
             $this->callHook('afterSave');
+
+            $this->commitDatabaseTransaction();
         } catch (Halt $exception) {
             $exception->shouldRollbackDatabaseTransaction() ?
                 $this->rollBackDatabaseTransaction() :
@@ -169,8 +173,6 @@ class EditProfile extends Page
 
             throw $exception;
         }
-
-        $this->commitDatabaseTransaction();
 
         if (request()->hasSession() && array_key_exists('password', $data)) {
             request()->session()->put([
@@ -184,7 +186,7 @@ class EditProfile extends Page
         $this->getSavedNotification()?->send();
 
         if ($redirectUrl = $this->getRedirectUrl()) {
-            $this->redirect($redirectUrl, navigate: FilamentView::hasSpaMode($redirectUrl));
+            $this->redirect($redirectUrl, navigate: FilamentView::hasSpaMode() && is_app_url($redirectUrl));
         }
     }
 
@@ -208,7 +210,7 @@ class EditProfile extends Page
 
         return Notification::make()
             ->success()
-            ->title($title);
+            ->title($this->getSavedNotificationTitle());
     }
 
     protected function getSavedNotificationTitle(): ?string

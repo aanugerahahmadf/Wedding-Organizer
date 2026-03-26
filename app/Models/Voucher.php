@@ -60,5 +60,6 @@ class Voucher extends Model
         'is_active' => 'boolean',
         'discount_amount' => 'decimal:2',
         'min_purchase' => 'decimal:2',
+        'discount_type' => \App\Enums\DiscountType::class,
     ];
 }

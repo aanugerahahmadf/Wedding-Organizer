@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Number;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\ValidationException;
 use League\Csv\Bom;
 use League\Csv\CharsetConverter;
@@ -194,7 +195,7 @@ trait CanImportRecords
             }
 
             $csvReader->setHeaderOffset($action->getHeaderOffset() ?? 0);
-            $csvResults = (new Statement)->process($csvReader);
+            $csvResults = Statement::create()->process($csvReader);
 
             $totalRows = $csvResults->count();
             $maxRows = $action->getMaxRows() ?? $totalRows;
@@ -382,7 +383,7 @@ trait CanImportRecords
                 }),
         ]);
 
-        $this->defaultColor('gray');
+        $this->color('gray');
 
         $this->modalWidth('xl');
 
@@ -438,21 +439,7 @@ trait CanImportRecords
 
     protected function detectCsvEncoding(mixed $resource): ?string
     {
-        rewind($resource);
-
-        $lineCount = 0;
-        $contentSample = '';
-
-        while ((! feof($resource)) && ($lineCount < 20)) {
-            $line = fgets($resource);
-
-            if ($line === false) {
-                break;
-            }
-
-            $contentSample .= $line;
-            $lineCount++;
-        }
+        $fileHeader = fgets($resource);
 
         // The encoding of a subset should be declared before the encoding of its superset.
         $encodings = [
@@ -467,7 +454,7 @@ trait CanImportRecords
         ];
 
         foreach ($encodings as $encoding) {
-            if (! mb_check_encoding($contentSample, $encoding)) {
+            if (! mb_check_encoding($fileHeader, $encoding)) {
                 continue;
             }
 
@@ -615,43 +602,45 @@ trait CanImportRecords
     {
         $fileRules = [
             'extensions:csv,txt',
-            fn (): Closure => function (string $attribute, mixed $value, Closure $fail) {
-                $csvStream = $this->getUploadedFileStream($value);
+            File::types(['csv', 'txt'])->rules([
+                function (string $attribute, mixed $value, Closure $fail) {
+                    $csvStream = $this->getUploadedFileStream($value);
 
-                if (! $csvStream) {
-                    return;
-                }
-
-                $csvReader = CsvReader::createFromStream($csvStream);
-
-                if (filled($csvDelimiter = $this->getCsvDelimiter($csvReader))) {
-                    $csvReader->setDelimiter($csvDelimiter);
-                }
-
-                $csvReader->setHeaderOffset($this->getHeaderOffset() ?? 0);
-
-                $csvColumns = $csvReader->getHeader();
-
-                $duplicateCsvColumns = [];
-
-                foreach (array_count_values($csvColumns) as $header => $count) {
-                    if ($count <= 1) {
-                        continue;
+                    if (! $csvStream) {
+                        return;
                     }
 
-                    $duplicateCsvColumns[] = $header;
-                }
+                    $csvReader = CsvReader::createFromStream($csvStream);
 
-                if (empty($duplicateCsvColumns)) {
-                    return;
-                }
+                    if (filled($csvDelimiter = $this->getCsvDelimiter($csvReader))) {
+                        $csvReader->setDelimiter($csvDelimiter);
+                    }
 
-                $filledDuplicateCsvColumns = array_filter($duplicateCsvColumns, fn ($value): bool => filled($value));
+                    $csvReader->setHeaderOffset($this->getHeaderOffset() ?? 0);
 
-                $fail(trans_choice('filament-actions::import.modal.form.file.rules.duplicate_columns', count($filledDuplicateCsvColumns), [
-                    'columns' => implode(', ', $filledDuplicateCsvColumns),
-                ]));
-            },
+                    $csvColumns = $csvReader->getHeader();
+
+                    $duplicateCsvColumns = [];
+
+                    foreach (array_count_values($csvColumns) as $header => $count) {
+                        if ($count <= 1) {
+                            continue;
+                        }
+
+                        $duplicateCsvColumns[] = $header;
+                    }
+
+                    if (empty($duplicateCsvColumns)) {
+                        return;
+                    }
+
+                    $filledDuplicateCsvColumns = array_filter($duplicateCsvColumns, fn ($value): bool => filled($value));
+
+                    $fail(trans_choice('filament-actions::import.modal.form.file.rules.duplicate_columns', count($filledDuplicateCsvColumns), [
+                        'columns' => implode(', ', $filledDuplicateCsvColumns),
+                    ]));
+                },
+            ]),
         ];
 
         foreach ($this->fileValidationRules as $rules) {

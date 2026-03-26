@@ -73,6 +73,8 @@ class Order extends Model
     protected $casts = [
         'booking_date' => 'date',
         'total_price' => 'decimal:2',
+        'status' => \App\Enums\OrderStatus::class,
+        'payment_status' => \App\Enums\OrderPaymentStatus::class,
     ];
 
     protected $appends = ['event_date'];

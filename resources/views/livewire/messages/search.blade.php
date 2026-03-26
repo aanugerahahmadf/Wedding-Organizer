@@ -1,6 +1,11 @@
-@php
-    use App\Filament\Pages\MessagesPage;
-@endphp
+    @php
+        $panelId = filament()->getCurrentPanel()?->getId();
+        $messagesPage = match($panelId) {
+            'admin' => \App\Filament\Admin\Pages\MessagesPage::class,
+            'user' => \App\Filament\User\Pages\MessagesPage::class,
+            default => \App\Filament\User\Pages\MessagesPage::class,
+        };
+    @endphp
 <x-filament::modal width="xl" id="search-conversation">
     <x-slot name="heading">
         {{__('Search Messages')}}
@@ -14,8 +19,8 @@
         <div class="relative">
             <ul class="bg-white dark:bg-gray-900 divide-y dark:divide-white/10">
                 @foreach($messages as $message)
-                    <li wire:key="{{ $message->id }}" class="hover:bg-gray-100 hover:bg-gray-100 dark:hover:bg-white/10">
-                        <a wire:navigate href="{{ MessagesPage::getUrl(tenant: filament()->getTenant()) . '/' . $message->inbox->id }}">
+                    <li wire:key="{{ $message->id }}" class="hover:bg-gray-100 dark:hover:bg-white/10">
+                        <a wire:navigate href="{{ $messagesPage::getUrl(tenant: filament()->getTenant()) . '/' . $message->inbox->id }}">
                             <div class="grid grid-cols-[--cols-default] lg:grid-cols-[--cols-lg] p-3" style="--cols-default: repeat(1, minmax(0, 1fr)); --cols-lg: repeat(5, minmax(0, 1fr));">
                                 <div style="--col-span-default: span 4 / span 4;" class="col-[--col-span-default]">
                                     <div class="flex gap-3">

@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Vahvista sähköpostiosoite',
@@ -12,7 +9,7 @@ return [
     'actions' => [
 
         'resend_notification' => [
-            'label' => 'Lähetä uudelleen',
+            'label' => 'Lähetä uudelleen ',
         ],
 
     ],

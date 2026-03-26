@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
@@ -74,6 +76,8 @@ class WeddingOrganizer extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
+    public const BRAND_SLUG = 'devi-makeup-wedding';
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('logo')->singleFile();
@@ -112,6 +116,14 @@ class WeddingOrganizer extends Model implements HasMedia
         })->first();
     }
 
+    public static function getBrand(): ?self
+    {
+        return self::query()
+            ->where('slug', self::BRAND_SLUG)
+            ->orWhere('name', 'like', '%Devi Make Up%')
+            ->first();
+    }
+
     public function getBusinessNameAttribute()
     {
         return $this->name;
@@ -143,12 +155,18 @@ class WeddingOrganizer extends Model implements HasMedia
 
     public function getLogoUrlAttribute()
     {
-        return $this->getFirstMediaUrl('logo') ?: 'https://via.placeholder.com/150';
+        $fallback = asset('images/placeholders/image-placeholder.svg');
+        $url = $this->getValidMediaUrl($this->getFirstMedia('logo'));
+
+        return $this->normalizeImageUrl($url, $fallback);
     }
 
     public function getCoverImageUrlAttribute()
     {
-        return $this->getFirstMediaUrl('gallery') ?: 'https://via.placeholder.com/800x400';
+        $fallback = asset('images/placeholders/image-placeholder.svg');
+        $url = $this->getValidMediaUrl($this->getFirstMedia('gallery'));
+
+        return $this->normalizeImageUrl($url, $fallback);
     }
 
     public function getVideoUrlAttribute(): ?string
@@ -169,5 +187,34 @@ class WeddingOrganizer extends Model implements HasMedia
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    private function normalizeImageUrl(?string $url, string $fallback): string
+    {
+        if (! filled($url)) {
+            return $fallback;
+        }
+
+        if (Str::startsWith($url, ['http://', 'https://', 'data:image', '/'])) {
+            return $url;
+        }
+
+        return asset(ltrim($url, '/'));
+    }
+
+    private function getValidMediaUrl(?Media $media): ?string
+    {
+        if (! $media) {
+            return null;
+        }
+
+        $disk = $media->disk ?: config('filesystems.default');
+        $relativePath = ltrim((string) $media->getPathRelativeToRoot(), '/');
+
+        if (! $relativePath || ! Storage::disk($disk)->exists($relativePath)) {
+            return null;
+        }
+
+        return $media->getUrl();
     }
 }

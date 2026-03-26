@@ -1,7 +1,5 @@
 @php
     use Filament\Support\Enums\MaxWidth;
-
-    $livewire ??= null;
 @endphp
 
 <x-filament-panels::layout.base :livewire="$livewire">
@@ -62,6 +60,6 @@
             </main>
         </div>
 
-        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::FOOTER, scopes: $livewire?->getRenderHookScopes()) }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::FOOTER, scopes: $livewire->getRenderHookScopes()) }}
     </div>
 </x-filament-panels::layout.base>

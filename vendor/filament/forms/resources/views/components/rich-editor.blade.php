@@ -3,11 +3,10 @@
 
     $id = $getId();
     $statePath = $getStatePath();
-    $isDisabled = $isDisabled();
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
-    @if ($isDisabled)
+    @if ($isDisabled())
         <div
             x-data="{
                 state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }},
@@ -378,11 +377,6 @@
                     @endif
                     x-ref="trix"
                     wire:ignore
-                    wire:key="{{ $this->getId() }}.{{ $statePath }}.{{ $field::class }}.{{
-                        substr(md5(serialize([
-                            $isDisabled,
-                        ])), 0, 64)
-                    }}"
                     @if ($isGrammarlyDisabled())
                         data-gramm="false"
                         data-gramm_editor="false"

@@ -97,6 +97,7 @@ class Payment extends Model
         'expired_at' => 'datetime',
         'cancelled_at' => 'datetime',
         'metadata' => 'array',
+        'status' => \App\Enums\PaymentStatus::class,
     ];
 
     /**
@@ -162,7 +163,7 @@ class Payment extends Model
      */
     public function isSuccess(): bool
     {
-        return $this->status === 'success';
+        return $this->status === \App\Enums\PaymentStatus::SUCCESS || $this->status === 'success';
     }
 
     /**
@@ -170,7 +171,7 @@ class Payment extends Model
      */
     public function isPending(): bool
     {
-        return $this->status === 'pending';
+        return $this->status === \App\Enums\PaymentStatus::PENDING || $this->status === 'pending';
     }
 
     /**
@@ -178,7 +179,12 @@ class Payment extends Model
      */
     public function isFailed(): bool
     {
-        return in_array($this->status, ['failed', 'expired', 'cancelled']);
+        return in_array($this->status, [
+            \App\Enums\PaymentStatus::FAILED, 
+            \App\Enums\PaymentStatus::EXPIRED, 
+            \App\Enums\PaymentStatus::CANCELLED,
+            'failed', 'expired', 'cancelled'
+        ], true);
     }
 
     /**

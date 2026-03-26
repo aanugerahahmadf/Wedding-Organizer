@@ -31,14 +31,18 @@
     <header class="relative z-50 w-full lg:max-w-4xl max-w-[335px] text-sm mb-6">
         <nav class="flex items-center justify-end gap-3 lg:gap-6">
             @auth
-                <a href="{{ route('filament.admin.pages.dashboard') }}"
+                <a href="{{ route('filament.user.pages.home') }}"
                     class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal transition-all active:scale-95 whitespace-nowrap">
                     {{ __('Beranda') }}
                 </a>
             @else
-                <a href="{{ route('filament.admin.auth.login') }}"
+                <a href="{{ route('filament.user.auth.login') }}"
                     class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal transition-all active:scale-95 whitespace-nowrap">
                     {{ __('Log in') }}
+                </a>
+                <a href="{{ route('filament.user.auth.register') }}"
+                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal transition-all active:scale-95 whitespace-nowrap">
+                    {{ __('Register') }}
                 </a>
             @endauth
 
@@ -82,9 +86,9 @@
 
                 <ul class="flex w-full mt-4 lg:mt-6">
                     <li class="w-full lg:w-auto">
-                        <a href="{{ route('filament.admin.pages.dashboard') }}"
+                        <a href="{{ route('filament.user.pages.home') }}"
                             class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal transition-all active:scale-95 shadow-sm">
-                            {{ __('Access Admin Beranda') }}
+                            {{ __('Access User Beranda') }}
                         </a>
                     </li>
                 </ul>

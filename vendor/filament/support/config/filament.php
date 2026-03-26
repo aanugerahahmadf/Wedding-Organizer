@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     /*
@@ -88,17 +85,5 @@ return [
     */
 
     'livewire_loading_delay' => 'default',
-
-    /*
-    |--------------------------------------------------------------------------
-    | System Route Prefix
-    |--------------------------------------------------------------------------
-    |
-    | This is the prefix used for the system routes that Filament registers,
-    | such as the routes for downloading exports and failed import rows.
-    |
-    */
-
-    'system_route_prefix' => 'filament',
 
 ];

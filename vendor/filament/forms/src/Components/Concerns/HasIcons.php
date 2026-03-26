@@ -2,7 +2,6 @@
 
 namespace Filament\Forms\Components\Concerns;
 
-use BackedEnum;
 use Closure;
 use Filament\Support\Contracts\HasIcon as IconInterface;
 use Illuminate\Contracts\Support\Arrayable;
@@ -48,7 +47,7 @@ trait HasIcons
             is_a($enum, IconInterface::class, allow_string: true)
         ) {
             return array_reduce($enum::cases(), function (array $carry, IconInterface & UnitEnum $case): array {
-                $carry[$case instanceof BackedEnum ? $case->value : $case->name] = $case->getIcon();
+                $carry[$case?->value ?? $case->name] = $case->getIcon();
 
                 return $carry;
             }, []);

@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Redefinir a sua palavra-passe',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Se a sua conta não existir, não receberá o e-mail.',
-        ],
 
         'throttled' => [
             'title' => 'Muitas solicitações',

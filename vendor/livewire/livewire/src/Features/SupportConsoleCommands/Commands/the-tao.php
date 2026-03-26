@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
     'Because she competes with no one, no one can compete with her.',
     'The best athlete wants his opponent at his best.',

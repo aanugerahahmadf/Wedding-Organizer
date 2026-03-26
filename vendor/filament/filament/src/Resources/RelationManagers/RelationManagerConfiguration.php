@@ -9,7 +9,7 @@ class RelationManagerConfiguration
      * @param  array<string, mixed>  $properties
      */
     public function __construct(
-        public readonly string $relationManager,
+        readonly public string $relationManager,
         protected array $properties = [],
     ) {}
 

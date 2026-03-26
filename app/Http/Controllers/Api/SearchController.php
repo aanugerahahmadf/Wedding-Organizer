@@ -52,7 +52,7 @@ class SearchController extends Controller
             return response()->json([
                 'status' => 'success',
                 'data' => [],
-                'message' => 'AI Service is currently processing or index is empty.',
+                'message' => 'Rekomendasi gambar belum ditemukan.',
             ]);
         }
 

@@ -122,6 +122,13 @@
       0 => 'Filament\\Widgets\\WidgetsServiceProvider',
     ),
   ),
+  'jeffersongoncalves/filament-qrcode-field' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'JeffersonGoncalves\\Filament\\QrCodeField\\QrCodeFieldServiceProvider',
+    ),
+  ),
   'jeffgreco13/filament-breezy' => 
   array (
     'aliases' => 
@@ -494,20 +501,6 @@
     'providers' => 
     array (
       0 => 'ShuvroRoy\\FilamentSpatieLaravelHealth\\FilamentSpatieLaravelHealthServiceProvider',
-    ),
-  ),
-  'slym758/filament-collapsible-sidebar' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Slym758\\CollapsibleSidebar\\CollapsibleSidebarServiceProvider',
-    ),
-  ),
-  'slym758/filament-mobile-table' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'MobileCards\\FilamentMobileTable\\FilamentMobileTableServiceProvider',
     ),
   ),
   'spatie/laravel-activitylog' => 

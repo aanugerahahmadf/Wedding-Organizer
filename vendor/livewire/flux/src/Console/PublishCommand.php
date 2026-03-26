@@ -41,12 +41,14 @@ class PublishCommand extends Command
             'Modal' => ['modal'],
             'Navbar' => ['navbar', 'navlist'],
             'Otp' => ['otp'],
+            'Progress' => ['progress'],
             'Radio' => ['radio'],
             'Separator' => ['separator'],
             'Select' => ['select'],
             'Skeleton' => ['skeleton'],
             'Switch' => ['switch'],
             'Textarea' => ['textarea'],
+            'Toast' => ['toast'],
             'Tooltip' => ['tooltip'],
             'Typography' => ['heading', 'subheading', 'text', 'link'],
         ],
@@ -70,7 +72,6 @@ class PublishCommand extends Command
             'Tabs' => ['tabs','tab'],
             'Table' => ['table', 'pagination'],
             'Time picker' => ['time-picker'],
-            'Toast' => ['toast'],
         ],
     ];
 

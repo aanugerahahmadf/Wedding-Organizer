@@ -24,15 +24,7 @@ class XlsxDownloader implements Downloader
         $fileName = $export->file_name . '.xlsx';
 
         if ($disk->exists($filePath = $directory . DIRECTORY_SEPARATOR . $fileName)) {
-            $response = $disk->download($filePath);
-
-            if (ob_get_length() > 0) {
-                ob_end_clean();
-            }
-
-            $response->headers->set('X-Vapor-Base64-Encode', 'True');
-
-            return $response;
+            return $disk->download($filePath);
         }
 
         $writer = app(Writer::class);
@@ -42,7 +34,7 @@ class XlsxDownloader implements Downloader
         $writeRowsFromFile = function (string $file) use ($csvDelimiter, $disk, $writer) {
             $csvReader = CsvReader::createFromStream($disk->readStream($file));
             $csvReader->setDelimiter($csvDelimiter);
-            $csvResults = (new Statement)->process($csvReader);
+            $csvResults = Statement::create()->process($csvReader);
 
             foreach ($csvResults->getRecords() as $row) {
                 $writer->addRow(Row::fromValues($row));

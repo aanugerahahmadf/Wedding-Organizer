@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'column_toggle' => [
@@ -12,10 +9,6 @@ return [
     ],
 
     'columns' => [
-
-        'actions' => [
-            'label' => 'សកម្មភាព|សកម្មភាព',
-        ],
 
         'text' => [
 

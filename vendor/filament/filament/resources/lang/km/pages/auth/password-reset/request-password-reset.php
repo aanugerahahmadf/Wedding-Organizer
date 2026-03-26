@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'កំណត់ពាក្យសម្ងាត់របស់អ្នកឡើងវិញ',

@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'तपाईंको पासवर्ड रिसेट गर्नुहोस्',

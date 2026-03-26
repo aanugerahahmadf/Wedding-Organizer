@@ -2,14 +2,13 @@
 
 namespace Filament\Panel\Concerns;
 
-use Closure;
 use Filament\AvatarProviders\UiAvatarsProvider;
 
 trait HasAvatars
 {
-    protected string | Closure $defaultAvatarProvider = UiAvatarsProvider::class;
+    protected string $defaultAvatarProvider = UiAvatarsProvider::class;
 
-    public function defaultAvatarProvider(string | Closure $provider): static
+    public function defaultAvatarProvider(string $provider): static
     {
         $this->defaultAvatarProvider = $provider;
 
@@ -18,6 +17,6 @@ trait HasAvatars
 
     public function getDefaultAvatarProvider(): string
     {
-        return $this->evaluate($this->defaultAvatarProvider);
+        return $this->defaultAvatarProvider;
     }
 }

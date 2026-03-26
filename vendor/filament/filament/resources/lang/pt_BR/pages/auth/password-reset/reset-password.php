@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Redefina sua senha',
@@ -17,7 +14,7 @@ return [
 
         'password' => [
             'label' => 'Senha',
-            'validation_attribute' => 'senha',
+            'validation_attribute' => 'password',
         ],
 
         'password_confirmation' => [

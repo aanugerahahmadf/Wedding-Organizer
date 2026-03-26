@@ -20,7 +20,7 @@ trait HasState
 
     protected bool | Closure $isDistinctList = false;
 
-    protected ?string $cachedAbsoluteStatePath = null;
+    protected string $cachedAbsoluteStatePath;
 
     public function getStateUsing(mixed $callback): static
     {
@@ -69,7 +69,7 @@ trait HasState
 
             $state = $containerState instanceof Model ?
                 $this->getStateFromRecord($containerState) :
-                data_get($containerState, $this->getStatePath(isAbsolute: false));
+                data_get($containerState, $this->getStatePath());
         }
 
         if (is_string($state) && ($separator = $this->getSeparator())) {
@@ -117,7 +117,7 @@ trait HasState
 
     public function getStatePath(bool $isAbsolute = true): string
     {
-        if ($this->cachedAbsoluteStatePath !== null) {
+        if (isset($this->cachedAbsoluteStatePath)) {
             return $this->cachedAbsoluteStatePath;
         }
 
@@ -170,6 +170,6 @@ trait HasState
 
     protected function flushCachedAbsoluteStatePath(): void
     {
-        $this->cachedAbsoluteStatePath = null;
+        unset($this->cachedAbsoluteStatePath);
     }
 }

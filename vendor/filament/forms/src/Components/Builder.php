@@ -650,7 +650,7 @@ class Builder extends Field implements Contracts\CanConcealComponents, Contracts
             })
             ->form(function (array $arguments, Builder $component) {
                 return $component->getChildComponentContainer($arguments['item'])
-                    ->getComponents(withHidden: true);
+                    ->getComponents();
             })
             ->action(function (array $arguments, Builder $component, $data): void {
                 $state = $component->getState();

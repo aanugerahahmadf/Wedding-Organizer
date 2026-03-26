@@ -70,7 +70,7 @@ class Register extends SimplePage
             return null;
         }
 
-        $user = $this->wrapInDatabaseTransaction(function (): Model {
+        $user = $this->wrapInDatabaseTransaction(function () {
             $this->callHook('beforeValidate');
 
             $data = $this->form->getState();

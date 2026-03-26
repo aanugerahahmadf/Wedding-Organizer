@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'label' => 'পৃষ্ঠা সংখ্যাগুলো',

@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'builder' => [
@@ -15,62 +12,14 @@ return [
 
             'add' => [
                 'label' => 'Aggiungi a :label',
-
-                'modal' => [
-
-                    'heading' => 'Aggiungi a :label',
-
-                    'actions' => [
-
-                        'add' => [
-                            'label' => 'Aggiungi',
-                        ],
-
-                    ],
-
-                ],
             ],
 
             'add_between' => [
                 'label' => 'Inserisci tra i blocchi',
-
-                'modal' => [
-
-                    'heading' => 'Aggiungi a :label',
-
-                    'actions' => [
-
-                        'add' => [
-                            'label' => 'Aggiungi',
-                        ],
-
-                    ],
-
-                ],
             ],
 
             'delete' => [
                 'label' => 'Elimina',
-            ],
-
-            'edit' => [
-
-                'label' => 'Modifica',
-
-                'modal' => [
-
-                    'heading' => 'Modifica blocco',
-
-                    'actions' => [
-
-                        'save' => [
-                            'label' => 'Salva modifiche',
-                        ],
-
-                    ],
-
-                ],
-
             ],
 
             'reorder' => [
@@ -408,8 +357,6 @@ return [
 
             'create_option' => [
 
-                'label' => 'Crea',
-
                 'modal' => [
 
                     'heading' => 'Crea',
@@ -431,8 +378,6 @@ return [
             ],
 
             'edit_option' => [
-
-                'label' => 'Modifica',
 
                 'modal' => [
 
@@ -473,31 +418,6 @@ return [
 
     'tags_input' => [
         'placeholder' => 'Nuovo tag',
-    ],
-
-    'text_input' => [
-
-        'actions' => [
-
-            'hide_password' => [
-                'label' => 'Nascondi password',
-            ],
-
-            'show_password' => [
-                'label' => 'Mostra password',
-            ],
-
-        ],
-
-    ],
-
-    'toggle_buttons' => [
-
-        'boolean' => [
-            'true' => 'Si',
-            'false' => 'No',
-        ],
-
     ],
 
     'wizard' => [

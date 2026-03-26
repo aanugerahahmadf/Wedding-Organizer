@@ -20,10 +20,6 @@ trait CanGeneratePanels
             placeholder: $placeholder,
             default: $default,
             required: true,
-            validate: fn (string $value) => match (true) {
-                preg_match('/^[a-zA-Z].*/', $value) !== false => null,
-                default => 'The ID must start with a letter, and not a number or special character.',
-            },
         ));
 
         $class = (string) str($id)

@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'builder' => [
@@ -411,8 +408,6 @@ return [
 
             'create_option' => [
 
-                'label' => 'Tạo',
-
                 'modal' => [
 
                     'heading' => 'Tạo',
@@ -434,8 +429,6 @@ return [
             ],
 
             'edit_option' => [
-
-                'label' => 'Chỉnh sửa',
 
                 'modal' => [
 

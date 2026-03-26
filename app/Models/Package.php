@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
@@ -126,9 +128,13 @@ class Package extends Model implements HasMedia
 
     public function getImageUrlAttribute()
     {
-        return $this->getFirstMediaUrl('package')
-            ?: $this->weddingOrganizer?->getFirstMediaUrl('gallery')
-            ?: 'https://via.placeholder.com/400x300?text=Package';
+        $fallback = asset('images/placeholders/image-placeholder.svg');
+
+        $url = $this->getValidMediaUrl($this->getFirstMedia('package'))
+            ?: $this->getValidMediaUrl($this->weddingOrganizer?->getFirstMedia('gallery'))
+            ?: null;
+
+        return $this->normalizeImageUrl($url, $fallback);
     }
 
     public function getVideoUrlAttribute(): ?string
@@ -168,5 +174,34 @@ class Package extends Model implements HasMedia
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    private function normalizeImageUrl(?string $url, string $fallback): string
+    {
+        if (! filled($url)) {
+            return $fallback;
+        }
+
+        if (Str::startsWith($url, ['http://', 'https://', 'data:image', '/'])) {
+            return $url;
+        }
+
+        return asset(ltrim($url, '/'));
+    }
+
+    private function getValidMediaUrl(?Media $media): ?string
+    {
+        if (! $media) {
+            return null;
+        }
+
+        $disk = $media->disk ?: config('filesystems.default');
+        $relativePath = ltrim((string) $media->getPathRelativeToRoot(), '/');
+
+        if (! $relativePath || ! Storage::disk($disk)->exists($relativePath)) {
+            return null;
+        }
+
+        return $media->getUrl();
     }
 }

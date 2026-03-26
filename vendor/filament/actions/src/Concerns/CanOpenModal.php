@@ -11,7 +11,6 @@ use Filament\Support\Enums\MaxWidth;
 use Filament\Support\View\Components\Modal;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Arr;
 
 trait CanOpenModal
 {
@@ -35,7 +34,7 @@ trait CanOpenModal
     protected array $cachedModalActions;
 
     /**
-     * @var array<StaticAction | Closure>
+     * @var array<StaticAction>
      */
     protected array $modalActions = [];
 
@@ -215,7 +214,7 @@ trait CanOpenModal
     }
 
     /**
-     * @param  array<StaticAction | Closure>  $actions
+     * @param  array<StaticAction>  $actions
      */
     public function registerModalActions(array $actions): static
     {
@@ -353,8 +352,8 @@ trait CanOpenModal
         if ($this->modalFooterActions) {
             $actions = [];
 
-            foreach ($this->evaluate($this->modalFooterActions) as $modalAction) {
-                $actions[$modalAction->getName()] = $this->prepareModalAction($modalAction);
+            foreach ($this->evaluate($this->modalFooterActions) as $action) {
+                $actions[$action->getName()] = $this->prepareModalAction($action);
             }
 
             return $this->cachedModalFooterActions = $actions;
@@ -399,9 +398,7 @@ trait CanOpenModal
         $actions = $this->getModalFooterActions();
 
         foreach ($this->modalActions as $action) {
-            foreach (Arr::wrap($this->evaluate($action)) as $modalAction) {
-                $actions[$modalAction->getName()] = $this->prepareModalAction($modalAction);
-            }
+            $actions[$action->getName()] = $this->prepareModalAction($action);
         }
 
         return $this->cachedModalActions = $actions;

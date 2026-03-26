@@ -54,8 +54,6 @@ class Repeater extends Field implements Contracts\CanConcealComponents, Contract
 
     protected string | Closure | null $itemLabel = null;
 
-    protected bool | Closure $hasItemNumbers = false;
-
     protected Field | Closure | null $simpleField = null;
 
     protected Alignment | string | Closure | null $addActionAlignment = null;
@@ -1016,13 +1014,6 @@ class Repeater extends Field implements Contracts\CanConcealComponents, Contract
         return $this;
     }
 
-    public function itemNumbers(bool | Closure $condition = true): static
-    {
-        $this->hasItemNumbers = $condition;
-
-        return $this;
-    }
-
     public function fillFromRelationship(): void
     {
         $this->state(
@@ -1147,11 +1138,6 @@ class Repeater extends Field implements Contracts\CanConcealComponents, Contract
     public function hasItemLabels(): bool
     {
         return $this->itemLabel !== null;
-    }
-
-    public function hasItemNumbers(): bool
-    {
-        return (bool) $this->evaluate($this->hasItemNumbers);
     }
 
     public function simple(Field | Closure | null $field): static

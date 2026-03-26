@@ -192,11 +192,13 @@ class Messages extends Component implements HasForms
     public function validateMessage(): bool
     {
         $rawData = $this->form->getRawState();
-        if (empty($rawData['attachments']) && ! $rawData['message']) {
-            return true;
-        }
+        
+        $hasAttachments = !empty($rawData['attachments']);
+        $hasCameraImage = !empty($rawData['camera_image']);
+        $hasMessage = !empty($rawData['message']);
 
-        return false;
+        // Return true (disabled) only if ALL are empty
+        return !($hasAttachments || $hasCameraImage || $hasMessage);
     }
 
     public function render(): Application|Factory|View|\Illuminate\View\View

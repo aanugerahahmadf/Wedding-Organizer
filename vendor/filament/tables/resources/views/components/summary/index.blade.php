@@ -25,9 +25,6 @@
     }
 
     $hasPageSummary = (! $groupsOnly) && $records instanceof \Illuminate\Contracts\Pagination\Paginator && $records->hasPages();
-
-    $pageTableSummaryQuery = $hasPageSummary ? $this->getPageTableSummaryQuery() : null;
-    $allTableSummaryQuery = $this->getAllTableSummaryQuery();
 @endphp
 
 @if ($hasPageSummary)
@@ -49,11 +46,7 @@
         @endif
 
         @foreach ($columns as $column)
-            @php
-                $columnHasSummary = ($pageTableSummaryQuery && $column->hasSummary($pageTableSummaryQuery)) || $column->hasSummary($allTableSummaryQuery);
-            @endphp
-
-            @if ($placeholderColumns || $columnHasSummary)
+            @if ($placeholderColumns || $column->hasSummary())
                 @php
                     $alignment = $column->getAlignment() ?? Alignment::Start;
 
@@ -61,7 +54,7 @@
                         $alignment = filled($alignment) ? (Alignment::tryFrom($alignment) ?? $alignment) : null;
                     }
 
-                    $hasColumnHeaderLabel = (! $placeholderColumns) || $columnHasSummary;
+                    $hasColumnHeaderLabel = (! $placeholderColumns) || $column->hasSummary();
                 @endphp
 
                 <x-filament-tables::summary.header-cell
@@ -101,7 +94,8 @@
     </x-filament-tables::row>
 
     @php
-        $selectedState = $this->getTableSummarySelectedState($pageTableSummaryQuery)[0] ?? [];
+        $query = $this->getPageTableSummaryQuery();
+        $selectedState = $this->getTableSummarySelectedState($query)[0] ?? [];
     @endphp
 
     <x-filament-tables::summary.row
@@ -111,7 +105,7 @@
         :extra-heading-column="$extraHeadingColumn"
         :heading="__('filament-tables::table.summary.subheadings.page', ['label' => $pluralModelLabel])"
         :placeholder-columns="$placeholderColumns"
-        :query="$pageTableSummaryQuery"
+        :query="$query"
         :record-checkbox-position="$recordCheckboxPosition"
         :selected-state="$selectedState"
         :selection-enabled="$selectionEnabled"
@@ -119,7 +113,8 @@
 @endif
 
 @php
-    $selectedState = $this->getTableSummarySelectedState($allTableSummaryQuery)[0] ?? [];
+    $query = $this->getAllTableSummaryQuery();
+    $selectedState = $this->getTableSummarySelectedState($query)[0] ?? [];
 @endphp
 
 <x-filament-tables::summary.row
@@ -130,7 +125,7 @@
     :groups-only="$groupsOnly"
     :heading="__(($hasPageSummary ? 'filament-tables::table.summary.subheadings.all' : 'filament-tables::table.summary.heading'), ['label' => $pluralModelLabel])"
     :placeholder-columns="$placeholderColumns"
-    :query="$allTableSummaryQuery"
+    :query="$query"
     :record-checkbox-position="$recordCheckboxPosition"
     :selected-state="$selectedState"
     :selection-enabled="$selectionEnabled"

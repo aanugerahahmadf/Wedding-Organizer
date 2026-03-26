@@ -59,7 +59,7 @@ class NavigationManager
             ->map(function (Collection $items, string $groupIndex) use ($groups): NavigationGroup {
                 $parentItems = $items->groupBy(fn (NavigationItem $item): string => $item->getParentItem() ?? '');
 
-                $items = $parentItems->get('', collect())
+                $items = $parentItems->get('')
                     ->keyBy(fn (NavigationItem $item): string => $item->getLabel());
 
                 $parentItems->except([''])->each(function (Collection $parentItemItems, string $parentItemLabel) use ($items) {
@@ -69,8 +69,6 @@ class NavigationManager
 
                     $items->get($parentItemLabel)->childItems($parentItemItems);
                 });
-
-                $items = $items->filter(fn (NavigationItem $item): bool => (filled($item->getChildItems()) || filled($item->getUrl())));
 
                 if (blank($groupIndex)) {
                     return NavigationGroup::make()->items($items);
@@ -100,7 +98,6 @@ class NavigationManager
                 return NavigationGroup::make($registeredGroup ?? $groupIndex)
                     ->items($items);
             })
-            ->filter(fn (NavigationGroup $group): bool => filled($group->getItems()))
             ->sortBy(function (NavigationGroup $group, ?string $groupIndex): int {
                 if (blank($group->getLabel())) {
                     return -1;

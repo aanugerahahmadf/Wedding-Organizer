@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'तपाईंको ईमेल ठेगाना प्रमाणित गर्नुहोस्',

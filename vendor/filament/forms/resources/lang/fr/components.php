@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'builder' => [
@@ -387,7 +384,7 @@ return [
         'actions' => [
 
             'create_option' => [
-                'label' => 'Créer',
+
                 'modal' => [
 
                     'heading' => 'Créer',
@@ -409,7 +406,7 @@ return [
             ],
 
             'edit_option' => [
-                'label' => 'Modifier',
+
                 'modal' => [
 
                     'heading' => 'Modifier',

@@ -32,11 +32,7 @@ trait CanDisableOptions
         return collect($this->getOptions())
             ->reduce(function (Collection $carry, $label, $value): Collection {
                 if (is_array($label)) {
-                    foreach ($label as $key => $value) {
-                        $carry->put($key, $value);
-                    }
-
-                    return $carry;
+                    return $carry->merge($label);
                 }
 
                 return $carry->put($value, $label);

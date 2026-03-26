@@ -12,18 +12,18 @@ return [
      |
      */
     'locals' => [
-        'id' => ['flag' => 'id', 'label' => 'Indonesian'],
-        'en' => ['flag' => 'gb', 'label' => 'English'],
-        'en_US' => ['flag' => 'us', 'label' => 'English US'],
-        'ar' => ['flag' => 'sa', 'label' => 'Arabic'],
-        'de' => ['flag' => 'de', 'label' => 'German'],
-        'es' => ['flag' => 'es', 'label' => 'Spanish'],
-        'fr' => ['flag' => 'fr', 'label' => 'French'],
-        'it' => ['flag' => 'it', 'label' => 'Italian'],
-        'ja' => ['flag' => 'jp', 'label' => 'Japanese'],
-        'ko' => ['flag' => 'kr', 'label' => 'Korean'],
-        'zh' => ['flag' => 'cn', 'label' => 'Chinese'],
-        'ru' => ['flag' => 'ru', 'label' => 'Russian'],
+        'id' => ['flag' => 'id', 'label' => 'Bahasa Indonesia'],
+        'en' => ['flag' => 'gb', 'label' => 'English (UK)'],
+        'en_US' => ['flag' => 'us', 'label' => 'English (US)'],
+        'ar' => ['flag' => 'sa', 'label' => 'العربية'],
+        'de' => ['flag' => 'de', 'label' => 'Deutsch'],
+        'es' => ['flag' => 'es', 'label' => 'Español'],
+        'fr' => ['flag' => 'fr', 'label' => 'Français'],
+        'it' => ['flag' => 'it', 'label' => 'Italiano'],
+        'ja' => ['flag' => 'jp', 'label' => '日本語'],
+        'ko' => ['flag' => 'kr', 'label' => '한국어'],
+        'zh' => ['flag' => 'cn', 'label' => '中文'],
+        'ru' => ['flag' => 'ru', 'label' => 'Русский'],
     ],
 
     /*

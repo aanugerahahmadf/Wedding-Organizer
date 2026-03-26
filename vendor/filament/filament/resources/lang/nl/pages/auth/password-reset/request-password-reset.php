@@ -1,8 +1,5 @@
 <?php
 
-/** @return array<string, mixed> */
-
-
 return [
 
     'title' => 'Wachtwoord opnieuw instellen',
@@ -34,10 +31,6 @@ return [
     ],
 
     'notifications' => [
-
-        'sent' => [
-            'body' => 'Als uw account niet bestaat, ontvangt u de e-mail niet.',
-        ],
 
         'throttled' => [
             'title' => 'Te veel pogingen',

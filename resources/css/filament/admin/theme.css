@@ -6,7 +6,7 @@
 @import '../../../../vendor/filament/filament/resources/css/base.css';
 
 /* 📱 Filament Mobile Table Cards & Responsiveness Fixes */
-@import "../../mobile-cards.css";
+/* @import "../../mobile-cards.css"; */
 
 /* 🛠️ Explicitly Scan Filament components */
 @source "../../../../vendor/filament/**/*.blade.php";
@@ -56,4 +56,26 @@
         --gray-900: 243, 244, 246;
         --gray-950: 249, 250, 251;
     }
+}
+
+/* ❌ Hapus Garis Kuning/Orange (Progress Bar & Nav Indicator) */
+#nprogress .bar,
+.nprogress-custom-parent #nprogress .bar,
+.nprogress-custom-parent #nprogress .spinner {
+    display: none !important;
+}
+
+.fi-topbar-item-active::after,
+.fi-topbar-item-active-underline {
+    display: none !important;
+    border: none !important;
+}
+
+.fi-topbar {
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+.fi-breadcrumbs {
+    display: none !important;
 }

@@ -40,7 +40,7 @@ trait HasState
 
     protected ?string $statePath = null;
 
-    protected ?string $cachedAbsoluteStatePath = null;
+    protected string $cachedAbsoluteStatePath;
 
     /**
      * @var string | array<string> | Closure | null
@@ -89,7 +89,7 @@ trait HasState
         return $this;
     }
 
-    public function callAfterStateUpdated(bool $shouldBubbleToParents = true): static
+    public function callAfterStateUpdated(): static
     {
         foreach ($this->afterStateUpdated as $callback) {
             $runId = spl_object_id($callback) . md5(json_encode($this->getState()));
@@ -101,10 +101,6 @@ trait HasState
             $this->callAfterStateUpdatedHook($callback);
 
             store($this)->push('executedAfterStateUpdatedCallbacks', value: $runId, iKey: $runId);
-        }
-
-        if ($shouldBubbleToParents) {
-            $this->getContainer()->getParentComponent()?->callAfterStateUpdated();
         }
 
         return $this;
@@ -174,17 +170,7 @@ trait HasState
     {
         if (! ($isDehydrated && $this->isDehydrated())) {
             if ($this->hasStatePath()) {
-                $rootContainer = $this->getContainer();
-
-                while (! $rootContainer->isRoot()) {
-                    $rootContainer = $rootContainer->getParentComponent()->getContainer();
-                }
-
-                $statePath = $this->getStatePath();
-
-                if (! $rootContainer->hasDehydratedComponent($statePath)) {
-                    Arr::forget($state, $statePath);
-                }
+                Arr::forget($state, $this->getStatePath());
 
                 return;
             }
@@ -193,17 +179,21 @@ trait HasState
             // we need to dehydrate the child component containers while
             // informing them that they are not dehydrated, so that their
             // child components get removed from the state.
-            foreach ($this->getChildComponentContainers(withHidden: true) as $container) {
+            foreach ($this->getChildComponentContainers() as $container) {
                 $container->dehydrateState($state, isDehydrated: false);
             }
 
             return;
         }
 
-        if ($this->hasStatePath()) {
+        if ($this->getStatePath(isAbsolute: false)) {
             foreach ($this->getStateToDehydrate() as $key => $value) {
                 Arr::set($state, $key, $value);
             }
+        }
+
+        if ($this->isHiddenAndNotDehydrated()) {
+            return;
         }
 
         foreach ($this->getChildComponentContainers(withHidden: true) as $container) {
@@ -419,7 +409,7 @@ trait HasState
             return $this->statePath ?? '';
         }
 
-        if ($this->cachedAbsoluteStatePath !== null) {
+        if (isset($this->cachedAbsoluteStatePath)) {
             return $this->cachedAbsoluteStatePath;
         }
 
@@ -448,11 +438,7 @@ trait HasState
 
     public function isDehydrated(): bool
     {
-        if (! $this->evaluate($this->isDehydrated)) {
-            return false;
-        }
-
-        return ! $this->isHiddenAndNotDehydrated();
+        return (bool) $this->evaluate($this->isDehydrated);
     }
 
     public function isDehydratedWhenHidden(): bool
@@ -508,7 +494,7 @@ trait HasState
 
     protected function flushCachedAbsoluteStatePath(): void
     {
-        $this->cachedAbsoluteStatePath = null;
+        unset($this->cachedAbsoluteStatePath);
     }
 
     /**
