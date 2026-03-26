@@ -56,7 +56,7 @@
                 </span>
                 <span class="text-sm font-semibold text-gray-500 dark:text-gray-400 flex items-center justify-center sm:justify-start gap-2">
                     <x-filament::icon icon="heroicon-m-user-circle" class="w-4 h-4" />
-                    a/n {{ $method->account_holder ?? '-' }}
+                    {{ __('a/n') }} {{ $method->account_holder ?? '-' }}
                 </span>
             </div>
             

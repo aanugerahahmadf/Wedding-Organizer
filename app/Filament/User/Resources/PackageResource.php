@@ -255,7 +255,7 @@ class PackageResource extends Resource
                                                     // ── Similarity Score — native Placeholder + badge ──
                                                     Forms\Components\Placeholder::make('score_label_' . $pkg->id)
                                                         ->label(__('Kesamaan Visual'))
-                                                        ->content($pct . '% MIRIP'),
+                                                        ->content($pct . '% ' . __('MIRIP')),
 
                                                     // Progress bar (inline style width — tidak bisa dihindari)
                                                     Forms\Components\Placeholder::make('score_bar_' . $pkg->id)
@@ -377,7 +377,7 @@ class PackageResource extends Resource
                             ]),
                         ]),
                         Tables\Columns\TextColumn::make('is_featured')
-                            ->state(fn ($record) => $record?->is_featured ? '🔥 TOP DEAL' : null)
+                            ->state(fn ($record) => $record?->is_featured ? '🔥 ' . __('TOP DEAL') : null)
                             ->badge()
                             ->color('danger')
                             ->visible(fn ($record) => (bool) ($record?->is_featured ?? false))

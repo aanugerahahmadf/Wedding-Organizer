@@ -16,11 +16,11 @@
     <div class="flex items-center justify-between mb-3 px-1">
         <div class="flex items-center gap-2">
             <x-filament::icon icon="heroicon-s-sparkles" class="w-4 h-4 text-amber-500" />
-            <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Hasil Mirip</span>
+            <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">{{ __('Hasil Mirip') }}</span>
         </div>
         <div class="flex items-center gap-2">
             <x-filament::badge color="success" size="sm">
-                {{ count($packages) }} paket ditemukan
+                {{ count($packages) }} {{ __('paket ditemukan') }}
             </x-filament::badge>
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="mb-3 px-3 py-2 rounded-2xl bg-linear-to-r from-amber-500/10 to-primary-500/10 border border-amber-500/20 flex items-center gap-2">
         <x-filament::icon icon="heroicon-s-fire" class="w-4 h-4 text-amber-500 shrink-0" />
         <span class="text-xs font-semibold text-amber-700 dark:text-amber-400">
-            Kecocokan terbaik: <strong>{{ round($topScore * 100) }}%</strong> akurasi visual
+            {{ __('Kecocokan terbaik:') }} <strong>{{ round($topScore * 100) }}%</strong> {{ __('akurasi visual') }}
         </span>
     </div>
     @endif
@@ -53,7 +53,7 @@
             {{-- Accuracy Badge Top Right --}}
             <div class="absolute top-2 right-2 z-10 flex flex-col items-end gap-1">
                 <x-filament::badge color="{{ $badgeColor }}" size="sm" class="font-bold shadow-sm text-[10px]">
-                    {{ $pct }}% MIRIP
+                    {{ $pct }}% {{ __('MIRIP') }}
                 </x-filament::badge>
                 @if($package->is_featured)
                 <span class="text-[9px] font-extrabold bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">🔥 TOP</span>
@@ -130,7 +130,7 @@
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
-                            Keranjang
+                            {{ __('Keranjang') }}
                         </a>
 
                         {{-- Sewa Langsung --}}
@@ -140,7 +140,7 @@
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                             </svg>
-                            Sewa
+                            {{ __('Sewa') }}
                         </a>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
             class="w-full py-3 rounded-2xl bg-linear-to-r from-amber-500 to-primary-500 text-white font-bold text-sm shadow-lg shadow-primary-500/20 hover:from-amber-600 hover:to-primary-600 transition-all active:scale-95 flex items-center justify-center gap-2"
         >
             <x-filament::icon icon="heroicon-m-squares-2x2" class="w-4 h-4" />
-            Tampilkan Semua di Katalog
+            {{ __('Tampilkan Semua di Katalog') }}
         </button>
     </div>
 

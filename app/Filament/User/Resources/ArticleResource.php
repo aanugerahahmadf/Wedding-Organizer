@@ -81,7 +81,7 @@ class ArticleResource extends Resource
                             ->searchable()
                             ->lineClamp(2),
                         Tables\Columns\TextColumn::make('created_at')
-                            ->formatStateUsing(fn($state) => 'Dipublikasikan: ' . \Carbon\Carbon::parse($state)->translatedFormat('d F Y'))
+                            ->formatStateUsing(fn($state) => __('Dipublikasikan') . ': ' . \Carbon\Carbon::parse($state)->translatedFormat('d F Y'))
                             ->size('xs')
                             ->color('gray')
                             ->icon('heroicon-o-clock'),

@@ -99,7 +99,7 @@ class PaymentResource extends Resource
                                             '<div class="flex flex-col items-center gap-2 bg-primary-50 dark:bg-primary-950 p-4 rounded-xl border-2 border-primary-200 dark:border-primary-800">'
                                             . '<p class="text-center text-gray-950 dark:text-white">' . __('Tujuan Transfer:') . '<br>'
                                             . '<span class="font-mono text-2xl font-bold tracking-widest text-primary-600 dark:text-primary-400 select-all">' . ($method->account_number ?? '-') . '</span><br>'
-                                            . '<span class="text-sm font-semibold opacity-80 mt-1 text-gray-600 dark:text-gray-400">' . __('a/n ') . ($method->account_holder ?? '-') . '</span></p>'
+                                            . '<span class="text-sm font-semibold opacity-80 mt-1 text-gray-600 dark:text-gray-400">' . __('a/n') . ' ' . ($method->account_holder ?? '-') . '</span></p>'
                                             . '</div>'
                                         );
                                     }
@@ -152,7 +152,7 @@ class PaymentResource extends Resource
                         Tables\Columns\Layout\Stack::make([
                         Tables\Columns\TextColumn::make('order.order_number')
                                 ->label(__('Pesanan'))
-                                ->formatStateUsing(fn($state) => __('Transaksi: ') . $state)
+                                ->formatStateUsing(fn($state) => __('Transaksi:') . ' ' . $state)
                                 ->weight(FontWeight::Bold)
                                 ->size('lg'),
                             Tables\Columns\TextColumn::make('payment_method')
@@ -160,7 +160,7 @@ class PaymentResource extends Resource
                                 ->color('info')
                                 ->size('xs'),
                                 Tables\Columns\TextColumn::make('created_at')
-                                ->formatStateUsing(fn($state) => __('Tanggal: ') . \Carbon\Carbon::parse($state)->translatedFormat('d F Y, H:i'))
+                                ->formatStateUsing(fn($state) => __('Tanggal:') . ' ' . \Carbon\Carbon::parse($state)->translatedFormat('d F Y, H:i'))
                                 ->size('xs')
                                 ->color('gray'),
                         ])->space(1),
@@ -169,7 +169,7 @@ class PaymentResource extends Resource
                     // Footer
                     Tables\Columns\Layout\Split::make([
                         Tables\Columns\TextColumn::make('total_text')
-                            ->state(fn() => __('Total Bayar:'))
+                            ->state(fn() => __('Total Bayar') . ':')
                             ->size('sm')
                             ->color('gray')
                             ->alignEnd()
