@@ -35,7 +35,7 @@ class ReviewController extends Controller
             if (! $order) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'You can only review packages you have ordered and completed',
+                    'message' => __('Anda hanya dapat memberikan ulasan untuk paket yang telah Anda pesan dan selesai'),
                 ], 403);
             }
 
@@ -47,7 +47,7 @@ class ReviewController extends Controller
             if ($existingReview) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'You have already reviewed this package',
+                    'message' => __('Anda sudah memberikan ulasan untuk paket ini'),
                 ], 409);
             }
 
@@ -64,19 +64,19 @@ class ReviewController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Review submitted successfully',
+                'message' => __('Ulasan berhasil dikirim'),
                 'data' => $review,
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation failed',
+                'message' => __('Validasi gagal'),
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to submit review',
+                'message' => __('Gagal mengirim ulasan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -118,7 +118,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve reviews',
+                'message' => __('Gagal mengambil ulasan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -162,7 +162,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve organizer reviews',
+                'message' => __('Gagal mengambil ulasan organizer'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -194,7 +194,7 @@ class ReviewController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve your reviews',
+                'message' => __('Gagal mengambil ulasan Anda'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -223,24 +223,24 @@ class ReviewController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Review updated successfully',
+                'message' => __('Ulasan berhasil diperbarui'),
                 'data' => $review,
             ]);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation failed',
+                'message' => __('Validasi gagal'),
                 'errors' => $e->errors(),
             ], 422);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Review not found or does not belong to you',
+                'message' => __('Ulasan tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to update review',
+                'message' => __('Gagal memperbarui ulasan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -260,17 +260,17 @@ class ReviewController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Review deleted successfully',
+                'message' => __('Ulasan berhasil dihapus'),
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Review not found or does not belong to you',
+                'message' => __('Ulasan tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to delete review',
+                'message' => __('Gagal menghapus ulasan'),
                 'error' => $e->getMessage(),
             ], 500);
         }

@@ -94,12 +94,27 @@ class ArticleResource extends Resource
                                     ->maxLength(255)
                                     ->prefixIcon('heroicon-o-link'),
                                 Forms\Components\Select::make('author_id')
+                                    ->searchable()
                                     ->label(__('Penulis'))
                                     ->options(User::query()->pluck('full_name', 'id')->toArray())
-                                    ->searchable()
+                                    ->default(fn () => auth()->id())
                                     ->required()
-                                    ->prefixIcon('heroicon-o-user')
-                                    ->columnSpanFull(),
+                                    ->prefixIcon('heroicon-o-user'),
+                                Forms\Components\Select::make('category_id')
+                                    ->searchable()
+                                    ->label(__('Kategori Artikel'))
+                                    ->relationship('category', 'name')
+                                    ->preload()
+                                    ->prefixIcon('heroicon-o-tag'),
+                                Forms\Components\Hidden::make('wedding_organizer_id')
+                                    ->default(1)
+                                    ->required(),
+                                Forms\Components\Textarea::make('excerpt')
+                                    ->label(__('Ringkasan (Snippet)'))
+                                    ->rows(3)
+                                    ->columnSpanFull()
+                                    ->placeholder(__('Tulis ringkasan singkat artikel...'))
+                                    ->helperText(__('Ringkasan ini akan tampil pada daftar artikel.')),
                             ])->columns(2),
 
                         Forms\Components\Section::make(__('Konten Artikel'))
@@ -156,16 +171,19 @@ class ArticleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('author.full_name')
-                    ->label(__('Penulis'))
-                    ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Penulis')),
                 Tables\Columns\TextColumn::make('title')
+                    ->searchable()
                     ->label(__('Judul Artikel'))
+                    ->description(fn (Article $record): string => $record->excerpt ?? ''),
+                Tables\Columns\TextColumn::make('category.name')
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Kategori'))
+                    ->badge()
+                    ->color('info'),
                 Tables\Columns\TextColumn::make('slug')
-                    ->label(__('Slug'))
-                    ->searchable()
+                    ->label(__('Slug'))
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label(__('Gambar Utama'))
@@ -177,18 +195,15 @@ class ArticleResource extends Resource
                 Tables\Columns\TextColumn::make('published_at')
                     ->label(__('Tanggal Terbit'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Dibuat Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Terakhir Diperbarui'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

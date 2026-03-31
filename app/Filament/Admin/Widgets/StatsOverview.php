@@ -71,19 +71,31 @@ class StatsOverview extends BaseWidget
                 ->description($newUserCount.' '.__('baru minggu ini'))
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart($userCounts)
-                ->color('success'),
+                ->color('success')
+                ->extraAttributes([
+                    'class' => 'cursor-pointer hover:shadow-lg transition-all duration-300',
+                    'onclick' => "window.location.href='" . route('filament.admin.resources.users.index') . "'",
+                ]),
 
             Stat::make(__('Total Pesanan'), (string) Order::query()->count())
                 ->description($newOrderCount.' '.__('baru minggu ini'))
                 ->descriptionIcon('heroicon-m-shopping-bag')
                 ->chart($orderCounts)
-                ->color('info'),
+                ->color('info')
+                ->extraAttributes([
+                    'class' => 'cursor-pointer hover:shadow-lg transition-all duration-300',
+                    'onclick' => "window.location.href='" . route('filament.admin.resources.orders.index') . "'",
+                ]),
 
             Stat::make(__('Total Pendapatan'), 'IDR '.number_format($totalRevenue, 0, ',', '.'))
                 ->description('IDR '.number_format($thisMonthRevenue, 0, ',', '.').' '.__('bulan ini'))
                 ->descriptionIcon($thisMonthRevenue > 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-banknotes')
                 ->chart($revenueCounts)
-                ->color('success'),
+                ->color('success')
+                ->extraAttributes([
+                    'class' => 'cursor-pointer hover:shadow-lg transition-all duration-300',
+                    'onclick' => "window.location.href='" . route('filament.admin.resources.payments.index') . "'",
+                ]),
         ];
         });
     }

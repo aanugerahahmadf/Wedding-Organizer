@@ -16,10 +16,14 @@ class WishlistExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('user_id'),
-            ExportColumn::make('package_id'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('user_id')
+                ->label(__('ID Pengguna')),
+            ExportColumn::make('package_id')
+                ->label(__('ID Paket')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

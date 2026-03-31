@@ -14,12 +14,15 @@ return new class extends Migration
         if (! Schema::hasTable('packages')) {
             Schema::create('packages', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('wedding_organizer_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('wedding_organizer_id')->default(1)->constrained()->cascadeOnDelete();
                 $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+                $table->foreignId('article_id')->nullable()->constrained('articles')->onDelete('set null');
                 $table->string('name');
                 $table->string('slug')->unique();
                 $table->text('description')->nullable();
                 $table->decimal('price', 15, 2);
+                $table->decimal('discount_price', 15, 2)->nullable();
+                $table->boolean('is_featured')->default(false);
                 $table->json('features')->nullable();
                 $table->string('theme')->nullable();
                 $table->string('color')->nullable();

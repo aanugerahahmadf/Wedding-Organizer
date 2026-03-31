@@ -92,7 +92,8 @@ class VoucherResource extends Resource
                         Forms\Components\TextInput::make('discount_amount')
                             ->label(__('Jumlah Diskon'))
                             ->required()
-                            ->numeric()
+                            ->formatStateUsing(fn ($state) => $state ? number_format((float) $state, 2, ',', '.') : null)
+                            ->dehydrateStateUsing(fn ($state) => $state ? (float) str_replace(',', '.', str_replace(['Rp', '.', ' '], '', $state)) : null)
                             ->prefix('Rp'),
                         Forms\Components\ToggleButtons::make('discount_type')
                             ->label(__('Tipe Diskon'))
@@ -103,7 +104,11 @@ class VoucherResource extends Resource
                             ->reactive(),
                         Forms\Components\TextInput::make('min_purchase')
                             ->label(__('Pembelian Minimum'))
-                            ->numeric()
+                            ->required()
+                            ->default(0)
+                            ->minValue(0)
+                            ->formatStateUsing(fn ($state) => $state ? number_format((float) $state, 2, ',', '.') : '0,00')
+                            ->dehydrateStateUsing(fn ($state) => $state ? (float) str_replace(',', '.', str_replace(['Rp', '.', ' '], '', $state)) : 0)
                             ->prefix('Rp'),
                     ])->columns(['sm' => 3]),
 
@@ -116,7 +121,32 @@ class VoucherResource extends Resource
                             ->label(__('Status Aktif'))
                             ->default(true)
                             ->required(),
+                        Forms\Components\Toggle::make('is_global')
+                            ->label(__('Voucher Global'))
+                            ->helperText(__('Jika aktif, semua user bisa pakai tanpa di-assign khusus.'))
+                            ->default(false)
+                            ->reactive(),
+                        Forms\Components\TextInput::make('max_uses')
+                            ->label(__('Maks. Pemakaian'))
+                            ->numeric()
+                            ->placeholder('Kosongkan = unlimited')
+                            ->helperText(__('Total pemakaian maksimal voucher ini.')),
                     ])->columns(['sm' => 2]),
+
+                Forms\Components\Section::make(__('Distribusi ke User'))
+                    ->description(__('Assign voucher ini ke user tertentu. Kosongkan jika voucher global.'))
+                    ->icon('heroicon-o-users')
+                    ->schema([
+                        Forms\Components\Select::make('users')
+                            ->searchable()
+                            ->label(__('Pilih User'))
+                            ->multiple()
+                            ->relationship('users', 'email')
+                            ->preload()
+                            ->helperText(__('User yang dipilih akan melihat voucher ini di halaman Voucher mereka.')),
+                    ])
+                    ->collapsed()
+                    ->visible(fn (Forms\Get $get) => ! $get('is_global')),
             ]);
     }
 
@@ -125,13 +155,16 @@ class VoucherResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('code')
-                    ->label(__('Kode'))
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Kode')),
                 Tables\Columns\TextColumn::make('discount_amount')
                     ->label(__('Diskon'))
-                    ->money('IDR')
-                    ->sortable()
+                    ->formatStateUsing(function ($state, \App\Models\Voucher $record) {
+                        if ($record->discount_type === \App\Enums\DiscountType::PERCENTAGE) {
+                            return number_format((float) $state, 0) . '%';
+                        }
+                        return 'Rp ' . number_format((float) $state, 2, ',', '.');
+                    })
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('discount_type')
                     ->label(__('Tipe'))
@@ -140,7 +173,6 @@ class VoucherResource extends Resource
                 Tables\Columns\TextColumn::make('expires_at')
                     ->label(__('Kadaluarsa Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label(__('Status'))
@@ -149,7 +181,6 @@ class VoucherResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Dibuat Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

@@ -16,16 +16,26 @@ class OrderExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('user_id'),
-            ExportColumn::make('package_id'),
-            ExportColumn::make('order_number'),
-            ExportColumn::make('total_price'),
-            ExportColumn::make('status'),
-            ExportColumn::make('payment_status'),
-            ExportColumn::make('booking_date'),
-            ExportColumn::make('notes'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('user_id')
+                ->label(__('ID Pengguna')),
+            ExportColumn::make('package_id')
+                ->label(__('ID Paket')),
+            ExportColumn::make('order_number')
+                ->label(__('Nomor Pesanan')),
+            ExportColumn::make('total_price')
+                ->label(__('Total Harga')),
+            ExportColumn::make('status')
+                ->label(__('Status')),
+            ExportColumn::make('payment_status')
+                ->label(__('Status Pembayaran')),
+            ExportColumn::make('booking_date')
+                ->label(__('Tanggal Booking')),
+            ExportColumn::make('notes')
+                ->label(__('Catatan')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

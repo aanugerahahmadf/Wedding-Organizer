@@ -116,7 +116,7 @@ class WeddingOrganizerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve wedding organizers',
+                'message' => __('Gagal mengambil data wedding organizer'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -152,7 +152,7 @@ class WeddingOrganizerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve wedding organizer details',
+                'message' => __('Gagal mengambil detail wedding organizer'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -252,7 +252,7 @@ class WeddingOrganizerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve organizer packages',
+                'message' => __('Gagal mengambil paket organizer'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -338,7 +338,7 @@ class WeddingOrganizerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve organizer reviews',
+                'message' => __('Gagal mengambil ulasan organizer'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -371,7 +371,7 @@ class WeddingOrganizerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve featured wedding organizers',
+                'message' => __('Gagal mengambil data wedding organizer unggulan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -405,7 +405,7 @@ class WeddingOrganizerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve top-rated wedding organizers',
+                'message' => __('Gagal mengambil data wedding organizer terbaik'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -442,7 +442,7 @@ class WeddingOrganizerController extends Controller
                     'total' => $organizers->total(),
                     'has_more_pages' => $organizers->hasMorePages(),
                 ],
-                'message' => 'This is a placeholder. Actual proximity calculation would require geolocation features.',
+                'message' => __('Ini adalah fitur simulasi. Perhitungan jarak sebenarnya membutuhkan izin lokasi GPS.'),
             ]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -453,7 +453,7 @@ class WeddingOrganizerController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve nearby wedding organizers',
+                'message' => __('Gagal mengambil data wedding organizer terdekat'),
                 'error' => $e->getMessage(),
             ], 500);
         }

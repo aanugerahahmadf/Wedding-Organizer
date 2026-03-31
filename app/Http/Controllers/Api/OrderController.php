@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Enums\OrderStatus;
+use App\Enums\OrderPaymentStatus;
 
 class OrderController extends Controller
 {
@@ -83,7 +85,7 @@ class OrderController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal memuat pesanan',
+                'message' => __('Gagal memuat pesanan'),
                 'error' => config('app.debug') ? $e->getMessage() : null,
             ], 500);
         }
@@ -109,13 +111,13 @@ class OrderController extends Controller
             // Check if user already has an order for this date
             $existingOrder = Order::where('user_id', Auth::id())
                 ->where('booking_date', $validatedData['event_date'])
-                ->whereIn('status', ['pending', 'confirmed', 'paid'])
+                ->whereIn('status', [OrderStatus::PENDING, OrderStatus::CONFIRMED, OrderStatus::PREPARING])
                 ->first(['*']);
 
             if ($existingOrder) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'You already have an order scheduled for this date',
+                    'message' => __('Anda sudah memiliki pesanan yang dijadwalkan pada tanggal ini'),
                 ], 409);
             }
 
@@ -152,8 +154,8 @@ class OrderController extends Controller
                 'package_id' => $package->id,
                 'order_number' => 'ORD-'.strtoupper(Str::random(10)),
                 'total_price' => $totalPrice,
-                'status' => 'pending',
-                'payment_status' => 'unpaid',
+                'status' => OrderStatus::PENDING,
+                'payment_status' => OrderPaymentStatus::UNPAID,
                 'booking_date' => $validatedData['event_date'],
                 'notes' => ($validatedData['notes'] ?? '').' | Location: '.$validatedData['location_address'].($voucherId ? " | Voucher: {$request->voucher_code}" : ''),
             ]);
@@ -163,24 +165,24 @@ class OrderController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Order created successfully',
+                'message' => __('Pesanan berhasil dibuat'),
                 'data' => $order,
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation failed',
+                'message' => __('Validasi gagal'),
                 'errors' => $e->errors(),
             ], 422);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Package not found',
+                'message' => __('Paket tidak ditemukan'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to create order',
+                'message' => __('Gagal membuat pesanan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -197,17 +199,17 @@ class OrderController extends Controller
                 ->firstOrFail(['*']);
 
             // Validate that order can proceed to payment
-            if ($order->status === 'cancelled') {
+            if ($order->status === OrderStatus::CANCELLED) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Cannot process payment for cancelled order',
+                    'message' => __('Tidak dapat memproses pembayaran untuk pesanan yang dibatalkan'),
                 ], 400);
             }
 
-            if ($order->payment_status === 'paid') {
+            if ($order->payment_status === OrderPaymentStatus::PAID) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Order is already paid',
+                    'message' => __('Pesanan sudah dibayar'),
                 ], 400);
             }
 
@@ -224,13 +226,13 @@ class OrderController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Payment initiated successfully',
+                'message' => __('Pembayaran berhasil diinisiasi'),
                 'data' => $paymentData,
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Order not found or does not belong to user',
+                'message' => __('Pesanan tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
@@ -259,12 +261,12 @@ class OrderController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Order not found or does not belong to user',
+                'message' => __('Pesanan tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to track order',
+                'message' => __('Gagal melacak pesanan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -288,12 +290,12 @@ class OrderController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Order not found or does not belong to user',
+                'message' => __('Pesanan tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve order details',
+                'message' => __('Gagal mengambil detail pesanan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -310,33 +312,33 @@ class OrderController extends Controller
                 ->firstOrFail(['*']);
 
             // Check if order can be cancelled
-            if (in_array($order->status, ['completed', 'cancelled'])) {
+            if (in_array($order->status, [OrderStatus::COMPLETED, OrderStatus::CANCELLED])) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Cannot cancel an order that is already '.$order->status,
+                    'message' => __('Pesanan sudah dalam status: ') . ($order->status instanceof \App\Enums\OrderStatus ? $order->status->getLabel() : (string) $order->status),
                 ], 400);
             }
 
             // Update order status
             $order->update([
-                'status' => 'cancelled',
+                'status' => OrderStatus::CANCELLED,
                 'cancelled_at' => now(),
             ]);
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Order cancelled successfully',
+                'message' => __('Pesanan berhasil dibatalkan'),
                 'data' => $order,
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Order not found or does not belong to user',
+                'message' => __('Pesanan tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to cancel order',
+                'message' => __('Gagal membatalkan pesanan'),
                 'error' => $e->getMessage(),
             ], 500);
         }

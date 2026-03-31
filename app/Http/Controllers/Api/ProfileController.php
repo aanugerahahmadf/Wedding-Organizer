@@ -25,7 +25,7 @@ class ProfileController extends Controller
             if (! $user) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'User not authenticated',
+                    'message' => __('Pengguna tidak terautentikasi'),
                 ], 401);
             }
 
@@ -41,7 +41,7 @@ class ProfileController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve user profile',
+                'message' => __('Gagal mengambil profil pengguna'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -95,19 +95,19 @@ class ProfileController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Profile updated successfully',
+                'message' => __('Profil berhasil diperbarui'),
                 'data' => $user->fresh(),
             ]);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation failed',
+                'message' => __('Validasi gagal'),
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to update profile',
+                'message' => __('Gagal memperbarui profil'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -146,7 +146,7 @@ class ProfileController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Avatar updated successfully',
+                'message' => __('Avatar berhasil diperbarui'),
                 'data' => [
                     'avatar_url' => $user->avatar_url,
                     'avatar_full_url' => $user->getFilamentAvatarUrl(),
@@ -155,13 +155,13 @@ class ProfileController extends Controller
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation failed',
+                'message' => __('Validasi gagal'),
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to update avatar',
+                'message' => __('Gagal memperbarui avatar'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -191,7 +191,7 @@ class ProfileController extends Controller
             if (! Hash::check($request->current_password, $user->password)) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Current password is incorrect',
+                    'message' => __('Kata sandi saat ini salah'),
                 ], 422);
             }
 
@@ -201,18 +201,18 @@ class ProfileController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Password changed successfully',
+                'message' => __('Kata sandi berhasil diubah'),
             ]);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation failed',
+                'message' => __('Validasi gagal'),
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to change password',
+                'message' => __('Gagal mengubah kata sandi'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -276,7 +276,7 @@ class ProfileController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve dashboard data',
+                'message' => __('Gagal mengambil data dashboard'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -345,7 +345,7 @@ class ProfileController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve order history',
+                'message' => __('Gagal mengambil riwayat pesanan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -401,7 +401,7 @@ class ProfileController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve wishlist',
+                'message' => __('Gagal mengambil wishlist'),
                 'error' => $e->getMessage(),
             ], 500);
         }

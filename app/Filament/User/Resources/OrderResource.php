@@ -13,11 +13,14 @@ use Filament\Support\Enums\FontWeight;
 
 class OrderResource extends Resource
 {
-    protected static ?string $model = Order::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
-    protected static ?string $slug = 'my-orders';
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['order_number', 'package.name', 'package.weddingOrganizer.name'];
+    }
+
+
 
     public static function getNavigationGroup(): ?string
     {
@@ -48,94 +51,177 @@ class OrderResource extends Resource
     {
         return $table
             ->emptyStateHeading(__('Belum ada pesanan'))
-            ->emptyStateDescription(__('Mulai pesan paket pernikahan impianmu hari ini!'))
+            ->emptyStateDescription(__('Wujudkan acara impianmu dengan paket terbaik dari kami. Mulai pesan sekarang!'))
             ->emptyStateIcon('heroicon-o-shopping-bag')
+            ->emptyStateActions([
+                Tables\Actions\Action::make('start_shopping')
+                    ->label(__('Pesan Sekarang'))
+                    ->url(PackageResource::getUrl())
+                    ->button()
+                    ->color('primary')
+                    ->size('lg')
+                    ->icon('heroicon-m-sparkles'),
+            ])
             ->contentGrid([
-                'md' => 1,
-                'lg' => 2,
+                'sm' => 2,
+                'md' => 3,
+                'lg' => 5,
+                'xl' => 6,
             ])
             ->columns([
                 Tables\Columns\Layout\Stack::make([
-                    // Header (Store & Status)
-                    Tables\Columns\Layout\Split::make([
+                    // Image Section (Top Center in White Box)
+                    Tables\Columns\ImageColumn::make('package.image_url')
+                        ->label('')
+                        ->height('14rem')
+                        ->width('100%')
+                        ->extraAttributes(['class' => 'w-full flex justify-center items-center bg-white p-2 rounded-t-xl overflow-hidden aspect-square'])
+                        ->extraImgAttributes([
+                            'class' => 'object-contain transition-all duration-500 opacity-90 group-hover:opacity-100 !mx-auto',
+                            'style' => 'max-height: 100%; width: auto; object-fit: contain;'
+                        ]),
+
+                    Tables\Columns\Layout\Stack::make([
+                        // Store Info (Single Appearance)
                         Tables\Columns\TextColumn::make('package.weddingOrganizer.name')
+                            ->size('xs')
                             ->weight(FontWeight::Bold)
-                            ->searchable()
-                            ->grow(false)
+                            ->color('gray')
                             ->icon('heroicon-s-building-storefront')
-                            ->color('gray'),
-                        Tables\Columns\TextColumn::make('status')
-                            ->badge()
-                            ->alignEnd(),
-                    ])->extraAttributes(['class' => 'mb-2 border-b border-gray-100 dark:border-gray-800 pb-2']),
-                    
-                    // Product Details Box
-                    Tables\Columns\Layout\Split::make([
-                        Tables\Columns\ImageColumn::make('package.image_url')
-                            ->height('5rem')
-                            ->width('5rem')
-                            ->grow(false)
-                            ->extraImgAttributes(['class' => 'rounded-xl object-cover']),
-                        Tables\Columns\Layout\Stack::make([
-                            Tables\Columns\TextColumn::make('package.name')
-                                ->weight(FontWeight::Bold)
-                                ->size('lg'),
-                            Tables\Columns\TextColumn::make('order_number')
-                                ->formatStateUsing(fn($state) => 'No: ' . $state)
-                                ->size('sm')
-                                ->color('gray')
-                                ->searchable(),
+,
+                        Tables\Columns\TextColumn::make('package.name')
+                            ->weight(FontWeight::Bold)
+                            ->size('sm')
+                            ->lineClamp(1)
+                            ->color('info')
+
+                            ->extraAttributes(['class' => 'mt-1']),
+                        Tables\Columns\TextColumn::make('order_number')
+                            ->prefix('#')
+                            ->size('xs')
+                            ->color('gray')
+,
+                        // Metadata & Status Footer
+                        Tables\Columns\Layout\Split::make([
                             Tables\Columns\TextColumn::make('booking_date')
-                                ->formatStateUsing(fn($state) => 'Acara: ' . \Carbon\Carbon::parse($state)->translatedFormat('d F Y'))
+                                ->date('d/m/y')
                                 ->size('xs')
                                 ->color('gray'),
-                        ])->space(1),
-                    ])->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-900 rounded-xl p-3']),
-                    
-                    // Total Footer
-                    Tables\Columns\Layout\Split::make([
-                        Tables\Columns\TextColumn::make('total_text')
-                            ->state(fn() => 'Total Pesanan:')
-                            ->size('sm')
-                            ->color('gray')
-                            ->alignEnd()
-                            ->extraAttributes(['class' => 'mt-1']),
-                        Tables\Columns\TextColumn::make('total_price')
-                            ->money('idr')
-                            ->weight(FontWeight::Black)
-                            ->color('primary')
-                            ->grow(false)
-                            ->size('lg'),
-                    ])->extraAttributes(['class' => 'mt-2 pt-2']),
-                ])->space(3)->extraAttributes(['class' => 'p-4 bg-white dark:bg-gray-950 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800']),
+                            Tables\Columns\TextColumn::make('total_price')
+                                ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 2, ',', '.'))
+                                ->weight(FontWeight::Bold)
+                                ->size('xs')
+                                ->alignEnd(),
+                        ])->extraAttributes(['class' => 'mt-2 pt-2 border-t border-gray-100/10']),
+                        // Status Badge at the very bottom
+                        Tables\Columns\TextColumn::make('status')
+                            ->badge()
+                            ->color(fn ($state) => $state->getColor())
+                            ->extraAttributes(['class' => 'mt-1 self-end']),
+                    ])->space(1)->extraAttributes(['class' => 'p-2']),
+                ])->extraAttributes([
+                    'class' => 'bg-white dark:bg-gray-950 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group overflow-hidden'
+                ]),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
+                    ->searchable()
                     ->options(\App\Enums\OrderStatus::class)
-                    ->label(__('Status Pesanan'))
-                    ->searchable(),
+                    ->label(__('Status Pesanan')),
+                Tables\Filters\Filter::make('id')
+                    ->form([
+                        Forms\Components\TextInput::make('value')
+                            ->label(__('ID')),
+                    ])
+                    ->query(fn (Builder $query, array $data) => $query->when($data['value'], fn ($q, $id) => $q->where('id', $id)))
+                    ->hidden(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->label(__('Lihat Detail'))
-                    ->button()
+                    ->hiddenLabel()
+                    ->iconButton()
                     ->color('gray')
-                    ->outlined()
                     ->size('lg')
                     ->icon('heroicon-m-eye')
+                    ->extraAttributes(['class' => 'flex-1 justify-center !rounded-lg border border-gray-200 dark:border-gray-800'])
                     ->slideOver()
                     ->modalWidth('2xl')
                     ->modalHeading(__('Detail Pesanan'))
                     ->modalDescription(fn($record) => $record->order_number),
                 Tables\Actions\Action::make('pay')
-                    ->label(__('Lanjut Bayar'))
+                    ->label(__('Bayar'))
                     ->button()
-                    ->color('primary')
+                    ->color('warning')
                     ->size('lg')
                     ->icon('heroicon-m-credit-card')
+                    ->extraAttributes(['class' => 'flex-1 justify-center !rounded-lg'])
                     ->visible(fn ($record) => $record?->status === \App\Enums\OrderStatus::PENDING)
-                    ->url(fn ($record) => $record ? "/user/payments/create?order_id={$record->id}" : '#'),
-            ]);
+                    ->slideOver()
+                    ->modalWidth('3xl')
+                    ->modalHeading(__('Konfirmasi Pembayaran'))
+                    ->steps(fn ($record) => \App\Filament\User\Resources\PaymentResource::getWizardSteps())
+                    ->fillForm(fn ($record) => [
+                        'order_id'    => $record->id,
+                        'amount'      => $record->total_price,
+                        'total_amount'=> $record->total_price,
+                        'admin_fee'   => 0,
+                    ])
+                    ->action(function ($record, array $data) {
+                        $method = \App\Models\PaymentMethod::where('code', $data['payment_method'])->first();
+                        $user = auth()->user();
+                        $totalAmount = floatval($data['total_amount'] ?? $data['amount'] ?? 0);
+
+                        // Wallet payment
+                        if ($method && $method->type === \App\Enums\PaymentMethodType::WALLET) {
+                            if ($user->balance < $totalAmount) {
+                                \Filament\Notifications\Notification::make()
+                                    ->danger()
+                                    ->title(__('Saldo Tidak Mencukupi'))
+                                    ->body(__('Saldo Anda tidak cukup untuk menyelesaikan pembayaran ini.'))
+                                    ->send();
+                                return;
+                            }
+                            $user->decrement('balance', $totalAmount);
+                            $status    = \App\Enums\PaymentStatus::SUCCESS;
+                            $paidAt    = now();
+                            $orderStatus = \App\Enums\OrderStatus::CONFIRMED;
+                            $orderPay    = \App\Enums\OrderPaymentStatus::PAID;
+                        } else {
+                            $status    = \App\Enums\PaymentStatus::PENDING;
+                            $paidAt    = null;
+                            $orderStatus = \App\Enums\OrderStatus::PENDING;
+                            $orderPay    = \App\Enums\OrderPaymentStatus::UNPAID;
+                        }
+
+                        // Buat payment record
+                        $payment = \App\Models\Payment::create([
+                            'order_id'       => $record->id,
+                            'user_id'        => $user->id,
+                            'payment_method' => $data['payment_method'],
+                            'payment_number' => 'PAY-' . strtoupper(str()->random(8)),
+                            'amount'         => $data['amount'],
+                            'admin_fee'      => $data['admin_fee'] ?? 0,
+                            'total_amount'   => $totalAmount,
+                            'status'         => $status,
+                            'paid_at'        => $paidAt,
+                            'evidence_url'   => $data['evidence_url'] ?? null,
+                        ]);
+
+                        // Update order
+                        $record->update([
+                            'status'         => $orderStatus,
+                            'payment_status' => $orderPay,
+                        ]);
+
+                        \Filament\Notifications\Notification::make()
+                            ->success()
+                            ->title($method && $method->type === \App\Enums\PaymentMethodType::WALLET
+                                ? __('Pembayaran Berhasil! Pesanan dikonfirmasi otomatis.')
+                                : __('Bukti pembayaran berhasil dikirim.'))
+                            ->send();
+                    }),
+            ])
+            ->actionsAlignment('center');
     }
 
     public static function infolist(Infolist $infolist): Infolist
@@ -182,7 +268,7 @@ class OrderResource extends Resource
                                     ->size(Infolists\Components\TextEntry\TextEntrySize::Large),
                                 Infolists\Components\TextEntry::make('package.weddingOrganizer.name')
                                     ->hiddenLabel()
-                                    ->icon('heroicon-s-building-storefront')
+                                    ->icon('govicon-building')
                                     ->color('gray'),
                                 Infolists\Components\TextEntry::make('booking_date')
                                     ->label(__('Untuk Tanggal Acara:'))
@@ -202,9 +288,9 @@ class OrderResource extends Resource
                     ->schema([
                         Infolists\Components\TextEntry::make('total_price')
                             ->label(__('Total Pembayaran'))
-                            ->money('idr')
+                            ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 2, ',', '.'))
                             ->size(Infolists\Components\TextEntry\TextEntrySize::Large)
-                            ->weight(FontWeight::Black)
+                            ->weight(FontWeight::Bold)
                             ->color('primary')
                             ->inlineLabel(),
                     ]),

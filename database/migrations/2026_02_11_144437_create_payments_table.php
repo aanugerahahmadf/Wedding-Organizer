@@ -15,17 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
             $table->string('payment_number')->unique();
-            $table->enum('payment_method', [
-                'bank_transfer',
-                'credit_card',
-                'gopay',
-                'ovo',
-                'dana',
-                'shopeepay',
-                'qris',
-                'alfamart',
-                'indomaret',
-            ]);
+            $table->string('payment_method');
             $table->enum('status', [
                 'pending',
                 'processing',

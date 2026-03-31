@@ -37,14 +37,14 @@ class VoucherController extends Controller
         if (! $voucher) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Voucher tidak valid atau sudah kadaluarsa',
+                'message' => __('Voucher tidak valid atau sudah kadaluarsa'),
             ], 404);
         }
 
         if ($request->amount < $voucher->min_purchase) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Minimum pembelian untuk voucher ini adalah Rp '.number_format($voucher->min_purchase, 0, ',', '.'),
+                'message' => __('Minimum pembelian untuk voucher ini adalah Rp').' '.number_format($voucher->min_purchase, 0, ',', '.'),
             ], 400);
         }
 

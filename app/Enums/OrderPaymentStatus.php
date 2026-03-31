@@ -8,34 +8,46 @@ use Filament\Support\Contracts\HasLabel;
 
 enum OrderPaymentStatus: string implements HasLabel, HasColor, HasIcon
 {
+    case UNPAID = 'unpaid';
     case PENDING = 'pending';
+    case PARTIAL = 'partial';
     case PAID = 'paid';
     case FAILED = 'failed';
+    case REFUNDED = 'refunded';
 
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::PENDING => __('Tertunda'),
-            self::PAID => __('Lunas'),
-            self::FAILED => __('Gagal'),
+            self::UNPAID   => __('Belum Bayar'),
+            self::PENDING  => __('Menunggu Konfirmasi'),
+            self::PARTIAL  => __('DP / Sebagian'),
+            self::PAID     => __('Lunas'),
+            self::FAILED   => __('Gagal'),
+            self::REFUNDED => __('Refund'),
         };
     }
 
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::PENDING => 'warning',
-            self::PAID => 'success',
-            self::FAILED => 'danger',
+            self::UNPAID   => 'danger',
+            self::PENDING  => 'warning',
+            self::PARTIAL  => 'info',
+            self::PAID     => 'success',
+            self::FAILED   => 'danger',
+            self::REFUNDED => 'gray',
         };
     }
 
     public function getIcon(): ?string
     {
         return match ($this) {
-            self::PENDING => 'heroicon-m-clock',
-            self::PAID => 'heroicon-m-check-circle',
-            self::FAILED => 'heroicon-m-x-circle',
+            self::UNPAID   => 'heroicon-m-x-circle',
+            self::PENDING  => 'heroicon-m-clock',
+            self::PARTIAL  => 'heroicon-m-banknotes',
+            self::PAID     => 'heroicon-m-check-circle',
+            self::FAILED   => 'heroicon-m-exclamation-circle',
+            self::REFUNDED => 'heroicon-m-arrow-path',
         };
     }
 }

@@ -18,20 +18,25 @@ class CBIRService
     public function searchByImage($imageFile, $topK = 10)
     {
         try {
-            /** @var Response $response */
-            $response = Http::attach(
-                'image',
-                file_get_contents($imageFile->getRealPath()),
-                method_exists($imageFile, 'getClientOriginalName') ? $imageFile->getClientOriginalName() : $imageFile->getFilename()
-            )->post("{$this->baseUrl}/search?k={$topK}");
+            $fileHash = md5_file($imageFile->getRealPath());
+            $cacheKey = "cbir_search_{$fileHash}_{$topK}";
 
-            if ($response->successful()) {
-                $results = $response->json();
-                return $results['results'] ?? [];
-            }
+            return \Illuminate\Support\Facades\Cache::remember($cacheKey, now()->addDay(), function () use ($imageFile, $topK) {
+                /** @var Response $response */
+                $response = Http::attach(
+                    'image',
+                    file_get_contents($imageFile->getRealPath()),
+                    method_exists($imageFile, 'getClientOriginalName') ? $imageFile->getClientOriginalName() : $imageFile->getFilename()
+                )->post("{$this->baseUrl}/search?k={$topK}");
 
-            Log::error('AI Core search error: '.$response->body());
-            return ['error' => true, 'message' => __('Pencarian visual sedang gangguan. Coba lagi nanti.')];
+                if ($response->successful()) {
+                    $results = $response->json();
+                    return $results['results'] ?? [];
+                }
+
+                Log::error('AI Core search error: '.$response->body());
+                return ['error' => true, 'message' => __('Pencarian visual sedang gangguan. Coba lagi nanti.')];
+            });
         } catch (\Exception $e) {
             Log::error('AI Core connection error: '.$e->getMessage());
             return ['error' => true, 'message' => __('Layanan AI Scanner sedang offline. Silakan coba beberapa saat lagi.')];

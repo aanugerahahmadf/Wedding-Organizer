@@ -85,6 +85,47 @@ class WeddingOrganizer extends Model implements HasMedia
         $this->addMediaCollection('videos');
     }
 
+    /**
+     * Boot the model to enforce single-vendor logic.
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (self::query()->count() >= 1) {
+                throw new \Exception(__('Aplikasi ini eksklusif untuk satu perusahan (Devi Make Up Wedding Organizer). Tidak dizinkan membuat profil baru.'));
+            }
+        });
+
+        // Auto-geocode on saving ONLY if coordinates are missing or zero
+        static::saving(function ($model) {
+            $isMissingCoords = empty($model->latitude) || empty($model->longitude) || ($model->latitude == 0 && $model->longitude == 0);
+            
+            if ($model->isDirty('address') && $model->address && $isMissingCoords) {
+                try {
+                    $response = \Illuminate\Support\Facades\Http::withHeaders([
+                        'User-Agent' => 'WeddingOrganizerApp/1.0',
+                    ])->get('https://nominatim.openstreetmap.org/search', [
+                        'q'      => $model->address,
+                        'format' => 'json',
+                        'limit'  => 1,
+                    ]);
+
+                    if ($response->successful() && $json = $response->json()) {
+                        if (isset($json[0])) {
+                            $result = $json[0];
+                            $model->latitude = (float) $result['lat'];
+                            $model->longitude = (float) $result['lon'];
+                        }
+                    }
+                } catch (\Exception $e) {
+                    // Fail silently
+                }
+            }
+        });
+    }
+
     protected $fillable = [
         'name',
         'slug',
@@ -104,7 +145,30 @@ class WeddingOrganizer extends Model implements HasMedia
         'phone',
         'total_reviews',
         'video_url',
+        'location',
     ];
+
+    /**
+     * Get the location as an array for Filament Google Maps
+     */
+    public function getLocationAttribute(): array
+    {
+        return [
+            'lat' => (float) $this->latitude,
+            'lng' => (float) $this->longitude,
+        ];
+    }
+
+    /**
+     * Set the latitude and longitude from the location array
+     */
+    public function setLocationAttribute(?array $location): void
+    {
+        if (is_array($location)) {
+            $this->attributes['latitude'] = $location['lat'];
+            $this->attributes['longitude'] = $location['lng'];
+        }
+    }
 
     /**
      * Get the superadmin user (Devi Make Up owner)
@@ -120,8 +184,7 @@ class WeddingOrganizer extends Model implements HasMedia
     {
         return self::query()
             ->where('slug', self::BRAND_SLUG)
-            ->orWhere('name', 'like', '%Devi Make Up%')
-            ->first();
+            ->first() ?? self::query()->first();
     }
 
     public function getBusinessNameAttribute()
@@ -134,9 +197,27 @@ class WeddingOrganizer extends Model implements HasMedia
         if (! $this->address) {
             return 'Unknown';
         }
-        $parts = explode(',', $this->address);
 
-        return trim(end($parts)) ?: 'Unknown';
+        // Jika address sudah ringkas (1-2 bagian), kembalikan langsung
+        $parts = array_map('trim', explode(',', $this->address));
+        $parts = array_filter($parts); // Hapus elemen kosong
+        $parts = array_values($parts);
+
+        if (count($parts) <= 2) {
+            return implode(', ', $parts);
+        }
+
+        // Jika address panjang (dari Nominatim display_name lama),
+        // abaikan suffix negara ("Indonesia") lalu ambil 2 bagian terakhir
+        $ignoreSuffix = ['Indonesia', 'indonesia'];
+        if (in_array(end($parts), $ignoreSuffix)) {
+            array_pop($parts);
+        }
+
+        // Ambil 2 bagian terakhir: "Kota, Provinsi"
+        $relevant = array_slice($parts, -2);
+
+        return implode(', ', $relevant) ?: 'Unknown';
     }
 
     public function getPhoneAttribute()

@@ -150,12 +150,12 @@ class UserResource extends Resource
                             ->icon('heroicon-o-identification')
                             ->schema([
                                 Forms\Components\Select::make('roles')
+                            ->searchable()
                                     ->label(__('Peran Sistem (Role)'))
                                     ->relationship('roles', 'name')
                                     ->getOptionLabelFromRecordUsing(fn ($record) => str($record->name)->headline())
                                     ->multiple()
-                                    ->preload()
-                                    ->searchable(),
+                                    ->preload(),
                                 Forms\Components\Toggle::make('active_status')
                                     ->label(__('Status Akun Aktif'))
                                     ->required()
@@ -179,40 +179,32 @@ class UserResource extends Resource
                     ->alignment('center'),
 
                 Tables\Columns\TextColumn::make('full_name')
-                    ->label(__('Nama Lengkap'))
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Nama Lengkap')),
 
                 Tables\Columns\TextColumn::make('first_name')
-                    ->label(__('Nama Depan'))
-                    ->searchable()
-                    ->sortable(),
+                    ->label(__('Nama Depan')),
 
                 Tables\Columns\TextColumn::make('last_name')
-                    ->label(__('Nama Belakang'))
-                    ->searchable()
-                    ->sortable(),
+                    ->label(__('Nama Belakang')),
 
                 Tables\Columns\TextColumn::make('username')
-                    ->label(__('Username'))
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Username')),
 
                 Tables\Columns\TextColumn::make('email')
-                    ->label(__('Email'))
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Email')),
 
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->label(__('Diverifikasi Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center'),
 
                 Tables\Columns\TextColumn::make('roles.name')
+                    ->searchable()
                     ->label(__('Peran'))
                     ->badge()
-                    ->searchable()
                     ->alignment('center')
                     ->formatStateUsing(fn ($state): string => __((string) str($state)->headline())),
 
@@ -229,14 +221,12 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Terdaftar Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->alignment('center'),
 
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Terakhir Diperbarui'))
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->alignment('center'),
             ])

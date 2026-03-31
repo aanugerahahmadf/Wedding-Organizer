@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class UserOrdersChart extends ChartWidget
 {
 
+    protected static ?int $navigationSort = 2;
     
     protected static ?string $pollingInterval = null;
 

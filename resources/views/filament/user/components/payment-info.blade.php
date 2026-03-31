@@ -42,7 +42,7 @@
                     <span class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-3">
                         {{ __('NOMOR TUJUAN') }}
                     </span>
-                    <span class="text-3xl font-bold text-primary-600 dark:text-primary-400 font-mono tracking-[0.1em] select-all transition-transform group-hover:scale-[1.02]">
+                    <span class="text-3xl font-bold text-primary-600 dark:text-primary-400 tracking-[0.1em] select-all transition-transform group-hover:scale-[1.02]">
                         {{ $method->account_number }}
                     </span>
                     

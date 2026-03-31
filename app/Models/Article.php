@@ -69,8 +69,11 @@ class Article extends Model implements HasMedia
 
     protected $fillable = [
         'author_id',
+        'category_id',
+        'wedding_organizer_id',
         'title',
         'slug',
+        'excerpt',
         'content',
         'image_url',
         'video_url',
@@ -88,8 +91,23 @@ class Article extends Model implements HasMedia
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function weddingOrganizer()
+    {
+        return $this->belongsTo(WeddingOrganizer::class);
+    }
+
     public function getMediaVideoUrlAttribute(): ?string
     {
         return $this->getFirstMediaUrl('videos') ?: null;
+    }
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
     }
 }

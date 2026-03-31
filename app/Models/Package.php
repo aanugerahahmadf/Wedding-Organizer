@@ -90,6 +90,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Package extends Model implements HasMedia
 {
     use InteractsWithMedia;
+    use \App\Traits\BelongsToBrand;
 
     public function registerMediaCollections(): void
     {
@@ -111,6 +112,7 @@ class Package extends Model implements HasMedia
         'color',
         'min_capacity',
         'max_capacity',
+        'article_id',
     ];
 
     protected $casts = [
@@ -151,11 +153,6 @@ class Package extends Model implements HasMedia
         return $this->wishlists()->where('user_id', auth('sanctum')->id())->exists();
     }
 
-    public function weddingOrganizer()
-    {
-        return $this->belongsTo(WeddingOrganizer::class);
-    }
-
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -174,6 +171,37 @@ class Package extends Model implements HasMedia
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
+
+    public function getCategoryColorAttribute(): string
+    {
+        return $this->color ?? $this->category?->color ?? '#6366f1';
+    }
+
+    public function getFinalPriceAttribute(): float
+    {
+        return ($this->discount_price > 0) ? (float) $this->discount_price : (float) $this->price;
+    }
+
+    public function getBadgeStyleAttribute(): string
+    {
+        $color = $this->category_color;
+        
+        return "background: linear-gradient(135deg, {$color} 0%, {$color}cc 100%); 
+                color: white; 
+                box-shadow: 0 4px 12px {$color}40; 
+                font-weight: 700; 
+                text-transform: uppercase; 
+                letter-spacing: 0.05em;
+                padding: 4px 12px;
+                border-radius: 99px;
+                font-size: 0.7rem;
+                border: none;";
     }
 
     private function normalizeImageUrl(?string $url, string $fallback): string

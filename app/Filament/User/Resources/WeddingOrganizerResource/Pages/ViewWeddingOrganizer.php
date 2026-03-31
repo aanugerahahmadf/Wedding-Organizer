@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Filament\User\Resources\WeddingOrganizerResource\Pages;
+
+use App\Filament\User\Resources\WeddingOrganizerResource;
+use App\Models\WeddingOrganizer;
+use Filament\Resources\Pages\ViewRecord;
+
+class ViewWeddingOrganizer extends ViewRecord
+{
+    protected static string $resource = WeddingOrganizerResource::class;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getResource()::getModel()::count();
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return static::getResource()::getNavigationLabel();
+    }
+
+    /**
+     * Set the record to ID 1 automatically.
+     */
+    public function mount(int|string|null $record = null): void
+    {
+        $record = 1;
+        parent::mount($record);
+    }
+
+    /**
+     * Set the record to ID 1 automatically.
+     */
+    public function getTitle(): string
+    {
+        return __('Beranda');
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
+    }
+
+    public function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\User\Widgets\StatsOverview::class,
+            \App\Filament\User\Widgets\UserOrdersChart::class,
+            \App\Filament\User\Widgets\UserSpendingChart::class,
+        ];
+    }
+
+    protected function getFooterWidgets(): array
+    {
+        return [
+            \App\Filament\User\Widgets\UnifiedHistoryWidget::class,
+        ];
+    }
+}

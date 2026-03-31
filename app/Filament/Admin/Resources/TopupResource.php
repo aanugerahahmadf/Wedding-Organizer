@@ -20,7 +20,7 @@ class TopupResource extends Resource
 {
     protected static ?string $model = Topup::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-credit-card';
+    protected static ?string $navigationIcon = 'heroicon-o-wallet';
 
     protected static ?int $navigationSort = 3;
 
@@ -67,9 +67,9 @@ class TopupResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
+                    ->searchable()
                     ->label(__('Nama Pengguna'))
                     ->relationship('user', 'full_name')
-                    ->searchable()
                     ->preload()
                     ->required(),
                 Forms\Components\TextInput::make('reference_number')
@@ -80,23 +80,27 @@ class TopupResource extends Resource
                 Forms\Components\TextInput::make('amount')
                     ->label(__('Jumlah'))
                     ->required()
-                    ->numeric()
+                    ->formatStateUsing(fn ($state) => $state ? number_format((float) $state, 2, ',', '.') : null)
+                    ->dehydrateStateUsing(fn ($state) => $state ? (float) str_replace(',', '.', str_replace(['Rp', '.', ' '], '', $state)) : null)
                     ->prefix('Rp'),
                 Forms\Components\TextInput::make('admin_fee')
                     ->label(__('Biaya Admin'))
                     ->required()
-                    ->numeric()
+                    ->formatStateUsing(fn ($state) => $state ? number_format((float) $state, 2, ',', '.') : '0,00')
+                    ->dehydrateStateUsing(fn ($state) => $state ? (float) str_replace(',', '.', str_replace(['Rp', '.', ' '], '', $state)) : 0)
                     ->default(0.00)
                     ->prefix('Rp'),
                 Forms\Components\TextInput::make('total_amount')
                     ->label(__('Total Jumlah'))
                     ->required()
-                    ->numeric()
+                    ->formatStateUsing(fn ($state) => $state ? number_format((float) $state, 2, ',', '.') : null)
+                    ->dehydrateStateUsing(fn ($state) => $state ? (float) str_replace(',', '.', str_replace(['Rp', '.', ' '], '', $state)) : null)
                     ->prefix('Rp'),
                 Forms\Components\TextInput::make('payment_method')
                     ->label(__('Metode Pembayaran'))
                     ->maxLength(255),
                 Forms\Components\Select::make('status')
+                    ->searchable()
                     ->label(__('Status'))
                     ->options(\App\Enums\TopupStatus::class)
                     ->required(),
@@ -117,18 +121,17 @@ class TopupResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('reference_number')
-                    ->label(__('Nomor Referensi'))
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Nomor Referensi')),
                 Tables\Columns\TextColumn::make('user.full_name')
-                    ->label(__('Nama Pengguna'))
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Nama Pengguna')),
                 Tables\Columns\TextColumn::make('amount')
                     ->label(__('Jumlah'))
-                    ->money('IDR')
-                    ->sortable(),
+                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 2, ',', '.')),
                 Tables\Columns\TextColumn::make('total_amount')
                     ->label(__('Total Bayar'))
-                    ->money('IDR'),
+                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 2, ',', '.')),
                 Tables\Columns\TextColumn::make('payment_method')
                     ->label(__('Metode Pembayaran'))
                     ->badge(),
@@ -139,16 +142,15 @@ class TopupResource extends Resource
                     ->label(__('Bukti')),
                 Tables\Columns\TextColumn::make('paid_at')
                     ->label(__('Dibayar Pada'))
-                    ->dateTime()
-                    ->sortable(),
+                    ->dateTime(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Dibuat Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
+                    ->searchable()
                     ->label(__('Status'))
                     ->options([
                         'pending' => __('Tertunda'),

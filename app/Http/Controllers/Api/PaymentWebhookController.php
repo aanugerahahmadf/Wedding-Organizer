@@ -33,7 +33,7 @@ class PaymentWebhookController extends Controller
             if (! $transactionId) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Invalid notification data',
+                    'message' => __('Data notifikasi tidak valid'),
                 ], 400);
             }
 
@@ -45,7 +45,7 @@ class PaymentWebhookController extends Controller
 
                 return response()->json([
                     'success' => false,
-                    'message' => 'Payment not found',
+                    'message' => __('Pembayaran tidak ditemukan'),
                 ], 404);
             }
 
@@ -69,7 +69,7 @@ class PaymentWebhookController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Notification processed successfully',
+                'message' => __('Notifikasi berhasil diproses'),
             ]);
 
         } catch (\Exception $e) {
@@ -79,7 +79,7 @@ class PaymentWebhookController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => 'Webhook processing failed',
+                'message' => __('Gagal memproses webhook'),
             ], 500);
         }
     }
@@ -146,16 +146,16 @@ class PaymentWebhookController extends Controller
         if ($payment->payment_method !== 'bank_transfer') {
             return response()->json([
                 'success' => false,
-                'message' => 'Manual verification only for bank transfer',
+                'message' => __('Verifikasi manual hanya untuk transfer bank'),
             ], 400);
         }
 
         if ($request->status === 'success') {
             $payment->markAsSuccess();
-            $message = 'Payment verified and approved';
+            $message = __('Pembayaran diverifikasi dan disetujui');
         } else {
             $payment->markAsFailed($request->notes);
-            $message = 'Payment rejected';
+            $message = __('Pembayaran ditolak');
         }
 
         return response()->json([

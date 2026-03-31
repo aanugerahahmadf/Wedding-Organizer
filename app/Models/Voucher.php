@@ -53,13 +53,86 @@ class Voucher extends Model
         'min_purchase',
         'expires_at',
         'is_active',
+        'is_global',
+        'max_uses',
+        'uses_count',
     ];
 
     protected $casts = [
         'expires_at' => 'datetime',
         'is_active' => 'boolean',
+        'is_global' => 'boolean',
         'discount_amount' => 'decimal:2',
         'min_purchase' => 'decimal:2',
         'discount_type' => \App\Enums\DiscountType::class,
     ];
+
+    // ─── Relations ────────────────────────────────────────────
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_vouchers')
+            ->withPivot('claimed_at', 'used_at', 'order_id')
+            ->withTimestamps();
+    }
+
+    // ─── Business Logic ───────────────────────────────────────
+
+    /**
+     * Hitung besaran diskon berdasarkan total harga.
+     */
+    public function calculateDiscount(float $totalPrice): float
+    {
+        if ($this->discount_type === \App\Enums\DiscountType::PERCENTAGE) {
+            return round($totalPrice * ($this->discount_amount / 100), 2);
+        }
+
+        return min((float) $this->discount_amount, $totalPrice);
+    }
+
+    /**
+     * Cek apakah voucher valid untuk digunakan.
+     */
+    public function isValidFor(float $totalPrice): bool
+    {
+        if (! $this->is_active) return false;
+        if ($this->expires_at && $this->expires_at->isPast()) return false;
+        if ($totalPrice < (float) $this->min_purchase) return false;
+        if ($this->max_uses && $this->uses_count >= $this->max_uses) return false;
+
+        return true;
+    }
+
+    /**
+     * Cek apakah user berhak pakai voucher ini.
+     */
+    public function isAccessibleBy(int $userId): bool
+    {
+        if ($this->is_global) return true;
+
+        return $this->users()->where('users.id', $userId)->exists();
+    }
+
+    /**
+     * Tandai voucher sebagai digunakan oleh user.
+     */
+    public function markAsUsedBy(int $userId, ?int $orderId = null): void
+    {
+        $this->users()->updateExistingPivot($userId, [
+            'used_at' => now(),
+            'order_id' => $orderId,
+        ]);
+
+        $this->increment('uses_count');
+    }
+
+    /**
+     * Assign voucher ke user (claim).
+     */
+    public function assignToUser(int $userId): void
+    {
+        if (! $this->users()->where('users.id', $userId)->exists()) {
+            $this->users()->attach($userId, ['claimed_at' => now()]);
+        }
+    }
 }

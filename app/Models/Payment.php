@@ -73,6 +73,10 @@ class Payment extends Model
 {
     use HasFactory;
 
+    protected $attributes = [
+        'status' => 'pending',
+    ];
+
     protected $fillable = [
         'order_id',
         'payment_number',

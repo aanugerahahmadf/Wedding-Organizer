@@ -9,14 +9,17 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Support\Enums\FontWeight;
+use App\Filament\User\Resources\PackageResource;
 
 class WishlistResource extends Resource
 {
-    protected static ?string $model = Wishlist::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-heart';
 
-    protected static ?string $slug = 'wishlists';
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['package.name', 'package.category.name'];
+    }
+
 
     public static function getNavigationGroup(): ?string
     {
@@ -52,9 +55,9 @@ class WishlistResource extends Resource
                     ->icon('heroicon-o-heart')
                     ->schema([
                         Forms\Components\Select::make('package_id')
+                            ->searchable()
                             ->relationship('package', 'name')
                             ->required()
-                            ->searchable()
                             ->preload()
                             ->live()
                             ->prefixIcon('heroicon-o-gift')
@@ -111,45 +114,85 @@ class WishlistResource extends Resource
                     ->size('lg'),
             ])
             ->contentGrid([
-                'md' => 2,
-                'xl' => 3,
+                'sm' => 2,
+                'md' => 3,
+                'lg' => 4,
+                'xl' => 6,
             ])
             ->columns([
                 Tables\Columns\Layout\Stack::make([
-                    Tables\Columns\ImageColumn::make('package.image_url')
-                        ->height('15rem')
-                        ->width('100%')
-                        ->extraImgAttributes(['class' => 'object-cover rounded-t-2xl']),
+                    // Image with absolute discount badge placeholder logic
                     Tables\Columns\Layout\Stack::make([
+                        Tables\Columns\ImageColumn::make('package.image_url')
+                            ->label('')
+                            ->height('10rem')
+                            ->width('100%')
+                            ->extraAttributes(['class' => 'w-full flex justify-center items-center bg-white p-4 rounded-t-xl overflow-hidden'])
+                            ->extraImgAttributes([
+                                'class' => 'object-contain transition-all duration-500 group-hover:scale-110 !mx-auto',
+                                'style' => 'max-height: 100%; width: auto;'
+                            ]),
+                        
+                        Tables\Columns\TextColumn::make('discount_pct')
+                            ->state(fn($record) => ($record?->package?->discount_price > 0 && $record?->package?->price > 0) ? '-' . round((($record->package->price - $record->package->discount_price) / $record->package->price) * 100) . '%' : null)
+                            ->size('xs')
+                            ->weight(FontWeight::Bold)
+                            ->color('danger')
+                            ->extraAttributes([
+                                'class' => 'absolute top-0 right-0 bg-red-100/90 dark:bg-red-900/40 px-1.5 py-0.5 rounded-bl-lg backdrop-blur-xs border-l border-b border-red-500/20',
+                                'style' => 'margin: 0 !important;'
+                            ])
+                            ->visible(fn($record) => $record?->package?->discount_price > 0),
+                    ])->extraAttributes(['class' => 'relative overflow-hidden']),
+
+                    Tables\Columns\Layout\Stack::make([
+                        // Category & Name
+                        Tables\Columns\TextColumn::make('package.category.name')
+                            ->searchable()
+                            ->badge(),
                         Tables\Columns\TextColumn::make('package.name')
                             ->weight(FontWeight::Bold)
-                            ->size('lg'),
-                        Tables\Columns\TextColumn::make('package.category.name')
-                            ->badge(),
-                        Tables\Columns\TextColumn::make('package.is_featured')
-                            ->state(fn ($record) => $record?->package?->is_featured ? '⭐ HOT DEAL' : null)
-                            ->color('warning')
-                            ->badge()
-                            ->extraAttributes(['class' => 'mb-2 animate-pulse']),
-                        Tables\Columns\TextColumn::make('package_price')
-                            ->state(fn ($record) => $record?->package)
-                            ->formatStateUsing(function ($state) {
-                                if (! $state) return '-';
-                                $price = 'Rp ' . number_format((float) $state->price, 0, ',', '.');
-                                if ($state->discount_price > 0 && $state->discount_price < $state->price) {
-                                    $discount = 'Rp ' . number_format((float) $state->discount_price, 0, ',', '.');
-                                    return new \Illuminate\Support\HtmlString('
-                                        <div class="flex flex-col items-center justify-center">
-                                            <span class="text-xs text-gray-400 line-through">' . $price . '</span>
-                                            <span class="text-md font-bold text-amber-500">' . $discount . '</span>
-                                        </div>
-                                    ');
-                                }
-                                return new \Illuminate\Support\HtmlString('<span class="text-md font-bold text-amber-500">' . $price . '</span>');
-                            })
-                            ->html(),
-                    ])->space(3)->extraAttributes(['class' => 'p-6 flex flex-col items-center text-center']),
-                ])->extraAttributes(['class' => 'bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden relative']),
+                            ->size('sm')
+                            ->lineClamp(2)
+                            ->searchable(),
+                        // Price Row
+                        Tables\Columns\Layout\Stack::make([
+                            Tables\Columns\TextColumn::make('price_display')
+                                ->state(fn ($record) => $record?->package?->discount_price > 0 ? $record->package->discount_price : $record?->package?->price)
+                                ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                                ->weight(FontWeight::Bold)
+                                ->color('primary')
+                                ->size('md'),
+                            
+                            Tables\Columns\TextColumn::make('original_price')
+                                ->state(fn ($record) => $record?->package?->discount_price > 0 ? $record->package->price : null)
+                                ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.'))
+                                ->size('xs')
+                                ->color('gray')
+                                ->extraAttributes(['class' => 'line-through opacity-70'])
+                                ->visible(fn ($record) => (bool)($record?->package?->discount_price > 0)),
+                        ])->space(0),
+
+                        // Stats Footer
+                        Tables\Columns\Layout\Split::make([
+                            Tables\Columns\TextColumn::make('avg_rating')
+                                ->state(fn ($record) => $record?->package ? number_format($record->package->reviews()->avg('rating') ?: 0, 1) : null)
+                                ->icon('heroicon-m-star')
+                                ->iconColor('warning')
+                                ->size('xs')
+                                ->color('gray'),
+                                
+                            Tables\Columns\TextColumn::make('sold_count')
+                                ->state(fn ($record) => $record?->package ? $record->package->orders()->count() . ' ' . __('Terjual') : null)
+                                ->size('xs')
+                                ->color('gray')
+                                ->alignEnd(),
+                        ])->extraAttributes(['class' => 'pt-2 border-t border-gray-100 dark:border-gray-800']),
+
+                    ])->space(2)->extraAttributes(['class' => 'p-3']),
+                ])->extraAttributes([
+                    'class' => 'bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-xl hover:ring-1 hover:ring-primary-500/30 transition-all duration-300 overflow-hidden group border border-gray-100 dark:border-gray-800'
+                ]),
             ])
             ->actions([
                 Tables\Actions\DeleteAction::make()
@@ -160,200 +203,28 @@ class WishlistResource extends Resource
                     ->color('danger')
                     ->outlined()
                     ->size('lg')
-                    ->extraAttributes(['class' => 'h-12 w-12 !px-0 flex items-center justify-center']),
+                    ->extraAttributes(['class' => 'flex-1 justify-center']),
                 Tables\Actions\Action::make('checkout')
                     ->label(__('Beli'))
                     ->button()
                     ->color('primary')
                     ->size('lg')
                     ->icon('heroicon-m-shopping-cart')
-                    ->extraAttributes(['class' => 'h-12 flex-1 whitespace-nowrap'])
+                    ->extraAttributes(['class' => 'flex-1 justify-center'])
                     ->slideOver()
-                    ->modalWidth('2xl')
                     ->modalHeading(__('Checkout Layanan'))
-                    ->steps([
-                        Forms\Components\Wizard\Step::make(__('Detail Acara'))
-                            ->icon('heroicon-o-calendar-days')
-                            ->schema([
-                                Forms\Components\Section::make(__('Pilih Waktu & Kebutuhan'))
-                                    ->schema([
-                                        Forms\Components\DatePicker::make('booking_date')
-                                            ->label(__('Rencana Tanggal Acara'))
-                                            ->required()
-                                            ->native(false)
-                                            ->minDate(now()->addDays(7))
-                                            ->prefixIcon('heroicon-o-calendar-days')
-                                            ->columnSpanFull(),
-                                        Forms\Components\Textarea::make('notes')
-                                            ->label(__('Catatan Khusus / Alamat Lokasi'))
-                                            ->placeholder(__('Contoh: Gedung Graha Sabha, dekorasi dominan warna Pastel...'))
-                                            ->rows(4)
-                                            ->required()
-                                            ->columnSpanFull(),
-                                    ]),
-                            ]),
-                        Forms\Components\Wizard\Step::make(__('Info Kontak'))
-                            ->icon('heroicon-o-user-circle')
-                            ->schema([
-                                Forms\Components\Section::make(__('Verifikasi Data Anda'))
-                                    ->schema([
-                                        Forms\Components\TextInput::make('customer_name')
-                                            ->label(__('Nama Lengkap'))
-                                            ->default(fn() => auth()->user()->full_name)
-                                            ->disabled(),
-                                        Forms\Components\TextInput::make('phone')
-                                            ->label(__('Nomor WhatsApp'))
-                                            ->tel()
-                                            ->default(fn() => auth()->user()->phone)
-                                            ->required(),
-                                    ])->columns(2),
-                            ]),
-                        Forms\Components\Wizard\Step::make(__('Pilih Pembayaran'))
-                            ->icon('heroicon-o-credit-card')
-                            ->schema([
-                                Forms\Components\Section::make(__('Metode Pembayaran'))
-                                    ->description(__('Pilih metode pembayaran yang Anda inginkan.'))
-                                    ->schema([
-                                        Forms\Components\Select::make('payment_method_id')
-                                            ->label(__('Metode'))
-                                            ->options(\App\Models\PaymentMethod::where('is_active', true)->pluck('name', 'id'))
-                                            ->required()
-                                            ->searchable()
-                                            ->preload()
-                                            ->live()
-                                            ->prefixIcon('heroicon-o-wallet'),
-                                        Forms\Components\Section::make(fn(Forms\Get $get) => \App\Models\PaymentMethod::find($get('payment_method_id'))?->name ?? __('Informasi Pembayaran'))
-                                            ->description(fn(Forms\Get $get) => \App\Models\PaymentMethod::find($get('payment_method_id'))?->type?->getLabel())
-                                            ->icon(fn(Forms\Get $get) => (\App\Models\PaymentMethod::find($get('payment_method_id'))?->type === \App\Enums\PaymentMethodType::BANK_TRANSFER)
-                                                ? 'heroicon-o-building-library'
-                                                : 'heroicon-o-device-phone-mobile')
-                                            ->iconColor('primary')
-                                            ->visible(fn(Forms\Get $get) => (bool) $get('payment_method_id'))
-                                            ->columns(2)
-                                            ->schema([
-                                                // Nomor rekening — prominent box
-                                                Forms\Components\Placeholder::make('_account_number')
-                                                    ->label(__('Nomor Rekening / Tujuan'))
-                                                    ->content(fn(Forms\Get $get) => new \Illuminate\Support\HtmlString(
-                                                        '<p class="font-mono text-3xl font-bold tracking-[0.2em] select-all text-center py-2">' .
-                                                        (\App\Models\PaymentMethod::find($get('payment_method_id'))?->account_number ?? '-') .
-                                                        '</p><p class="text-[10px] text-center mt-1 opacity-60">' . __('Tekan & tahan untuk menyalin') . '</p>'
-                                                    ))
-                                                    ->extraAttributes(['class' => 'rounded-xl border-2 border-primary-200 dark:border-primary-800 bg-primary-50 dark:bg-primary-950 text-center p-1'])
-                                                    ->columnSpanFull(),
-                                                // Atas nama
-                                                Forms\Components\Placeholder::make('_account_holder')
-                                                    ->label(__('Atas Nama (a/n)'))
-                                                    ->content(fn(Forms\Get $get) => \App\Models\PaymentMethod::find($get('payment_method_id'))?->account_holder ?? '-'),
-                                                // Biaya admin
-                                                Forms\Components\Placeholder::make('_admin_fee')
-                                                    ->label(__('Biaya Admin'))
-                                                    ->content(fn(Forms\Get $get) => ((\App\Models\PaymentMethod::find($get('payment_method_id'))?->fee ?? 0) > 0)
-                                                        ? 'Rp ' . number_format(\App\Models\PaymentMethod::find($get('payment_method_id'))?->fee ?? 0, 0, ',', '.')
-                                                        : __('Gratis')),
-                                            ]),
-                                        Forms\Components\Placeholder::make('qris_preview')
-                                            ->label(__('Scan QRIS Berikut'))
-                                            ->visible(function(Forms\Get $get) {
-                                                $method = \App\Models\PaymentMethod::find($get('payment_method_id'));
-                                                return $method && $method->type === \App\Enums\PaymentMethodType::QRIS;
-                                            })
-                                            ->content(function(Forms\Get $get) {
-                                                $method = \App\Models\PaymentMethod::find($get('payment_method_id'));
-                                                $url = $method?->qris_image_url;
-                                                if (!$url) {
-                                                    return new \Illuminate\Support\HtmlString(
-                                                        '<div class="flex flex-col items-center gap-2 py-4">'
-                                                        . '<span class="text-sm text-danger-500">' . __('Gambar QRIS tidak tersedia.') . '</span>'
-                                                        . '</div>'
-                                                    );
-                                                }
-                                                return new \Illuminate\Support\HtmlString(
-                                                    '<div class="flex flex-col items-center gap-4 py-3">'
-                                                    . '<div class="p-3 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border-2 border-primary-200 dark:border-primary-700 inline-block">'
-                                                    . '<img src="' . e($url) . '" '
-                                                    . 'class="w-64 h-64 object-contain" '
-                                                    . 'alt="QRIS" onerror="this.style.display=\'none\'" />'
-                                                    . '</div>'
-                                                    . '<p class="text-[10px] text-center opacity-60 font-bold max-w-xs">'
-                                                    . __('Simpan QRIS ini atau scan langsung dari aplikasi bank/e-wallet Anda.')
-                                                    . '</p></div>'
-                                                );
-                                            })
-                                            ->columnSpanFull(),
-                                    ]),
-                            ]),
-                        Forms\Components\Wizard\Step::make(__('Konfirmasi'))
-                            ->icon('heroicon-o-check-badge')
-                            ->schema([
-                                Forms\Components\Section::make(__('Ringkasan Pembayaran'))
-                                    ->schema([
-                                        Forms\Components\Placeholder::make('pkg_summary')
-                                            ->label(__('Layanan'))
-                                            ->content(fn($record) => $record->package->name ?? '-'),
-                                        Forms\Components\Placeholder::make('price_summary')
-                                            ->label(__('Total Harga'))
-                                            ->content(function($record) {
-                                                if (! $record->package) return '-';
-                                                $price = ($record->package->discount_price > 0) ? $record->package->discount_price : $record->package->price;
-                                                return 'Rp ' . number_format($price, 0, ',', '.');
-                                            })
-                                            ->extraAttributes(['class' => 'text-primary-600 font-bold text-2xl']),
-                                        Forms\Components\Placeholder::make('terms')
-                                            ->label('')
-                                            ->content(__('Dengan menekan tombol pesan, Anda setuju dengan Syarat & Ketentuan layanan kami.')),
-                                    ]),
-                            ]),
-                    ])
+                    ->steps(fn ($record) => PackageResource::getCheckoutWizardSteps($record->package))
                     ->action(function ($record, array $data) {
-                        // Update user phone if changed
-                        if ($data['phone'] !== auth()->user()->phone) {
-                            auth()->user()->update(['phone' => $data['phone']]);
-                        }
-
-                        $p = $record->package;
-                        if (! $p) return;
+                        PackageResource::handleCheckout($record->package, $data);
                         
-                        $price = ($p->discount_price > 0) ? $p->discount_price : $p->price;
-
-                        $order = \App\Models\Order::create([
-                            'user_id' => auth()->id(),
-                            'package_id' => $p->id,
-                            'order_number' => 'ORD-' . strtoupper(str()->random(8)),
-                            'total_price' => $price,
-                            'status' => \App\Enums\OrderStatus::PENDING,
-                            'payment_status' => \App\Enums\OrderPaymentStatus::PENDING,
-                            'booking_date' => $data['booking_date'],
-                            'notes' => $data['notes'],
-                        ]);
-
-                        $method = \App\Models\PaymentMethod::find($data['payment_method_id']);
-                        
-                        if ($method) {
-                            \App\Models\Payment::create([
-                                'order_id' => $order->id,
-                                'payment_number' => 'PAY-' . strtoupper(str()->random(8)),
-                                'payment_method' => $method->code,
-                                'amount' => $price,
-                                'admin_fee' => $method->fee ?? 0,
-                                'total_amount' => $price + ($method->fee ?? 0),
-                                'status' => 'pending',
-                            ]);
-                        }
-
                         // Remove from wishlist
                         $record->delete();
 
-                        \Filament\Notifications\Notification::make()
-                            ->title(__('Checkout Berhasil!'))
-                            ->body(__('Silahkan unggah bukti transfer di menu Pesanan Saya.'))
-                            ->success()
-                            ->send();
-                            
                         // Redirect to orders
-                        redirect('/user/my-orders');
+                        return redirect()->route('filament.user.resources.orders.index');
                     }),
             ])
+            ->actionsAlignment('center')
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->slideOver()

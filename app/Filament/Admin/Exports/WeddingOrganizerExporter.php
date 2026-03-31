@@ -16,17 +16,28 @@ class WeddingOrganizerExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('user_id'),
-            ExportColumn::make('name'),
-            ExportColumn::make('slug'),
-            ExportColumn::make('description'),
-            ExportColumn::make('address'),
-            ExportColumn::make('latitude'),
-            ExportColumn::make('longitude'),
-            ExportColumn::make('rating'),
-            ExportColumn::make('is_verified'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('user_id')
+                ->label(__('ID Pengguna')),
+            ExportColumn::make('name')
+                ->label(__('Nama WO')),
+            ExportColumn::make('slug')
+                ->label(__('Slug')),
+            ExportColumn::make('description')
+                ->label(__('Deskripsi')),
+            ExportColumn::make('address')
+                ->label(__('Alamat')),
+            ExportColumn::make('latitude')
+                ->label(__('Latitude')),
+            ExportColumn::make('longitude')
+                ->label(__('Longitude')),
+            ExportColumn::make('rating')
+                ->label(__('Rating')),
+            ExportColumn::make('is_verified')
+                ->label(__('Status Verifikasi')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

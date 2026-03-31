@@ -7,6 +7,8 @@ use App\Filament\Admin\Resources\PaymentResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property-read \App\Filament\Resources\PaymentResource $resource
@@ -14,6 +16,25 @@ use Filament\Resources\Pages\ManageRecords;
 class ManagePayments extends ManageRecords
 {
     protected static string $resource = PaymentResource::class;
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make(__('Semua'))
+                ->icon('heroicon-m-list-bullet'),
+            'pending' => Tab::make(__('Perlu Verifikasi'))
+                ->icon('heroicon-m-clock')
+                ->badge(fn() => \App\Models\Payment::where('status', \App\Enums\PaymentStatus::PENDING)->count())
+                ->badgeColor('warning')
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', \App\Enums\PaymentStatus::PENDING)),
+            'success' => Tab::make(__('Berhasil'))
+                ->icon('heroicon-m-check-circle')
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', \App\Enums\PaymentStatus::SUCCESS)),
+            'failed' => Tab::make(__('Gagal/Batal'))
+                ->icon('heroicon-m-x-circle')
+                ->modifyQueryUsing(fn (Builder $query) => $query->whereIn('status', [\App\Enums\PaymentStatus::FAILED, \App\Enums\PaymentStatus::CANCELLED])),
+        ];
+    }
 
     protected function getHeaderActions(): array
     {

@@ -13,151 +13,147 @@
 <div class="mt-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
 
     {{-- Header --}}
-    <div class="flex items-center justify-between mb-3 px-1">
+    <div class="flex items-center justify-between mb-4 px-1">
         <div class="flex items-center gap-2">
-            <x-filament::icon icon="heroicon-s-sparkles" class="w-4 h-4 text-amber-500" />
-            <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">{{ __('Hasil Mirip') }}</span>
+            <x-filament::icon icon="heroicon-s-sparkles" class="w-5 h-5 text-amber-500 shadow-sm" />
+            <span class="text-sm font-black bg-clip-text text-transparent bg-linear-to-r from-amber-500 to-primary-600 uppercase tracking-tighter">{{ __('Hasil Mirip') }}</span>
         </div>
-        <div class="flex items-center gap-2">
-            <x-filament::badge color="success" size="sm">
-                {{ count($packages) }} {{ __('paket ditemukan') }}
-            </x-filament::badge>
-        </div>
+        <x-filament::badge color="success" size="sm" icon="heroicon-m-check-badge">
+            {{ count($packages) }} {{ __('layanan') }}
+        </x-filament::badge>
     </div>
 
     {{-- Top Match Highlight --}}
     @if($topScore >= 0.7)
-    <div class="mb-3 px-3 py-2 rounded-2xl bg-linear-to-r from-amber-500/10 to-primary-500/10 border border-amber-500/20 flex items-center gap-2">
-        <x-filament::icon icon="heroicon-s-fire" class="w-4 h-4 text-amber-500 shrink-0" />
-        <span class="text-xs font-semibold text-amber-700 dark:text-amber-400">
-            {{ __('Kecocokan terbaik:') }} <strong>{{ round($topScore * 100) }}%</strong> {{ __('akurasi visual') }}
-        </span>
+    <div class="mb-4">
+        <x-filament::section compact>
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-amber-500/10 rounded-xl">
+                    <x-filament::icon icon="heroicon-s-fire" class="w-5 h-5 text-amber-500" />
+                </div>
+                <div>
+                    <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">{{ __('Rekomendasi Terbaik') }}</p>
+                    <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                        {{ \App\Filament\User\Resources\PackageResource::formatSimilarityPct($topScore) }}% {{ __('akurasi visual terdeteksi') }}
+                    </p>
+                </div>
+            </div>
+        </x-filament::section>
     </div>
     @endif
 
     {{-- Package Cards --}}
-    <div class="space-y-3">
+    <div class="space-y-4">
         @foreach($packages as $package)
         @php
             $score = $package->similarity_score;
-            $pct = round($score * 100);
+            $pct = \App\Filament\User\Resources\PackageResource::formatSimilarityPct($score);
             $badgeColor = $score >= 0.85 ? 'success' : ($score >= 0.65 ? 'warning' : 'gray');
-            $barColor = $score >= 0.85 ? 'bg-emerald-500' : ($score >= 0.65 ? 'bg-amber-500' : 'bg-gray-400');
-            $wishlistUrl = '/user/wishlists/create?package_id=' . $package->id;
-            $bookUrl = '/user/my-orders/create?package_id=' . $package->id;
-            $payUrl = '/user/payments/create';
+            $wishlistUrl = route('filament.user.resources.wishlists.index', ['package_id' => $package->id]);
+            $bookUrl = route('filament.user.resources.catalog.index', ['package_id' => $package->id]);
         @endphp
 
-        <div class="group relative bg-white dark:bg-gray-900 rounded-2xl shadow-md border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all duration-300">
-
-            {{-- Accuracy Badge Top Right --}}
-            <div class="absolute top-2 right-2 z-10 flex flex-col items-end gap-1">
-                <x-filament::badge color="{{ $badgeColor }}" size="sm" class="font-bold shadow-sm text-[10px]">
-                    {{ $pct }}% {{ __('MIRIP') }}
+        <x-filament::section compact class="relative overflow-hidden group hover:ring-2 hover:ring-primary-500/50 transition-all duration-300">
+            {{-- Accuracy Badge --}}
+            <div class="absolute top-0 right-0 p-3">
+                <x-filament::badge color="{{ $badgeColor }}" size="sm" class="font-bold">
+                    {{ $pct }}%
                 </x-filament::badge>
-                @if($package->is_featured)
-                <span class="text-[9px] font-extrabold bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">🔥 TOP</span>
-                @endif
             </div>
 
-            <div class="flex gap-3 p-3">
-
+            <div class="flex gap-4">
                 {{-- Package Image --}}
-                <div class="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
-                    @if($package->image_url)
-                        <img
-                            src="{{ asset('storage/' . $package->image_url) }}"
-                            alt="{{ $package->name }}"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            onerror="this.src='{{ asset('images/placeholder.png') }}'"
-                        />
-                    @else
-                        <div class="w-full h-full flex items-center justify-center">
-                            <x-filament::icon icon="heroicon-o-photo" class="w-8 h-8 text-gray-300" />
-                        </div>
-                    @endif
-
-                    {{-- Accuracy progress bar at bottom of image --}}
-                    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-200/50">
-                        <div class="{{ $barColor }} h-full transition-all duration-700" style="width: {{ $pct }}%"></div>
+                <div class="relative w-24 h-24 shrink-0 rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-inner">
+                    <img
+                        src="{{ asset('storage/' . $package->image_url) }}"
+                        alt="{{ $package->name }}"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        onerror="this.src='{{ asset('images/placeholders/image-placeholder.svg') }}'"
+                    />
+                    {{-- Small Progress Bar --}}
+                    <div class="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-200/30 backdrop-blur-sm">
+                        <div class="h-full bg-linear-to-r from-amber-500 to-primary-500 transition-all duration-1000 ease-out" style="width: {{ $pct }}%"></div>
                     </div>
                 </div>
 
                 {{-- Info --}}
-                <div class="flex-1 min-w-0 flex flex-col justify-between">
-                    <div class="pr-14">
-                        {{-- Category --}}
+                <div class="flex-1 min-w-0 pr-8 flex flex-col justify-between">
+                    <div>
                         @if($package->category)
-                        <span class="text-[9px] font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest">{{ $package->category->name }}</span>
+                            <p class="text-[9px] font-black text-primary-600 dark:text-primary-400 uppercase tracking-widest mb-1">{{ $package->category->name }}</p>
                         @endif
 
-                        {{-- Name --}}
-                        <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-tight truncate mt-0.5">
+                        <h4 class="text-base font-bold text-gray-900 dark:text-white leading-tight truncate">
                             {{ $package->name }}
                         </h4>
 
-                        {{-- WO Name --}}
-                        @if($package->weddingOrganizer)
-                        <p class="text-[10px] text-gray-500 dark:text-gray-400 truncate mt-0.5 flex items-center gap-1">
-                            <x-filament::icon icon="heroicon-s-building-storefront" class="w-3 h-3 shrink-0" />
-                            {{ $package->weddingOrganizer->name }}
-                        </p>
-                        @endif
-
-                        {{-- Price --}}
-                        <p class="text-sm font-extrabold text-primary-600 dark:text-primary-400 mt-1">
-                            Rp {{ number_format($package->price, 0, ',', '.') }}
-                        </p>
+                        <div class="flex items-center gap-1.5 mt-1.5">
+                            <x-filament::icon icon="heroicon-s-building-storefront" class="w-3.5 h-3.5 text-gray-400 group-hover:text-primary-500 transition-colors" />
+                            <p class="text-xs text-gray-500 dark:text-gray-400 truncate">
+                                {{ $package->weddingOrganizer?->name }}
+                            </p>
+                        </div>
                     </div>
 
-                    {{-- Action Buttons (Shopee-style) --}}
-                    <div class="flex items-center gap-1.5 mt-2">
-
-                        {{-- Wishlist / Keranjang --}}
-                        <a href="{{ $wishlistUrl }}"
-                            class="flex items-center justify-center w-8 h-8 rounded-xl border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-100 dark:hover:bg-red-800/30 transition-colors shrink-0"
-                            title="{{ __('Simpan ke Favorit') }}"
-                        >
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                            </svg>
-                        </a>
-
-                        {{-- Book/Order (Keranjang) --}}
-                        <a href="{{ $bookUrl }}"
-                            class="flex-1 flex items-center justify-center gap-1.5 h-8 rounded-xl border border-primary-400 dark:border-primary-600 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-[11px] font-bold hover:bg-primary-100 dark:hover:bg-primary-800/30 transition-colors"
-                        >
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
-                            {{ __('Keranjang') }}
-                        </a>
-
-                        {{-- Sewa Langsung --}}
-                        <a href="{{ $bookUrl }}"
-                            class="flex-1 flex items-center justify-center gap-1.5 h-8 rounded-xl bg-linear-to-r from-amber-500 to-primary-500 text-white text-[11px] font-bold hover:from-amber-600 hover:to-primary-600 transition-all shadow-sm shadow-amber-500/20"
-                        >
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                            </svg>
-                            {{ __('Sewa') }}
-                        </a>
+                    <div class="mt-2 flex items-baseline gap-2">
+                        @if($package->discount_price > 0)
+                            <span class="text-lg font-black text-primary-600 dark:text-primary-400">
+                                Rp {{ number_format($package->discount_price, 0, ',', '.') }}
+                            </span>
+                            <span class="text-xs text-gray-400 line-through decoration-red-500/50">
+                                Rp {{ number_format($package->price, 0, ',', '.') }}
+                            </span>
+                        @else
+                            <span class="text-lg font-black text-primary-600 dark:text-primary-400">
+                                Rp {{ number_format($package->price, 0, ',', '.') }}
+                            </span>
+                        @endif
                     </div>
                 </div>
             </div>
-        </div>
+
+            {{-- Footer Actions --}}
+            <x-slot name="footer">
+                <div class="flex items-center gap-2">
+                    <x-filament::button
+                        href="{{ $wishlistUrl }}"
+                        tag="a"
+                        color="danger"
+                        icon="heroicon-m-heart"
+                        size="sm"
+                        outlined
+                        class="rounded-xl"
+                    >
+                        {{ __('Favorit') }}
+                    </x-filament::button>
+
+                    <x-filament::button
+                        href="{{ $bookUrl }}"
+                        tag="a"
+                        color="primary"
+                        icon="heroicon-m-shopping-bag"
+                        size="sm"
+                        class="flex-1 rounded-xl shadow-lg shadow-primary-500/20"
+                    >
+                        {{ __('Pesan Sekarang') }}
+                    </x-filament::button>
+                </div>
+            </x-slot>
+        </x-filament::section>
         @endforeach
     </div>
 
     {{-- Show All Button --}}
-    <div class="mt-4">
-        <button
+    <div class="mt-6">
+        <x-filament::button
             wire:click="$dispatch('refresh_catalog')"
-            class="w-full py-3 rounded-2xl bg-linear-to-r from-amber-500 to-primary-500 text-white font-bold text-sm shadow-lg shadow-primary-500/20 hover:from-amber-600 hover:to-primary-600 transition-all active:scale-95 flex items-center justify-center gap-2"
+            color="primary"
+            size="lg"
+            icon="heroicon-m-squares-2x2"
+            class="w-full rounded-2xl shadow-xl shadow-primary-500/30 font-bold"
         >
-            <x-filament::icon icon="heroicon-m-squares-2x2" class="w-4 h-4" />
-            {{ __('Tampilkan Semua di Katalog') }}
-        </button>
+            {{ __('Tampilkan di Katalog Utama') }}
+        </x-filament::button>
     </div>
 
 </div>

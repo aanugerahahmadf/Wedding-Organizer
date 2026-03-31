@@ -27,7 +27,7 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
     protected static ?int $navigationSort = 1;
 
@@ -87,16 +87,16 @@ class OrderResource extends Resource
                             ->icon('heroicon-o-shopping-bag')
                             ->schema([
                                 Forms\Components\Select::make('user_id')
+                                    ->searchable()
                                     ->label(__('Pelanggan'))
                                     ->options(User::query()->pluck('full_name', 'id')->toArray())
-                                    ->searchable()
                                     ->preload()
                                     ->prefixIcon('heroicon-o-user')
                                     ->required(),
                                 Forms\Components\Select::make('package_id')
+                                    ->searchable()
                                     ->label(__('Paket Layanan'))
                                     ->relationship('package', 'name')
-                                    ->searchable()
                                     ->preload()
                                     ->prefixIcon('heroicon-o-gift')
                                     ->required(),
@@ -131,19 +131,20 @@ class OrderResource extends Resource
                                 Forms\Components\TextInput::make('total_price')
                                     ->label(__('Total Harga (Tagihan)'))
                                     ->required()
-                                    ->numeric()
                                     ->prefix('Rp')
+                                    ->formatStateUsing(fn ($state) => number_format((float) $state, 2, ',', '.'))
+                                    ->dehydrateStateUsing(fn ($state) => $state ? (float) str_replace(',', '.', str_replace(['Rp', '.', ' '], '', $state)) : 0)
                                     ->extraInputAttributes(['class' => 'font-bold text-2xl text-primary-600']),
                                 Forms\Components\Select::make('status')
+                                    ->searchable()
                                     ->label(__('Status Pengerjaan'))
                                     ->options(\App\Enums\OrderStatus::class)
-                                    ->searchable()
                                     ->native(false)
                                     ->required(),
                                 Forms\Components\Select::make('payment_status')
+                                    ->searchable()
                                     ->label(__('Status Pembayaran'))
                                     ->options(\App\Enums\OrderPaymentStatus::class)
-                                    ->searchable()
                                     ->native(false)
                                     ->required(),
                             ]),
@@ -156,21 +157,15 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.full_name')
-                    ->label(__('Pelanggan'))
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('package.name')
-                    ->label(__('Paket Layanan'))
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('order_number')
+                    ->label(__('Pelanggan')),
+                Tables\Columns\TextColumn::make('package.name')->searchable()
+                    ->label(__('Paket Layanan')),
+                Tables\Columns\TextColumn::make('order_number')->searchable()
                     ->label(__('No. Pesanan'))
-                    ->searchable()
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('total_price')
                     ->label(__('Harga'))
-                    ->money('IDR')
-                    ->sortable()
+                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 2, ',', '.'))
                     ->alignment('right'),
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('Status'))
@@ -183,22 +178,18 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('booking_date')
                     ->label(__('Tanggal Acara'))
                     ->date()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('notes')
                     ->label(__('Catatan'))
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Tanggal Pesan'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Terakhir Diperbarui'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -206,11 +197,48 @@ class OrderResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('start_preparing')
+                        ->label(__('Mulai Persiapan'))
+                        ->icon('heroicon-m-cog-6-tooth')
+                        ->color('info')
+                        ->visible(fn ($record) => $record->status === \App\Enums\OrderStatus::CONFIRMED)
+                        ->requiresConfirmation()
+                        ->successNotificationTitle(__('Persiapan Dimulai'))
+                        ->action(fn ($record) => $record->update(['status' => \App\Enums\OrderStatus::PREPARING])),
+
+                    Tables\Actions\Action::make('set_event_day')
+                        ->label(__('Set Hari H'))
+                        ->icon('heroicon-m-sparkles')
+                        ->color('success')
+                        ->visible(fn ($record) => $record->status === \App\Enums\OrderStatus::PREPARING)
+                        ->requiresConfirmation()
+                        ->successNotificationTitle(__('Status Hari H Aktif'))
+                        ->action(fn ($record) => $record->update(['status' => \App\Enums\OrderStatus::EVENT_DAY])),
+
+                    Tables\Actions\Action::make('complete')
+                        ->label(__('Selesaikan'))
+                        ->icon('heroicon-m-check-badge')
+                        ->color('success')
+                        ->visible(fn ($record) => $record->status === \App\Enums\OrderStatus::EVENT_DAY)
+                        ->requiresConfirmation()
+                        ->successNotificationTitle(__('Pesanan Selesai'))
+                        ->action(fn ($record) => $record->update(['status' => \App\Enums\OrderStatus::COMPLETED])),
+
+                ])->label(__('Aksi'))
+                  ->icon('heroicon-m-ellipsis-vertical')
+                  ->size('lg')
+                  ->color('primary')
+                  ->button()
+                  ->extraAttributes(['style' => 'min-width: 120px']),
+
                 Tables\Actions\Action::make('chat')
                     ->label(__('Hubungi'))
                     ->icon('heroicon-o-chat-bubble-left-right')
                     ->color('success')
                     ->button()
+                    ->size('lg')
+                    ->extraAttributes(['style' => 'min-width: 120px'])
                     ->url(function (Order $record) {
                         $authId = Auth::id();
                         $customerId = $record->user_id;
@@ -251,12 +279,14 @@ class OrderResource extends Resource
                     ->slideOver()
                     ->button()
                     ->color('info')
-                    ->size('lg'),
+                    ->size('lg')
+                    ->extraAttributes(['style' => 'min-width: 120px']),
                 Tables\Actions\EditAction::make()
                     ->slideOver()
                     ->button()
                     ->color('warning')
                     ->size('lg')
+                    ->extraAttributes(['style' => 'min-width: 120px'])
                     ->successNotification(
                         Notification::make()
                             ->success()
@@ -267,6 +297,7 @@ class OrderResource extends Resource
                     ->button()
                     ->color('danger')
                     ->size('lg')
+                    ->extraAttributes(['style' => 'min-width: 120px'])
                     ->successNotification(
                         Notification::make()
                             ->success()

@@ -41,6 +41,13 @@
       0 => 'Codeat3\\BladeEosIcons\\BladeEosIconsServiceProvider',
     ),
   ),
+  'codeat3/blade-govicons' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Codeat3\\BladeGovIcons\\BladeGovIconsServiceProvider',
+    ),
+  ),
   'codezero/browser-locale' => 
   array (
     'providers' => 
@@ -57,6 +64,17 @@
     'providers' => 
     array (
       0 => 'Coolsam\\Modules\\ModulesServiceProvider',
+    ),
+  ),
+  'dotswan/filament-map-picker' => 
+  array (
+    'aliases' => 
+    array (
+      'MapPicker' => 'Dotswan\\MapPicker\\Facades\\MapPicker',
+    ),
+    'providers' => 
+    array (
+      0 => 'Dotswan\\MapPicker\\MapPickerServiceProvider',
     ),
   ),
   'emmanpbarrameda/filament-take-picture-field' => 
@@ -366,6 +384,13 @@
     'providers' => 
     array (
       0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    ),
+  ),
+  'maiden-voyage-software/blade-emojis' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'BladeUI\\Emojis\\BladeEmojisServiceProvider',
     ),
   ),
   'mallardduck/blade-boxicons' => 

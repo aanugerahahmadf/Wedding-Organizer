@@ -50,7 +50,7 @@ class WishlistController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve wishlist',
+                'message' => __('Gagal mengambil wishlist'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -76,7 +76,7 @@ class WishlistController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Removed from wishlist',
+                    'message' => __('Dihapus dari wishlist'),
                     'in_wishlist' => false,
                 ]);
             } else {
@@ -90,7 +90,7 @@ class WishlistController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Added to wishlist',
+                    'message' => __('Ditambahkan ke wishlist'),
                     'in_wishlist' => true,
                     'data' => $wishlist,
                 ], 201);
@@ -98,7 +98,7 @@ class WishlistController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to update wishlist',
+                'message' => __('Gagal memperbarui wishlist'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -121,7 +121,7 @@ class WishlistController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to check wishlist status',
+                'message' => __('Gagal memeriksa status wishlist'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -159,7 +159,7 @@ class WishlistController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => "$addedCount items added to wishlist",
+                'message' => $addedCount.' '.__('item ditambahkan ke wishlist'),
                 'added_count' => $addedCount,
                 'skipped_count' => count($skippedIds),
                 'skipped_ids' => $skippedIds,
@@ -167,7 +167,7 @@ class WishlistController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to add items to wishlist',
+                'message' => __('Gagal menambahkan item ke wishlist'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -186,7 +186,7 @@ class WishlistController extends Controller
             if (! $wishlist) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Item not found in wishlist',
+                    'message' => __('Item tidak ditemukan dalam wishlist'),
                 ], 404);
             }
 
@@ -194,12 +194,12 @@ class WishlistController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Removed from wishlist',
+                'message' => __('Dihapus dari wishlist'),
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to remove from wishlist',
+                'message' => __('Gagal menghapus dari wishlist'),
                 'error' => $e->getMessage(),
             ], 500);
         }

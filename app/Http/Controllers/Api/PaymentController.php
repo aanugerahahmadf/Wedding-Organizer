@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Enums\OrderStatus;
+use App\Enums\OrderPaymentStatus;
+use App\Enums\PaymentStatus;
 
 class PaymentController extends Controller
 {
@@ -43,12 +46,9 @@ class PaymentController extends Controller
                     ];
                 } elseif ($method->type === 'ewallet') {
                     $data['details'] = $method->account_number;
-                } elseif ($method->type === 'qris') {
-                    $data['qris_image'] = $method->qris_image_url;
-                } elseif ($method->type === 'cod') {
-                    $data['instructions'] = $method->instructions ?? 'Bayar tunai di lokasi acara.';
+                    $data['instructions'] = $method->instructions ?? __('Bayar tunai di lokasi acara.');
                 } elseif ($method->type === 'wallet') {
-                    $data['instructions'] = $method->instructions ?? 'Pembayaran otomatis dipotong dari saldo dompet.';
+                    $data['instructions'] = $method->instructions ?? __('Pembayaran otomatis dipotong dari saldo dompet.');
                 }
 
                 if ($method->instructions) {
@@ -65,7 +65,7 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve payment methods',
+                'message' => __('Gagal mengambil metode pembayaran'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -90,17 +90,17 @@ class PaymentController extends Controller
                 ->firstOrFail(['*']);
 
             // Verify that the order can be paid
-            if ($order->payment_status === 'paid') {
+            if ($order->payment_status === OrderPaymentStatus::PAID) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Order is already paid',
+                    'message' => __('Pesanan sudah dibayar'),
                 ], 400);
             }
 
-            if ($order->status === 'cancelled') {
+            if ($order->status === OrderStatus::CANCELLED) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Cannot pay for cancelled order',
+                    'message' => __('Tidak dapat membayar untuk pesanan yang dibatalkan'),
                 ], 400);
             }
 
@@ -109,19 +109,19 @@ class PaymentController extends Controller
             if (abs($validatedData['amount'] - $order->total_price) > $tolerance) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Payment amount does not match order total',
+                    'message' => __('Jumlah pembayaran tidak sesuai dengan total pesanan'),
                 ], 400);
             }
 
             // Check if a payment already exists for this order
             $existingPayment = Payment::where('order_id', $order->id)
-                ->whereIn('status', ['pending', 'processing'])
+                ->whereIn('status', [PaymentStatus::PENDING, PaymentStatus::PROCESSING])
                 ->first(['*']);
 
             if ($existingPayment) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Payment already exists for this order',
+                    'message' => __('Pembayaran sudah ada untuk pesanan ini'),
                     'payment' => $existingPayment,
                 ], 409);
             }
@@ -135,7 +135,7 @@ class PaymentController extends Controller
                 'order_id' => $order->id,
                 'payment_number' => 'PAY-'.strtoupper(Str::random(12)),
                 'payment_method' => $validatedData['payment_method'],
-                'status' => 'pending',
+                'status' => PaymentStatus::PENDING,
                 'amount' => $validatedData['amount'],
                 'admin_fee' => $adminFee,
                 'total_amount' => $totalAmount,
@@ -149,7 +149,7 @@ class PaymentController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Payment created successfully',
+                'message' => __('Pembayaran berhasil dibuat'),
                 'data' => [
                     'payment' => $payment,
                     'payment_method_details' => $this->getPaymentMethodDetails($validatedData['payment_method']),
@@ -164,12 +164,12 @@ class PaymentController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Order not found or does not belong to user',
+                'message' => __('Pesanan tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to create payment',
+                'message' => __('Gagal membuat pembayaran'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -231,7 +231,7 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve payment history',
+                'message' => __('Gagal mengambil riwayat pembayaran'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -257,12 +257,12 @@ class PaymentController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Payment not found or does not belong to user',
+                'message' => __('Pembayaran tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve payment details',
+                'message' => __('Gagal mengambil detail pembayaran'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -285,10 +285,10 @@ class PaymentController extends Controller
                 ->firstOrFail(['*']);
 
             // Check if payment can have proof uploaded
-            if (! in_array($payment->status, ['pending', 'processing'])) {
+            if (! in_array($payment->status, [PaymentStatus::PENDING, PaymentStatus::PROCESSING])) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Cannot upload proof for payment with status: '.$payment->status,
+                    'message' => __('Bukti gagal diunggah karena status pembayaran: ') . ($payment->status instanceof \App\Enums\PaymentStatus ? $payment->status->getLabel() : (string) $payment->status),
                 ], 400);
             }
 
@@ -318,23 +318,18 @@ class PaymentController extends Controller
             // Update payment with proof and AI metadata
             $payment->update([
                 'payment_proof' => $path,
-                'status' => $aiAnalysis['is_verified_by_ai'] ? 'success' : 'processing',
-                'paid_at' => $aiAnalysis['is_verified_by_ai'] ? now() : null,
+                'status' => PaymentStatus::PROCESSING, // Selalu 'processing' agar Admin yang memberikan persetujuan akhir
+                'paid_at' => null, // Biarkan Admin yang menentukan waktu bayar saat Approve
                 'metadata' => array_merge($payment->metadata ?? [], ['ai_analysis' => $aiAnalysis]),
             ]);
 
-            // Jika otomatis diverifikasi oleh AI, update juga status pesanannya
-            if ($aiAnalysis['is_verified_by_ai']) {
-                $payment->order->update([
-                    'payment_status' => 'paid',
-                ]);
-            }
+            // Jangan update status pesanan otomatis, biarkan Admin yang melakukan melalui tombol di dashboard
 
             return response()->json([
                 'status' => 'success',
                 'message' => $aiAnalysis['is_verified_by_ai']
-                    ? 'Bukti pembayaran divalidasi otomatis oleh AI. Pesanan Anda kini aktif!'
-                    : 'Bukti pembayaran berhasil diunggah. Menunggu verifikasi admin.',
+                    ? __('Bukti pembayaran divalidasi otomatis oleh AI. Pesanan Anda kini aktif!')
+                    : __('Bukti pembayaran berhasil diunggah. Menunggu verifikasi admin.'),
                 'data' => [
                     'payment_proof_url' => \Illuminate\Support\Facades\Storage::disk('public')->url($path),
                     'payment' => $payment->fresh(),
@@ -350,12 +345,12 @@ class PaymentController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Payment not found or does not belong to user',
+                'message' => __('Pembayaran tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to upload payment proof',
+                'message' => __('Gagal mengunggah bukti pembayaran'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -374,32 +369,32 @@ class PaymentController extends Controller
                 ->firstOrFail(['*']);
 
             // Check if payment can be cancelled
-            if (! in_array($payment->status, ['pending', 'processing'])) {
+            if (! in_array($payment->status, [PaymentStatus::PENDING, PaymentStatus::PROCESSING])) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Cannot cancel payment with status: '.$payment->status,
+                    'message' => __('Pembayaran tidak dapat dibatalkan karena status: ') . ($payment->status instanceof \App\Enums\PaymentStatus ? $payment->status->getLabel() : (string) $payment->status),
                 ], 400);
             }
 
             $payment->update([
-                'status' => 'cancelled',
+                'status' => PaymentStatus::CANCELLED,
                 'cancelled_at' => now(),
             ]);
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Payment cancelled successfully',
+                'message' => __('Pembayaran berhasil dibatalkan'),
                 'data' => $payment->fresh(),
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Payment not found or does not belong to user',
+                'message' => __('Pembayaran tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to cancel payment',
+                'message' => __('Gagal membatalkan pembayaran'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -457,7 +452,7 @@ class PaymentController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Payment not found or does not belong to user',
+                'message' => __('Pembayaran tidak ditemukan atau bukan milik Anda'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([

@@ -49,7 +49,7 @@ class UserPanelProvider extends PanelProvider
             )
             ->emailVerification(OtpEmailVerificationPrompt::class)
             // ->sidebarFullyCollapsibleOnDesktop()
-            ->brandName(config('app.name'))
+            ->brandName(__('Devi Make Up Wedding Organizer'))
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('3rem')
             // ->simplePageMaxContentWidth(MaxWidth::Small)
@@ -57,7 +57,7 @@ class UserPanelProvider extends PanelProvider
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
                 'info' => Color::Blue,
-                'primary' => Color::Amber,
+                'primary' => Color::Yellow,
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
             ])
@@ -65,6 +65,7 @@ class UserPanelProvider extends PanelProvider
             ->defaultThemeMode(ThemeMode::System)
             ->topNavigation()
             ->maxContentWidth(MaxWidth::Full)
+            ->spa()
             ->databaseNotifications()
             ->renderHook(
                 'panels::global-search.before',
@@ -96,10 +97,10 @@ class UserPanelProvider extends PanelProvider
                 // Widgets are auto-discovered from the Widgets directory
             ])
             ->navigationGroups([
-                NavigationGroup::make()->label(__('Beranda')),
-                NavigationGroup::make()->label(__('Belanja & Jelajahi')),
-                NavigationGroup::make()->label(__('Transaksi & Aktivitas')),
-                NavigationGroup::make()->label(__('Pesan')),
+                NavigationGroup::make()->label(fn () => __('Beranda')),
+                NavigationGroup::make()->label(fn () => __('Belanja & Jelajahi')),
+                NavigationGroup::make()->label(fn () => __('Transaksi & Aktivitas')),
+                NavigationGroup::make()->label(fn () => __('Pesan')),
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()

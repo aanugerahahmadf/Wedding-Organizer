@@ -16,19 +16,32 @@ class TopupExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('user.id'),
-            ExportColumn::make('reference_number'),
-            ExportColumn::make('amount'),
-            ExportColumn::make('admin_fee'),
-            ExportColumn::make('total_amount'),
-            ExportColumn::make('payment_method'),
-            ExportColumn::make('status'),
-            ExportColumn::make('payment_url'),
-            ExportColumn::make('payment_proof'),
-            ExportColumn::make('paid_at'),
-            ExportColumn::make('notes'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('user.id')
+                ->label(__('ID Pengguna')),
+            ExportColumn::make('reference_number')
+                ->label(__('Nomor Referensi')),
+            ExportColumn::make('amount')
+                ->label(__('Jumlah')),
+            ExportColumn::make('admin_fee')
+                ->label(__('Biaya Admin')),
+            ExportColumn::make('total_amount')
+                ->label(__('Total Jumlah')),
+            ExportColumn::make('payment_method')
+                ->label(__('Metode Pembayaran')),
+            ExportColumn::make('status')
+                ->label(__('Status')),
+            ExportColumn::make('payment_url')
+                ->label(__('URL Pembayaran')),
+            ExportColumn::make('payment_proof')
+                ->label(__('Bukti Pembayaran')),
+            ExportColumn::make('paid_at')
+                ->label(__('Dibayar Pada')),
+            ExportColumn::make('notes')
+                ->label(__('Catatan')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

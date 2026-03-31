@@ -26,11 +26,11 @@ class PaymentsRelationManager extends RelationManager
                     ->required()
                     ->numeric()
                     ->prefix('Rp'),
-                Forms\Components\Select::make('status')
+                Forms\Components\Select::make('status')->searchable()
                     ->label(__('Status'))
                     ->options(Payment::statusLabels())
                     ->required(),
-                Forms\Components\Select::make('payment_method')
+                Forms\Components\Select::make('payment_method')->searchable()
                     ->label(__('Metode Pembayaran'))
                     ->options(Payment::paymentMethodLabels())
                     ->required(),
@@ -47,13 +47,11 @@ class PaymentsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('payment_number')
             ->columns([
-                Tables\Columns\TextColumn::make('payment_number')
-                    ->label(__('Nomor Pembayaran'))
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('payment_number')->searchable()
+                    ->label(__('Nomor Pembayaran')),
                 Tables\Columns\TextColumn::make('total_amount')
                     ->label(__('Total'))
-                    ->money('IDR')
-                    ->sortable(),
+                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 0, ',', '.')),
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('Status'))
                     ->badge(),
@@ -61,13 +59,10 @@ class PaymentsRelationManager extends RelationManager
                     ->label(__('Metode')),
                 Tables\Columns\ImageColumn::make('payment_proof')
                     ->label(__('Bukti'))
-                    ->width(50)
-                    ->height(50)
                     ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('paid_at')
                     ->label(__('Dibayar Pada'))
-                    ->dateTime()
-                    ->sortable(),
+                    ->dateTime(),
             ])
             ->filters([
                 //

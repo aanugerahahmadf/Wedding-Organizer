@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserSpendingChart extends ChartWidget
 {
-
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $pollingInterval = null;
 

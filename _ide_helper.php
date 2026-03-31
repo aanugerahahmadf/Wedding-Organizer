@@ -29937,6 +29937,11 @@ namespace Filament\Resources\Pages {
      */
     class Page extends \Filament\Pages\Page {
             }
+    /**
+     * @property Form $form
+     */
+    class ViewRecord extends \Filament\Resources\Pages\Page {
+            }
     }
 
 namespace Filament\Pages {
@@ -30240,9 +30245,17 @@ namespace App\Filament\User\Resources\PackageResource\Pages {
      */
     class ManagePackages extends \Filament\Resources\Pages\ManageRecords {
             }
+    /**
+     */
+    class ViewPackage extends \Filament\Resources\Pages\ViewRecord {
+            }
     }
 
 namespace App\Filament\User\Resources\PaymentResource\Pages {
+    /**
+     */
+    class ListPayments extends \Filament\Resources\Pages\ListRecords {
+            }
     /**
      */
     class ManagePayments extends \Filament\Resources\Pages\ManageRecords {
@@ -30274,6 +30287,10 @@ namespace App\Filament\User\Resources\WeddingOrganizerResource\Pages {
     /**
      */
     class ManageWeddingOrganizers extends \Filament\Resources\Pages\ManageRecords {
+            }
+    /**
+     */
+    class ViewWeddingOrganizer extends \Filament\Resources\Pages\ViewRecord {
             }
     }
 
@@ -36045,6 +36062,11 @@ namespace  {
 }
 
 
+namespace Facades\Livewire\Features\SupportFileUploads {
+    /**
+     * @mixin \Livewire\Features\SupportFileUploads\GenerateSignedUploadUrl     */
+    class GenerateSignedUploadUrl extends \Livewire\Features\SupportFileUploads\GenerateSignedUploadUrl {}
+}
 
 namespace {
     

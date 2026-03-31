@@ -17,17 +17,27 @@ class WithdrawalExporter extends Exporter
             ExportColumn::make('id')
                 ->label(__('ID')),
             ExportColumn::make('user.full_name')
-                ->label(__('User')),
-            ExportColumn::make('reference_number'),
-            ExportColumn::make('amount'),
-            ExportColumn::make('bank_name'),
-            ExportColumn::make('account_number'),
-            ExportColumn::make('account_holder'),
-            ExportColumn::make('status'),
-            ExportColumn::make('notes'),
-            ExportColumn::make('admin_notes'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+                ->label(__('Pengguna')),
+            ExportColumn::make('reference_number')
+                ->label(__('Nomor Referensi')),
+            ExportColumn::make('amount')
+                ->label(__('Jumlah')),
+            ExportColumn::make('bank_name')
+                ->label(__('Nama Bank')),
+            ExportColumn::make('account_number')
+                ->label(__('Nomor Rekening')),
+            ExportColumn::make('account_holder')
+                ->label(__('Pemilik Rekening')),
+            ExportColumn::make('status')
+                ->label(__('Status')),
+            ExportColumn::make('notes')
+                ->label(__('Catatan Pengguna')),
+            ExportColumn::make('admin_notes')
+                ->label(__('Catatan Admin')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

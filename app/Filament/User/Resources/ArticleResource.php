@@ -2,6 +2,7 @@
 
 namespace App\Filament\User\Resources;
 
+use App\Filament\User\Resources\PackageResource;
 use App\Filament\User\Resources\ArticleResource\Pages;
 use App\Filament\User\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
@@ -16,11 +17,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ArticleResource extends Resource
 {
-    protected static ?string $model = Article::class;
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
-    protected static ?string $slug = 'tips';
 
     public static function getNavigationGroup(): ?string
     {
@@ -32,7 +31,6 @@ class ArticleResource extends Resource
         return __('Tips & Inspiration');
     }
 
-    protected static ?int $navigationSort = 1;
 
     public static function getNavigationBadge(): ?string
     {
@@ -64,41 +62,54 @@ class ArticleResource extends Resource
         return $table
             ->emptyStateHeading(__('Belum ada artikel'))
             ->contentGrid([
-                'md' => 1,
-                'lg' => 2,
+                'sm' => 2,
+                'md' => 3,
+                'lg' => 4,
+                'xl' => 6,
             ])
             ->columns([
                 Tables\Columns\Layout\Stack::make([
+                    // Cover Image (Shopee product-style)
                     Tables\Columns\ImageColumn::make('image_url')
                         ->label('')
-                        ->height('16rem')
+                        ->height('10rem')
                         ->width('100%')
-                        ->extraImgAttributes(['class' => 'object-cover rounded-t-2xl']),
+                        ->extraAttributes(['class' => 'w-full overflow-hidden rounded-t-xl'])
+                        ->extraImgAttributes([
+                            'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                            'style' => 'width: 100%; height: 100%; object-fit: cover;'
+                        ]),
+
+                    // Text content block
                     Tables\Columns\Layout\Stack::make([
                         Tables\Columns\TextColumn::make('title')
-                            ->weight(FontWeight::Bold)
-                            ->size('lg')
                             ->searchable()
+                            ->weight(FontWeight::Bold)
+                            ->size('sm')
                             ->lineClamp(2),
                         Tables\Columns\TextColumn::make('created_at')
-                            ->formatStateUsing(fn($state) => __('Dipublikasikan') . ': ' . \Carbon\Carbon::parse($state)->translatedFormat('d F Y'))
+                            ->date('d M Y')
                             ->size('xs')
                             ->color('gray')
                             ->icon('heroicon-o-clock'),
-                    ])->space(3)->extraAttributes(['class' => 'p-6']),
-                ])->extraAttributes(['class' => 'bg-white dark:bg-gray-950 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 transition-all hover:shadow-md']),
+                    ])->space(1)->extraAttributes(['class' => 'p-2']),
+                ])->extraAttributes([
+                    'class' => 'bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-800 transition-all duration-300 group overflow-hidden cursor-pointer'
+                ]),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->label(__('Baca Artikel'))
                     ->button()
-                    ->color('primary')
+                    ->color('warning')
                     ->size('lg')
                     ->icon('heroicon-m-book-open')
+                    ->extraAttributes(['class' => 'w-full justify-center !rounded-lg'])
                     ->slideOver()
                     ->modalWidth('2xl')
                     ->modalHeading(__('Membaca Artikel')),
-            ]);
+            ])
+            ->actionsAlignment('center');
     }
 
     public static function infolist(\Filament\Infolists\Infolist $infolist): \Filament\Infolists\Infolist
@@ -114,7 +125,7 @@ class ArticleResource extends Resource
                             ->extraImgAttributes(['class' => 'object-cover rounded-2xl mb-4']),
                         \Filament\Infolists\Components\TextEntry::make('title')
                             ->hiddenLabel()
-                            ->weight(\Filament\Support\Enums\FontWeight::Black)
+                            ->weight(\Filament\Support\Enums\FontWeight::Bold)
                             ->size(\Filament\Infolists\Components\TextEntry\TextEntrySize::Large),
                         \Filament\Infolists\Components\TextEntry::make('created_at')
                             ->hiddenLabel()
@@ -132,6 +143,26 @@ class ArticleResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->extraAttributes(['class' => 'border-0 shadow-none']),
+                
+                \Filament\Infolists\Components\Section::make(__('Paket Layanan Terkait'))
+                    ->icon('heroicon-o-shopping-bag')
+                    ->visible(fn ($record) => $record->packages()->exists())
+                    ->schema([
+                        \Filament\Infolists\Components\RepeatableEntry::make('packages')
+                            ->hiddenLabel()
+                            ->schema([
+                                \Filament\Infolists\Components\TextEntry::make('name')
+                                    ->weight(FontWeight::Bold)
+                                    ->color('primary')
+                                    ->url(fn ($record) => $record ? PackageResource::getUrl('index') . '?tableFilters[id][value]=' . $record->id : null),
+                                \Filament\Infolists\Components\TextEntry::make('final_price')
+                                    ->label(__('Mulai dari'))
+                                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 2, ',', '.'))
+                                    ->color('gray'),
+                            ])
+                            ->grid(2)
+                            ->columnSpanFull()
+                    ]),
             ]);
     }
 

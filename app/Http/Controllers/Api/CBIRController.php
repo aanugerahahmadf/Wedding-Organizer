@@ -78,7 +78,7 @@ class CBIRController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Index lokal bersifat on-demand, tidak memerlukan sinkronisasi eksternal.',
+            'message' => __('Index lokal bersifat on-demand, tidak memerlukan sinkronisasi eksternal.'),
             'data' => [
                 'package_id' => $package->id,
                 'wedding_organizer_id' => $package->wedding_organizer_id,
@@ -97,7 +97,7 @@ class CBIRController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'CBIR lokal aktif. Proses build index tidak diperlukan.',
+            'message' => __('CBIR lokal aktif. Proses build index tidak diperlukan.'),
             'indexed_count' => $totalPackages,
             'total_packages' => $totalPackages,
             'errors' => [],
@@ -129,7 +129,7 @@ class CBIRController extends Controller
     {
         return response()->json([
             'success' => true,
-            'message' => 'CBIR lokal aktif dan sehat',
+            'message' => __('CBIR lokal aktif dan sehat'),
             'data' => [
                 'mode' => 'local',
             ],

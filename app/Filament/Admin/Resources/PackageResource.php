@@ -94,10 +94,13 @@ class PackageResource extends Resource
                                     ->unique(ignorable: fn (?Package $record) => $record)
                                     ->maxLength(255)
                                     ->prefixIcon('heroicon-o-link'),
+                                Forms\Components\Hidden::make('wedding_organizer_id')
+                                    ->default(1)
+                                    ->required(),
                                 Forms\Components\Select::make('category_id')
+                                    ->searchable()
                                     ->label(__('Kategori Rias'))
                                     ->relationship('category', 'name')
-                                    ->searchable()
                                     ->preload()
                                     ->prefixIcon('heroicon-o-tag')
                                     ->columnSpanFull()
@@ -108,6 +111,15 @@ class PackageResource extends Resource
                                     ->toolbarButtons([
                                         'bold', 'italic', 'underline', 'strike', 'link', 'h2', 'h3', 'bulletList', 'orderedList', 'redo', 'undo',
                                     ]),
+                                Forms\Components\Select::make('article_id')
+                                    ->searchable()
+                                    ->label(__('Artikel Terkait'))
+                                    ->relationship('article', 'title')
+                                    ->preload()
+                                    ->placeholder(__('Pilih artikel untuk menjelaskan paket ini...'))
+                                    ->prefixIcon('heroicon-o-document-text')
+                                    ->columnSpanFull()
+                                    ->helperText(__('Pilih artikel panduan atau tips yang relevan dengan paket ini.')),
                             ])->columns(2),
 
                         Forms\Components\Section::make(__('Harga & Fitur'))
@@ -117,15 +129,17 @@ class PackageResource extends Resource
                                 Forms\Components\TextInput::make('price')
                                     ->label(__('Harga Dasar'))
                                     ->required()
-                                    ->numeric()
+                                    ->formatStateUsing(fn ($state) => $state ? number_format((float) $state, 2, ',', '.') : null)
+                                    ->dehydrateStateUsing(fn ($state) => $state ? (float) str_replace(',', '.', str_replace(['Rp', '.', ' '], '', $state)) : null)
                                     ->prefix('Rp')
                                     ->extraInputAttributes(['class' => 'font-bold text-lg text-primary-600']),
                                 Forms\Components\TextInput::make('discount_price')
                                     ->label(__('Harga Diskon'))
-                                    ->numeric()
+                                    ->formatStateUsing(fn ($state) => $state ? number_format((float) $state, 2, ',', '.') : null)
+                                    ->dehydrateStateUsing(fn ($state) => $state ? (float) str_replace(',', '.', str_replace(['Rp', '.', ' '], '', $state)) : null)
                                     ->prefix('Rp')
                                     ->validationAttribute('price')
-                                    ->rules(['nullable', 'numeric']),
+                                    ->rules(['nullable']),
                                 Forms\Components\TagsInput::make('features')
                                     ->label(__('Fitur Paket'))
                                     ->placeholder(__('Ketik fitur lalu tekan Enter'))
@@ -228,12 +242,11 @@ class PackageResource extends Resource
             })
             ->columns([
                 Tables\Columns\TextColumn::make('category.name')
-                    ->label(__('Kategori'))
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->label(__('Nama Paket'))
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Kategori')),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->label(__('Nama Paket')),
                 Tables\Columns\TextColumn::make('slug')
                     ->label(__('Slug'))
                     ->searchable()
@@ -244,8 +257,7 @@ class PackageResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('price')
                     ->label(__('Harga Dasar'))
-                    ->money('IDR')
-                    ->sortable()
+                    ->formatStateUsing(fn ($state) => 'Rp ' . number_format($state, 2, ',', '.'))
                     ->alignment('right'),
                 Tables\Columns\TextColumn::make('theme')
                     ->label(__('Tema'))
@@ -259,23 +271,19 @@ class PackageResource extends Resource
                 Tables\Columns\TextColumn::make('min_capacity')
                     ->label(__('Min Pax'))
                     ->numeric()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('max_capacity')
                     ->label(__('Max Pax'))
                     ->numeric()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Dibuat Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Diperbarui Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

@@ -7,6 +7,8 @@ use App\Filament\Admin\Resources\TopupResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property-read \App\Filament\Resources\TopupResource $resource
@@ -14,6 +16,25 @@ use Filament\Resources\Pages\ManageRecords;
 class ManageTopups extends ManageRecords
 {
     protected static string $resource = TopupResource::class;
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make(__('Semua'))
+                ->icon('heroicon-m-list-bullet'),
+            'pending' => Tab::make(__('Perlu Verifikasi'))
+                ->icon('heroicon-m-clock')
+                ->badge(fn() => \App\Models\Topup::where('status', \App\Enums\TopupStatus::PENDING)->count())
+                ->badgeColor('warning')
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', \App\Enums\TopupStatus::PENDING)),
+            'success' => Tab::make(__('Berhasil'))
+                ->icon('heroicon-m-check-circle')
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', \App\Enums\TopupStatus::SUCCESS)),
+            'failed' => Tab::make(__('Gagal/Batal'))
+                ->icon('heroicon-m-x-circle')
+                ->modifyQueryUsing(fn (Builder $query) => $query->whereIn('status', [\App\Enums\TopupStatus::FAILED, \App\Enums\TopupStatus::CANCELLED])),
+        ];
+    }
 
     protected function getHeaderActions(): array
     {

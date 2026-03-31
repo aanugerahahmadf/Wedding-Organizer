@@ -58,12 +58,14 @@ class PaymentMethod extends Model
     use HasFactory;
 
     protected $fillable = [
+        'bank_id',
         'name',
         'type',
         'code',
         'icon',
         'account_number',
         'account_holder',
+        'qris_payload',
         'qris_image',
         'fee',
         'instructions',
@@ -75,6 +77,11 @@ class PaymentMethod extends Model
         'fee' => 'decimal:2',
         'type' => \App\Enums\PaymentMethodType::class,
     ];
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
 
     /**
      * Get the full URL for the icon.
@@ -94,6 +101,11 @@ class PaymentMethod extends Model
             return \Illuminate\Support\Facades\Storage::disk('public')->url($this->icon);
         }
 
+        // Fallback to bank logo if bank_id is set
+        if ($this->bank_id && $this->bank) {
+            return $this->bank->logo_url;
+        }
+
         return null;
     }
 
@@ -102,26 +114,26 @@ class PaymentMethod extends Model
      */
     public function getQrisImageUrlAttribute()
     {
-        if ($this->qris_image) {
-            // Check if it's a raw QRIS payload (not a file path with extension)
-            if (!preg_match('/\.(jpg|jpeg|png|gif|svg|webp)$/i', $this->qris_image)) {
-                try {
-                    $result = \Endroid\QrCode\Builder\Builder::create()
-                        ->writer(new \Endroid\QrCode\Writer\PngWriter())
-                        ->data($this->qris_image)
-                        ->encoding(new \Endroid\QrCode\Encoding\Encoding('UTF-8'))
-                        ->errorCorrectionLevel(\Endroid\QrCode\ErrorCorrectionLevel::Low)
-                        ->size(300)
-                        ->margin(10)
-                        ->build();
-                        
-                    return $result->getDataUri();
-                } catch (\Exception $e) {
-                    return null;
-                }
+        // 1. Check if we have a raw QRIS payload (takes priority)
+        if ($this->qris_payload) {
+            try {
+                $result = \Endroid\QrCode\Builder\Builder::create()
+                    ->writer(new \Endroid\QrCode\Writer\PngWriter())
+                    ->data($this->qris_payload)
+                    ->encoding(new \Endroid\QrCode\Encoding\Encoding('UTF-8'))
+                    ->errorCorrectionLevel(\Endroid\QrCode\ErrorCorrectionLevel::Low)
+                    ->size(300)
+                    ->margin(10)
+                    ->build();
+                    
+                return $result->getDataUri();
+            } catch (\Exception $e) {
+                // Fallback if generation fails
             }
+        }
 
-            // Old behavior for uploaded images
+        // 2. Check if we have an uploaded QRIS image
+        if ($this->qris_image) {
             try {
                 if (\Illuminate\Support\Facades\Storage::disk('public')->exists($this->qris_image)) {
                     $content = \Illuminate\Support\Facades\Storage::disk('public')->get($this->qris_image);
@@ -129,9 +141,14 @@ class PaymentMethod extends Model
                     return 'data:' . $mime . ';base64,' . base64_encode($content);
                 }
             } catch (\Exception $e) {
-                // Return fallback if reading fails
+                // Fallback storage URL
             }
             return \Illuminate\Support\Facades\Storage::disk('public')->url($this->qris_image);
+        }
+
+        // 3. Fallback to bank QRIS if bank_id is set
+        if ($this->bank_id && $this->bank) {
+            return $this->bank->qris_image_url;
         }
 
         return null;

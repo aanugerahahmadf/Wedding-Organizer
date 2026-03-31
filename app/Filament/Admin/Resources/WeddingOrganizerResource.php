@@ -24,6 +24,16 @@ class WeddingOrganizerResource extends Resource
 
     protected static ?int $navigationSort = 7;
 
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'primary';
+    }
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function getModelLabel(): string
@@ -48,25 +58,7 @@ class WeddingOrganizerResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('Profil Studio');
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        /** @var Builder $query */
-        $query = static::getEloquentQuery();
-
-        return (string) $query->count();
-    }
-
-    public static function getNavigationBadgeColor(): ?string
-    {
-        return 'primary';
-    }
-
-    public static function getNavigationBadgeTooltip(): ?string
-    {
-        return __('Profil Studio Aktif');
+        return __('Profil Devi Make Up');
     }
 
     public static function form(Form $form): Form
@@ -77,7 +69,7 @@ class WeddingOrganizerResource extends Resource
                     ->schema([
                         Forms\Components\Section::make(__('Profil & Identitas Studio'))
                             ->description(__('Nama, deskripsi, dan identitas visual utama.'))
-                            ->icon('heroicon-o-building-storefront')
+                            ->icon('govicon-building')
                             ->schema([
                                  Forms\Components\TextInput::make('name')
                                     ->label(__('Nama Studio'))
@@ -134,7 +126,6 @@ class WeddingOrganizerResource extends Resource
                                 Forms\Components\TextInput::make('rating')
                                     ->label(__('Rating Studio'))
                                     ->required()
-                                    ->numeric()
                                     ->default(0.00)
                                     ->minValue(0)
                                     ->maxValue(5)
@@ -151,19 +142,91 @@ class WeddingOrganizerResource extends Resource
 
                         Forms\Components\Section::make(__('Lokasi Geografis'))
                             ->icon('heroicon-o-map-pin')
+                            ->description(__('Ketik alamat lalu klik di luar kotak untuk menyinkronkan titik peta secara otomatis.'))
                             ->schema([
                                 Forms\Components\Textarea::make('address')
                                     ->label(__('Alamat Lengkap'))
                                     ->default('Jakarta Selatan, DKI Jakarta')
+                                    ->placeholder(__('Contoh: Jakarta Selatan, DKI Jakarta'))
+                                    ->helperText(__('Setelah mengisi alamat, titik peta akan otomatis berpindah ke lokasi tersebut.'))
                                     ->maxLength(255)
-                                    ->rows(3),
-                                Forms\Components\Fieldset::make(__('Koordinat Peta'))
-                                    ->schema([
-                                        Forms\Components\TextInput::make('latitude')
-                                            ->label('Latitude'),
-                                        Forms\Components\TextInput::make('longitude')
-                                            ->label('Longitude'),
-                                    ])->columns(1),
+                                    ->rows(3)
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set, ?string $state) {
+                                        if (!$state) return;
+
+                                        try {
+                                            $response = \Illuminate\Support\Facades\Http::withHeaders([
+                                                'User-Agent' => 'WeddingOrganizerApp/1.0',
+                                            ])->get('https://nominatim.openstreetmap.org/search', [
+                                                'q'       => $state,
+                                                'format'  => 'json',
+                                                'limit'   => 1,
+                                            ]);
+
+                                            if ($response->successful() && $json = $response->json()) {
+                                                if (isset($json[0])) {
+                                                    $data = $json[0];
+                                                    $lat  = (float) $data['lat'];
+                                                    $lng  = (float) $data['lon'];
+
+                                                    $set('location',  ['lat' => $lat, 'lng' => $lng]);
+                                                    $set('latitude',  $lat);
+                                                    $set('longitude', $lng);
+                                                }
+                                            }
+                                        } catch (\Exception $e) {
+                                            // Fail silently
+                                        }
+                                    }),
+
+                                \Dotswan\MapPicker\Fields\Map::make('location')
+                                    ->label(__('Titik Koordinat Peta'))
+                                    ->helperText(__('Tips: Anda bisa geser titik biru ini untuk mengisi Alamat Lengkap secara otomatis.'))
+                                    ->columnSpanFull()
+                                    ->extraStyles([
+                                        'min-height: 450px',
+                                        'z-index: 1',
+                                    ])
+                                    ->showMyLocationButton(false) // Hilangkan target lokasi saya
+                                    ->live()
+                                    ->afterStateHydrated(function (Forms\Set $set, $record) {
+                                        if ($record) {
+                                            $set('location', [
+                                                'lat' => (float) ($record->latitude),
+                                                'lng' => (float) ($record->longitude),
+                                            ]);
+                                        }
+                                    })
+                                    ->afterStateUpdated(function (Forms\Get $get, Forms\Set $set, ?array $state) {
+                                        if (!$state) return;
+                                        
+                                        $set('latitude',  $state['lat']);
+                                        $set('longitude', $state['lng']);
+
+                                        // REVERSE GEOCODING: Geser titik -> Alamat terisi otomatis
+                                        try {
+                                            $response = \Illuminate\Support\Facades\Http::withHeaders([
+                                                'User-Agent' => 'WeddingOrganizerApp/1.0',
+                                            ])->get('https://nominatim.openstreetmap.org/reverse', [
+                                                'lat'    => $state['lat'],
+                                                'lon'    => $state['lng'],
+                                                'format' => 'json',
+                                            ]);
+
+                                            if ($response->successful()) {
+                                                $address = $response->json()['display_name'] ?? null;
+                                                if ($address) {
+                                                    $set('address', $address);
+                                                }
+                                            }
+                                        } catch (\Exception $e) {
+                                            // Fail silently
+                                        }
+                                    }),
+
+                                Forms\Components\Hidden::make('latitude'),
+                                Forms\Components\Hidden::make('longitude'),
                             ]),
                     ])->columnSpan(['lg' => 1]),
             ])->columns(3);
@@ -174,29 +237,26 @@ class WeddingOrganizerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('Nama Studio'))
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Nama Studio')),
                 Tables\Columns\TextColumn::make('slug')
                     ->label(__('Slug'))
-                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('address')
-                    ->label(__('Alamat'))
                     ->searchable()
+                    ->label(__('Alamat'))
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('latitude')
                     ->label(__('Latitude'))
-                    ->searchable()
+
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('longitude')
                     ->label(__('Longitude'))
-                    ->searchable()
+
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('rating')
                     ->label(__('Rating'))
                     ->numeric()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\IconColumn::make('is_verified')
                     ->label(__('Terverifikasi'))
@@ -205,13 +265,11 @@ class WeddingOrganizerResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Terdaftar Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Diperbarui Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -221,11 +279,14 @@ class WeddingOrganizerResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->slideOver()
+                    ->modalWidth('5xl')
                     ->button()
                     ->color('info')
                     ->size('lg'),
                 Tables\Actions\EditAction::make()
+                    ->label(__('Atur Profil'))
                     ->slideOver()
+                    ->modalWidth('5xl')
                     ->button()
                     ->color('warning')
                     ->size('lg')
@@ -251,6 +312,21 @@ class WeddingOrganizerResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return false;
     }
 
     public static function getPages(): array

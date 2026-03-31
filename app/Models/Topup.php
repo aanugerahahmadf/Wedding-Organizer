@@ -65,8 +65,13 @@ class Topup extends Model
 {
     use HasFactory;
 
+    protected $attributes = [
+        'status' => 'pending',
+    ];
+
     protected $fillable = [
         'user_id',
+        'bank_id',
         'reference_number',
         'amount',
         'admin_fee',
@@ -91,6 +96,11 @@ class Topup extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function bank(): BelongsTo
+    {
+        return $this->belongsTo(Bank::class);
     }
 
     protected static function boot()

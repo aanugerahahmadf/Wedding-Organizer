@@ -19,7 +19,7 @@ class ChatController extends Controller
         if (! $user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Unauthorized',
+                'message' => __('Tidak terautentikasi'),
             ], 401);
         }
 
@@ -40,11 +40,11 @@ class ChatController extends Controller
             $otherUser = $otherId ? User::find($otherId, ['*']) : null;
 
             $title = $isAdmin
-                ? ($otherUser ? 'Chat dengan '.($otherUser->full_name ?: $otherUser->username ?: 'Customer') : $inbox->title ?? 'Chat Support')
-                : 'Chat dengan Admin';
+                ? ($otherUser ? __('Chat dengan ').($otherUser->full_name ?: $otherUser->username ?: __('Pelanggan')) : $inbox->title ?? __('Chat Bantuan'))
+                : __('Chat dengan Admin');
             $otherPayload = [
                 'id' => $otherUser?->id ?? $adminId,
-                'name' => $otherUser ? ($otherUser->full_name ?: $otherUser->username ?? 'User') : 'Admin',
+                'name' => $otherUser ? ($otherUser->full_name ?: $otherUser->username ?? __('Pengguna')) : __('Admin'),
                 'profile_photo' => $otherUser?->avatar_url ?? null,
             ];
 
@@ -77,7 +77,7 @@ class ChatController extends Controller
         $inbox = Inbox::findOrFail($inboxId, ['*']);
         $userIds = $inbox->user_ids ?? [];
         if (! in_array((int) $user->id, array_map('intval', $userIds))) {
-            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+            return response()->json(['success' => false, 'message' => __('Tidak terautentikasi')], 403);
         }
 
         $messages = Message::where('inbox_id', $inbox->id)
@@ -92,7 +92,7 @@ class ChatController extends Controller
                 'id' => $message->id,
                 'message' => $message->message,
                 'sender_id' => $message->user_id,
-                'sender_name' => $sender?->full_name ?? $sender?->username ?? 'Unknown',
+                'sender_name' => $sender?->full_name ?? $sender?->username ?? __('Tidak dikenal'),
                 'is_me' => $message->user_id === $user->id,
                 'read_by' => [],
                 'attachments' => [],
@@ -116,11 +116,11 @@ class ChatController extends Controller
         $user = Auth::user();
         $inbox = Inbox::find($request->inbox_id, ['*']);
         if (! $inbox) {
-            return response()->json(['success' => false, 'message' => 'Inbox not found'], 404);
+            return response()->json(['success' => false, 'message' => __('Kotak pesan tidak ditemukan')], 404);
         }
         $userIds = $inbox->user_ids ?? [];
         if (! in_array((int) $user->id, array_map('intval', $userIds))) {
-            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+            return response()->json(['success' => false, 'message' => __('Tidak terautentikasi')], 403);
         }
 
         $message = Message::create([
@@ -156,7 +156,7 @@ class ChatController extends Controller
             if ($withUserId === (int) $user->id) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Tidak bisa chat dengan diri sendiri.',
+                    'message' => __('Tidak bisa chat dengan diri sendiri.'),
                 ], 400);
             }
             $inbox = Inbox::whereJsonContains('user_ids', (int) $user->id, 'and', false)
@@ -165,7 +165,7 @@ class ChatController extends Controller
             if (! $inbox) {
                 $inbox = Inbox::create([
                     'user_ids' => [(int) $user->id, $withUserId],
-                    'title' => 'Support Chat',
+                    'title' => __('Chat Bantuan'),
                 ]);
             }
         } else {
@@ -176,7 +176,7 @@ class ChatController extends Controller
             if (! $inbox) {
                 $inbox = Inbox::create([
                     'user_ids' => [(int) $user->id, $adminId],
-                    'title' => 'Support Chat',
+                    'title' => __('Chat Bantuan'),
                 ]);
             }
         }
@@ -197,7 +197,7 @@ class ChatController extends Controller
         /** @var User $user */
         $user = Auth::user();
         if (! $user->hasRole('super_admin')) {
-            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+            return response()->json(['success' => false, 'message' => __('Tidak terautentikasi')], 403);
         }
         $customers = User::role('customer')
             ->where('id', '!=', $user->id)

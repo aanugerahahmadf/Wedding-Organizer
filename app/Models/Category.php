@@ -39,7 +39,7 @@ use Illuminate\Support\Carbon;
  */
 class Category extends Model
 {
-    protected $fillable = ['name', 'slug', 'icon', 'description'];
+    protected $fillable = ['name', 'slug', 'icon', 'color', 'description'];
 
     public function packages()
     {

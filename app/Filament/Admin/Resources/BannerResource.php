@@ -124,10 +124,8 @@ class BannerResource extends Resource
         return $table
             
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('title')->searchable()
                     ->label(__('Judul Banner'))
-                    ->searchable()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label(__('Pratinjau Gambar'))
@@ -139,18 +137,15 @@ class BannerResource extends Resource
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label(__('Prioritas'))
                     ->numeric()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Dibuat Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Terakhir Diperbarui'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

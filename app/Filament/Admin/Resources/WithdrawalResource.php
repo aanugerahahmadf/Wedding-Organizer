@@ -89,6 +89,7 @@ class WithdrawalResource extends Resource
                             ->prefix('Rp')
                             ->readOnly(fn ($record) => $record !== null),
                         Forms\Components\Select::make('status')
+                            ->searchable()
                             ->label(__('Status'))
                             ->options(\App\Enums\WithdrawalStatus::class)
                             ->required()
@@ -97,9 +98,18 @@ class WithdrawalResource extends Resource
 
                 Forms\Components\Section::make(__('Tujuan Transfer'))
                     ->schema([
-                        Forms\Components\TextInput::make('bank_name')
-                            ->label(__('Nama Bank'))
-                            ->required(),
+                        Forms\Components\Select::make('bank_id')
+                            ->label(__('Nama Bank / E-Wallet'))
+                            ->relationship('bank', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->native(false)
+                            ->prefixIcon('heroicon-o-building-library')
+                            ->live()
+                            ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('bank_name', \App\Models\Bank::find($state)?->name)),
+                        
+                        Forms\Components\Hidden::make('bank_name'),
                         Forms\Components\TextInput::make('account_number')
                             ->label(__('Nomor Rekening'))
                             ->required(),
@@ -125,15 +135,13 @@ class WithdrawalResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user.full_name')
                     ->label(__('Pelanggan'))
-                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('reference_number')
                     ->label(__('Ref'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('amount')
                     ->label(__('Jumlah'))
-                    ->money('IDR')
-                    ->sortable(),
+                    ->money('IDR'),
                 Tables\Columns\TextColumn::make('bank_name')
                     ->label(__('Bank'))
                     ->searchable(),
@@ -147,11 +155,9 @@ class WithdrawalResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Tgl Pengajuan'))
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

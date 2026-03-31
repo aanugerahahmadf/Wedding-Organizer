@@ -2,6 +2,8 @@
 
 namespace App\Filament\User\Resources;
 
+use App\Filament\User\Resources\PackageResource;
+
 use App\Filament\User\Resources\WeddingOrganizerResource\Pages;
 use App\Filament\User\Resources\WeddingOrganizerResource\RelationManagers;
 use App\Models\WeddingOrganizer;
@@ -11,18 +13,34 @@ use Filament\Tables\Table;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Support\Enums\FontWeight;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Infolists\Infolist;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\Grid;
+use Filament\Infolists\Components\Group;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\Tabs;
+use Filament\Infolists\Components\RepeatableEntry;
 
 class WeddingOrganizerResource extends Resource
 {
-    protected static ?string $model = WeddingOrganizer::class;
+    protected static ?string $slug = 'home';
 
-    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
-
-    protected static ?string $slug = 'about-studio';
+    protected static ?string $navigationIcon = 'heroicon-o-home';
+    public static function shouldRegisterNavigation(): bool
+    {
+        return true;
+    }
 
     public static function getNavigationBadge(): ?string
     {
-        return (string) static::getModel()::count();
+        $count = \App\Models\Message::query()
+            ->whereJsonDoesntContain('read_by', auth()->id())
+            ->where('user_id', '!=', auth()->id())
+            ->count();
+
+        return $count > 0 ? (string) $count : null;
     }
 
     public static function getNavigationBadgeTooltip(): ?string
@@ -32,16 +50,18 @@ class WeddingOrganizerResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Belanja & Jelajahi');
+        return __('Beranda');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('About the Studio');
+        return __('Beranda');
     }
 
-    protected static ?int $navigationSort = 4;
-
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('id', 1);
+    }
 
     public static function canCreate(): bool
     {
@@ -60,102 +80,250 @@ class WeddingOrganizerResource extends Resource
     {
         return $table
             ->contentGrid([
-                'md' => 1,
-                'lg' => 2,
+                'sm' => 2,
+                'md' => 3,
+                'lg' => 4,
+                'xl' => 6,
             ])
             ->columns([
                 Tables\Columns\Layout\Stack::make([
-                    Tables\Columns\Layout\Split::make([
-                        Tables\Columns\SpatieMediaLibraryImageColumn::make('media')
-                            ->collection('gallery')
-                            ->label('')
-                            ->square()
-                            ->height('10rem')
-                            ->grow(false)
-                            ->extraImgAttributes(['class' => 'object-cover rounded-xl shadow-md']),
-                        Tables\Columns\Layout\Stack::make([
-                            Tables\Columns\TextColumn::make('name')
-                                ->label(__('Nama Studio'))
-                                ->weight(FontWeight::Black)
-                                ->size('lg')
-                                ->icon('heroicon-s-sparkles')
-                                ->color('primary')
-                                ->alignment('center')
-                                ->extraAttributes(['class' => 'whitespace-nowrap truncate justify-center']),
+                    // Gallery cover photo - using existing cover_image_url accessor
+                    Tables\Columns\ImageColumn::make('cover_image_url')
+                        ->label('')
+                        ->height('10rem')
+                        ->width('100%')
+                        ->extraAttributes(['class' => 'w-full overflow-hidden rounded-t-xl'])
+                        ->extraImgAttributes([
+                            'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                            'style' => 'width: 100%; height: 100%; object-fit: cover;'
+                        ]),
+
+                    // Info block
+                    Tables\Columns\Layout\Stack::make([
+                        // Studio name
+                        Tables\Columns\TextColumn::make('name')
+                            ->weight(FontWeight::Bold)
+                            ->size('sm')
+                            ->icon('heroicon-s-sparkles')
+                            ->color('primary')
+                            ->lineClamp(1),
+
+                        // Rating & address row
+                        Tables\Columns\Layout\Split::make([
                             Tables\Columns\TextColumn::make('address')
-                                ->label(__('Alamat'))
                                 ->icon('heroicon-m-map-pin')
                                 ->color('gray')
                                 ->size('xs')
-                                ->alignment('center')
-                                ->extraAttributes(['class' => 'whitespace-nowrap truncate justify-center']),
-                        ])->space(1),
-                        Tables\Columns\TextColumn::make('rating')
-                            ->badge()
-                            ->color('warning')
-                            ->icon('heroicon-s-star'),
-                    ])->extraAttributes(['class' => 'items-center gap-6']),
-                ])->space(3)->extraAttributes(['class' => 'p-6 bg-white dark:bg-gray-950 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800']),
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make()
-                    ->label(__('Lihat Profil WO'))
-                    ->button()
-                    ->color('gray')
-                    ->outlined()
-                    ->size('lg')
-                    ->icon('heroicon-m-eye')
-                    ->slideOver()
-                    ->modalWidth('2xl')
-                    ->modalHeading(__('Detail Wedding Organizer')),
-            ]);
-    }
-
-    public static function infolist(\Filament\Infolists\Infolist $infolist): \Filament\Infolists\Infolist
-    {
-        return $infolist
-            ->schema([
-                \Filament\Infolists\Components\Section::make()
-                    ->schema([
-                        \Filament\Infolists\Components\SpatieMediaLibraryImageEntry::make('gallery')
-                            ->collection('gallery')
-                            ->hiddenLabel()
-                            ->height('16rem')
-                            ->width('100%')
-                            ->extraImgAttributes(['class' => 'object-cover rounded-2xl']),
-                        \Filament\Infolists\Components\Grid::make(1)->schema([
-                            \Filament\Infolists\Components\TextEntry::make('name')
-                                ->hiddenLabel()
-                                ->weight(\Filament\Support\Enums\FontWeight::Black)
-                                ->size(\Filament\Infolists\Components\TextEntry\TextEntrySize::Large)
-                                ->extraAttributes(['class' => 'mt-4']),
-                            \Filament\Infolists\Components\TextEntry::make('rating')
-                                ->hiddenLabel()
+                                ->lineClamp(1),
+                            Tables\Columns\TextColumn::make('rating')
                                 ->badge()
                                 ->color('warning')
                                 ->icon('heroicon-s-star')
-                                ->inlineLabel(),
-                            \Filament\Infolists\Components\TextEntry::make('address')
-                                ->hiddenLabel()
-                                ->icon('heroicon-m-map-pin')
-                                ->color('gray'),
+                                ->alignEnd(),
                         ]),
-                    ])->extraAttributes(['class' => 'bg-gray-50 dark:bg-white/5 border-0 shadow-none rounded-3xl mb-4']),
+                    ])->space(1)->extraAttributes(['class' => 'p-2']),
+                ])->extraAttributes([
+                    'class' => 'bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-800 transition-all duration-300 group overflow-hidden cursor-pointer'
+                ]),
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make()
+                    ->label(__('Lihat Profil'))
+                    ->button()
+                    ->color('warning')
+                    ->size('lg')
+                    ->icon('heroicon-m-eye')
+                    ->extraAttributes(['class' => 'w-full justify-center !rounded-lg'])
+                    ->slideOver()
+                    ->modalWidth('2xl')
+                    ->modalHeading(__('Detail Wedding Organizer')),
+            ])
+            ->actionsAlignment('center');
+    }
 
-                \Filament\Infolists\Components\Section::make(__('Tentang Kami'))
-                    ->icon('heroicon-o-information-circle')
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                // SHOPEE HEADER (PURE FILAMENT NATIVE ARCHITECTURE)
+                \Filament\Infolists\Components\Section::make()
                     ->schema([
-                        \Filament\Infolists\Components\TextEntry::make('description')
+                        // BANNER PREVIEW
+                        \Filament\Infolists\Components\ImageEntry::make('cover_image_url')
                             ->hiddenLabel()
-                            ->prose(),
-                    ]),
-            ]);
+                            ->columnSpanFull()
+                            ->alignCenter()
+                            ->height('20rem')
+                            ->extraImgAttributes([
+                                'class' => 'mx-auto object-contain rounded-xl shadow-sm bg-white/5',
+                            ]),
+
+                        // IDENTITY SPLIT
+                        \Filament\Infolists\Components\Split::make([
+                            // INFO
+                            \Filament\Infolists\Components\Group::make([
+                                \Filament\Infolists\Components\TextEntry::make('name')
+                                    ->label('')
+                                    ->hiddenLabel()
+                                    ->weight(\Filament\Support\Enums\FontWeight::Bold)
+                                    ->size('3xl'),
+
+                                \Filament\Infolists\Components\Grid::make(1)
+                                    ->schema([
+                                        \Filament\Infolists\Components\TextEntry::make('is_verified')
+                                            ->label('')
+                                            ->hiddenLabel()
+                                            ->badge()
+                                            ->color('success')
+                                            ->icon('heroicon-s-check-badge')
+                                            ->getStateUsing(fn ($record) => $record->is_verified ? __('Terverifikasi') : '')
+                                            ->visible(fn ($record) => $record->is_verified),
+
+                                        \Filament\Infolists\Components\TextEntry::make('city')
+                                            ->label('')
+                                            ->hiddenLabel()
+                                            ->icon('heroicon-m-map-pin')
+                                            ->color('gray')
+                                            ->size('sm'),
+                                    ]),
+                            ])->grow(),
+
+                            // ACTIONS
+                            \Filament\Infolists\Components\Actions::make([
+                                \Filament\Infolists\Components\Actions\Action::make('chat')
+                                    ->label(__('Pesan'))
+                                    ->icon('heroicon-m-chat-bubble-left-right')
+                                    ->button()
+                                    ->color('primary')
+                                    ->url(fn () => \App\Filament\User\Pages\MessagesPage::getUrl())
+                                    ->openUrlInNewTab(false),
+                            ])->grow(false),
+                        ])
+                        ->extraAttributes(['class' => 'items-center gap-6 p-6']),
+                    ])
+                    ->compact()
+                    ->extraAttributes(['class' => 'shadow-md border-gray-100 dark:border-gray-800 rounded-3xl overflow-hidden mb-4']),
+
+                // MAIN CONTENT TABS
+                Tabs::make('ProfileTabs')
+                    ->tabs([
+                        // ABOUT US TAB
+                        Tabs\Tab::make(__('Tentang Kami'))
+                            ->icon('heroicon-o-information-circle')
+                            ->schema([
+                                TextEntry::make('description')
+                                    ->hiddenLabel()
+                                    ->prose()
+                                    ->extraAttributes(['class' => 'leading-loose text-lg text-gray-700 dark:text-gray-300']),
+                                Section::make(__('Lokasi'))
+                                    ->icon('heroicon-o-map-pin')
+                                    ->schema([
+                                        \Filament\Infolists\Components\TextEntry::make('address')
+                                            ->label(__('Alamat Studio'))
+                                            ->size('lg')
+                                            ->columnSpanFull(),
+                                        \Dotswan\MapPicker\Infolists\MapEntry::make('location')
+                                            ->state(fn ($record) => [
+                                                'lat' => (float) ($record->latitude),
+                                                'lng' => (float) ($record->longitude),
+                                            ])
+                                            ->hiddenLabel()
+                                            ->extraStyles([
+                                                'height: 500px',
+                                                'z-index: 1',
+                                            ])
+                                            ->columnSpanFull(),
+                                    ])->compact(),
+                            ]),
+
+                        // PACKAGES CATALOG TAB
+                        Tabs\Tab::make(__('Pilihan Paket'))
+                            ->icon('heroicon-o-camera')
+                            ->schema([
+                                RepeatableEntry::make('packages')
+                                    ->hiddenLabel()
+                                    ->grid(3)
+                                    ->schema([
+                                        Section::make()
+                                            ->schema([
+                                                ImageEntry::make('image_url')
+                                                    ->hiddenLabel()
+                                                    ->alignCenter()
+                                                    ->extraImgAttributes(['class' => 'h-40 object-contain mx-auto rounded-xl shadow-md border border-gray-100 dark:border-gray-800 bg-white']),
+                                                
+                                                Group::make([
+                                                    TextEntry::make('name')
+                                                        ->weight(FontWeight::Bold)
+                                                        ->size('lg')
+                                                        ->lineClamp(1),
+                                                    
+                                                    TextEntry::make('price')
+                                                        ->money('idr')
+                                                        ->color('primary')
+                                                        ->weight(FontWeight::ExtraBold)
+                                                        ->size('lg'),
+                                                ]),
+
+                                                \Filament\Infolists\Components\Actions::make([
+                                                    \Filament\Infolists\Components\Actions\Action::make('view_details')
+                                                        ->label(__('Lihat Detail'))
+                                                        ->icon('heroicon-m-eye')
+                                                        ->button()
+                                                        ->color('primary')
+                                                        ->url(fn ($record) => PackageResource::getUrl('view', ['record' => $record->id]))
+                                                ])->fullWidth(),
+                                            ])
+                                            ->collapsible()
+                                            ->extraAttributes(['class' => 'dark:bg-white/5 border border-gray-200 dark:border-gray-800 rounded-3xl overflow-hidden hover:border-blue-500 shadow-sm transition-all']),
+                                    ]),
+                            ]),
+
+                        // CONTACTS TAB
+                        Tabs\Tab::make(__('Informasi Kontak'))
+                            ->icon('heroicon-o-phone')
+                            ->schema([
+                                Grid::make(2)
+                                    ->schema([
+                                        Section::make(__('Saluran Komunikasi'))
+                                            ->schema([
+                                                \Filament\Infolists\Components\Actions::make([
+                                                    \Filament\Infolists\Components\Actions\Action::make('whatsapp_contact')
+                                                        ->label(__('Chat via WhatsApp'))
+                                                        ->icon('heroicon-m-chat-bubble-left-right')
+                                                        ->button()
+                                                        ->color('success')
+                                                        ->url(fn ($record) => "https://wa.me/" . preg_replace('/[^0-9]/', '', $record->phone))
+                                                        ->openUrlInNewTab(),
+                                                    \Filament\Infolists\Components\Actions\Action::make('email_contact')
+                                                        ->label(__('Kirim Email'))
+                                                        ->icon('heroicon-m-envelope')
+                                                        ->button()
+                                                        ->color('info')
+                                                        ->url(fn ($record) => "mailto:{$record->email}")
+                                                        ->openUrlInNewTab(),
+                                                ])->fullWidth(),
+                                            ]),
+                                        
+                                        Section::make(__('Waktu Operasional'))
+                                            ->schema([
+                                                TextEntry::make('operational_hours')
+                                                    ->label(__('Jam Kerja'))
+                                                    ->icon('heroicon-o-clock')
+                                                    ->getStateUsing(fn() => 'Senin - Minggu: 09:00 - 18:00'),
+                                            ]),
+                                    ]),
+                            ]),
+                    ])
+                    ->columnSpanFull()
+                    ->extraAttributes(['class' => 'border-0 shadow-none mt-4 rounded-3xl']),
+            ])
+            ->columns(1);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageWeddingOrganizers::route('/'),
+            'index' => Pages\ViewWeddingOrganizer::route('/{record?}'),
         ];
     }
 }

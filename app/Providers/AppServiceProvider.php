@@ -181,6 +181,10 @@ class AppServiceProvider extends ServiceProvider
         );
 
         Media::observe(MediaObserver::class);
+        \App\Models\Topup::observe(\App\Observers\TopupObserver::class);
+        \App\Models\Withdrawal::observe(\App\Observers\WithdrawalObserver::class);
+        \App\Models\Order::observe(\App\Observers\OrderObserver::class);
+        \App\Models\Payment::observe(\App\Observers\PaymentObserver::class);
 
         Livewire::component('edit_password_form', EditPasswordComponent::class);
         Livewire::component('delete_account_form', DeleteAccountComponent::class);
@@ -243,23 +247,27 @@ class AppServiceProvider extends ServiceProvider
         });
 
         ExportColumn::configureUsing(function (ExportColumn $column): void {
-            $column->alignment('center');
             $column->formatStateUsing(function ($state) {
                 if (is_string($state) && !filter_var($state, FILTER_VALIDATE_EMAIL) && !str_contains($state, 'http')) {
                     if (!preg_match('/^[0-9.,\-+() ]+$/', $state)) {
-                        return __($state);
+                        $state = __($state);
                     }
                 }
-                return $state;
+                if ($state instanceof \UnitEnum) {
+                    $state = $state instanceof \BackedEnum ? $state->value : $state->name;
+                }
+                
+                // Ensure the return value is a string or null for Exporter compatibility
+                return $state !== null ? (string) $state : null;
             });
         });
 
-        FilamentAsset::register([
-            Css::make('app-stylesheet', Vite::asset('resources/css/app.css')),
-            // Fallback: register mobile-cards CSS directly in case the vendor package's
-            // service provider failed to register it due to the macro compatibility issue.
-            // Css::make('mobile-cards-styles', base_path('vendor/slym758/filament-mobile-table/resources/css/mobile-cards.css')),
-        ]);
+        // FilamentAsset::register([
+        //     Css::make('app-stylesheet', Vite::asset('resources/css/app.css')),
+        //     // Fallback: register mobile-cards CSS directly in case the vendor package's
+        //     // service provider failed to register it due to the macro compatibility issue.
+        //     // Css::make('mobile-cards-styles', base_path('vendor/slym758/filament-mobile-table/resources/css/mobile-cards.css')),
+        // ]);
 
         // Singletons are now registered in NativeServiceProvider
     }

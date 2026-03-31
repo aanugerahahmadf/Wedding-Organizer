@@ -52,7 +52,7 @@ class SearchController extends Controller
             return response()->json([
                 'status' => 'success',
                 'data' => [],
-                'message' => 'Rekomendasi gambar belum ditemukan.',
+                'message' => __('Rekomendasi gambar belum ditemukan.'),
             ]);
         }
 

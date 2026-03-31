@@ -131,15 +131,16 @@ class ReviewResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user.full_name')
                     ->label(__('Pengulas'))
-                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('package.name')
-                    ->label(__('Paket'))
-                    ->sortable(),
+                    ->searchable()
+                    ->label(__('Paket')),
                 Tables\Columns\TextColumn::make('rating')
                     ->label(__('Rating'))
-                    ->numeric()
-                    ->sortable()
+                    ->icon('heroicon-s-star')
+                    ->iconColor('warning')
+                    ->formatStateUsing(fn ($state) => str_repeat(' ', $state)) // Visual spacer if needed, but icon handles it
+                    ->color('warning')
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('comment')
                     ->label(__('Komentar Ulasan'))
@@ -149,13 +150,11 @@ class ReviewResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Tanggal'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Terakhir Diperbarui'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

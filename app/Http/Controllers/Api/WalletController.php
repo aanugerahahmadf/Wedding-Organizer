@@ -70,7 +70,7 @@ class WalletController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Topup request created successfully',
+                'message' => __('Permintaan topup berhasil dibuat'),
                 'data' => $topup,
             ]);
 
@@ -102,7 +102,7 @@ class WalletController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Proof uploaded successfully',
+            'message' => __('Bukti pembayaran berhasil diunggah'),
             'data' => $topup,
         ]);
     }
@@ -126,7 +126,7 @@ class WalletController extends Controller
             if ($user->balance < $amount) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Insufficient balance',
+                    'message' => __('Saldo tidak cukup'),
                 ], 400);
             }
 
@@ -150,7 +150,7 @@ class WalletController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Withdrawal request created successfully',
+                'message' => __('Permintaan penarikan berhasil dibuat'),
                 'data' => $withdrawal,
             ]);
 

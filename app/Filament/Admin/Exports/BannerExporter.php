@@ -16,13 +16,20 @@ class BannerExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('title'),
-            ExportColumn::make('image_url'),
-            ExportColumn::make('link_url'),
-            ExportColumn::make('is_active'),
-            ExportColumn::make('sort_order'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('title')
+                ->label(__('Judul')),
+            ExportColumn::make('image_url')
+                ->label(__('URL Gambar')),
+            ExportColumn::make('link_url')
+                ->label(__('URL Link')),
+            ExportColumn::make('is_active')
+                ->label(__('Status Aktif')),
+            ExportColumn::make('sort_order')
+                ->label(__('Urutan')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

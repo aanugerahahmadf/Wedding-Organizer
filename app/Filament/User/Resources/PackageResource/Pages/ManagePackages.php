@@ -4,10 +4,40 @@ namespace App\Filament\User\Resources\PackageResource\Pages;
 
 use App\Filament\User\Resources\PackageResource;
 use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 class ManagePackages extends ManageRecords
 {
     protected static string $resource = PackageResource::class;
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make(__('Semua Layanan'))
+                ->icon('heroicon-m-squares-2x2'),
+            'wishlist' => Tab::make(__('Favorit Saya'))
+                ->icon('heroicon-m-heart')
+                ->badge(fn() => \App\Models\Package::whereHas('wishlists', fn ($q) => $q->where('user_id', auth()->id()))->count())
+                ->badgeColor('danger')
+                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('wishlists', fn ($q) => $q->where('user_id', auth()->id()))),
+            'orders' => Tab::make(__('Pesanan Saya'))
+                ->icon('heroicon-m-shopping-bag')
+                ->badge(fn() => \App\Models\Package::whereHas('orders', fn ($q) => $q->where('user_id', auth()->id()))->count())
+                ->badgeColor('info')
+                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('orders', fn ($q) => $q->where('user_id', auth()->id()))),
+            'payments' => Tab::make(__('Konfirmasi Bayar'))
+                ->icon('heroicon-m-credit-card')
+                ->badge(fn() => \App\Models\Package::whereHas('orders', fn ($q) => $q->where('user_id', auth()->id())->whereIn('status', [\App\Enums\OrderStatus::PENDING]))->count())
+                ->badgeColor('warning')
+                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('orders', fn ($q) => $q->where('user_id', auth()->id())->whereIn('status', [\App\Enums\OrderStatus::PENDING]))),
+            'history' => Tab::make(__('Riwayat'))
+                ->icon('heroicon-m-clock')
+                ->badge(fn() => \App\Models\Package::whereHas('orders', fn ($q) => $q->where('user_id', auth()->id())->whereIn('status', [\App\Enums\OrderStatus::COMPLETED, \App\Enums\OrderStatus::CANCELLED]))->count())
+                ->badgeColor('gray')
+                ->modifyQueryUsing(fn (Builder $query) => $query->whereHas('orders', fn ($q) => $q->where('user_id', auth()->id())->whereIn('status', [\App\Enums\OrderStatus::COMPLETED, \App\Enums\OrderStatus::CANCELLED]))),
+        ];
+    }
 
     protected function modifyQueryUsing(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
     {

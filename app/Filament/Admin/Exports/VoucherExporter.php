@@ -16,15 +16,24 @@ class VoucherExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('code'),
-            ExportColumn::make('description'),
-            ExportColumn::make('discount_amount'),
-            ExportColumn::make('discount_type'),
-            ExportColumn::make('min_purchase'),
-            ExportColumn::make('expires_at'),
-            ExportColumn::make('is_active'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('code')
+                ->label(__('Kode')),
+            ExportColumn::make('description')
+                ->label(__('Deskripsi')),
+            ExportColumn::make('discount_amount')
+                ->label(__('Jumlah Diskon')),
+            ExportColumn::make('discount_type')
+                ->label(__('Tipe Diskon')),
+            ExportColumn::make('min_purchase')
+                ->label(__('Min Pembelian')),
+            ExportColumn::make('expires_at')
+                ->label(__('Kedaluwarsa Pada')),
+            ExportColumn::make('is_active')
+                ->label(__('Status Aktif')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Filament\Admin\Resources\WeddingOrganizerResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ManageRecords;
+use Illuminate\Support\Facades\Http;
 
 /**
  * @property-read \App\Filament\Resources\WeddingOrganizerResource $resource
@@ -34,4 +35,6 @@ class ManageWeddingOrganizers extends ManageRecords
                 ),
         ];
     }
+
+    // Geocoding logic moved to WeddingOrganizer model saving event for 100% sync reliability.
 }

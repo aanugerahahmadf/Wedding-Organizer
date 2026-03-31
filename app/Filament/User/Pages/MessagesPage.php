@@ -40,13 +40,17 @@ class MessagesPage extends Page
         $userId = \Illuminate\Support\Facades\Auth::id();
         if (!$userId) return null;
 
-        $count = \App\Models\Inbox::whereJsonContains('user_ids', $userId)
-            ->whereHas('messages', function (\Illuminate\Database\Eloquent\Builder $query) use ($userId) {
-                $query->whereJsonDoesntContain('read_by', $userId);
-            })
-            ->count();
-
-        return (string) $count;
+        return (string) \Illuminate\Support\Facades\Cache::remember(
+            "user_{$userId}_unread_messages_count",
+            now()->addMinutes(1),
+            function () use ($userId) {
+                return \App\Models\Inbox::whereJsonContains('user_ids', $userId)
+                    ->whereHas('messages', function (\Illuminate\Database\Eloquent\Builder $query) use ($userId) {
+                        $query->whereJsonDoesntContain('read_by', $userId);
+                    })
+                    ->count();
+            }
+        );
     }
 
     public static function getNavigationBadgeTooltip(): ?string

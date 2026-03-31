@@ -42,6 +42,8 @@ use Illuminate\Support\Carbon;
  */
 class Review extends Model
 {
+    use \App\Traits\BelongsToBrand;
+
     protected $fillable = [
         'user_id',
         'wedding_organizer_id',
@@ -53,11 +55,6 @@ class Review extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function weddingOrganizer()
-    {
-        return $this->belongsTo(WeddingOrganizer::class);
     }
 
     public function package()

@@ -80,7 +80,7 @@ class PackageController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve packages',
+                'message' => __('Gagal mengambil paket'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -108,12 +108,12 @@ class PackageController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Package not found',
+                'message' => __('Paket tidak ditemukan'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve package details',
+                'message' => __('Gagal mengambil detail paket'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -143,7 +143,7 @@ class PackageController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve featured packages',
+                'message' => __('Gagal mengambil paket unggulan'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -174,7 +174,7 @@ class PackageController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve packages on sale',
+                'message' => __('Gagal mengambil paket diskon'),
                 'error' => $e->getMessage(),
             ], 500);
         }

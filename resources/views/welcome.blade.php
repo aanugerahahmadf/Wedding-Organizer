@@ -31,7 +31,7 @@
     <header class="relative z-50 w-full lg:max-w-4xl max-w-[335px] text-sm mb-6">
         <nav class="flex items-center justify-end gap-3 lg:gap-6">
             @auth
-                <a href="{{ route('filament.user.pages.home') }}"
+                <a href="{{ route('filament.user.resources.home.index', ['record' => 1]) }}"
                     class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal transition-all active:scale-95 whitespace-nowrap">
                     {{ __('Beranda') }}
                 </a>
@@ -56,9 +56,9 @@
             class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row shadow-sm rounded-lg overflow-hidden border border-[#19140015] dark:border-[#ffffff10]">
             <div
                 class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC]">
-                <h1 class="mb-1 font-medium text-lg">{{ __('Welcome To Admin Panel Devi Make Up') }}</h1>
+                <h1 class="mb-1 font-medium text-lg">{{ __('Welcome To Devi Panel Make Up') }}</h1>
                 <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                    {{ __('Manage your wedding organizer business efficiently with our comprehensive management system.') }}
+                    {{ __('Manage your wedding organizer needs efficiently with our comprehensive system.') }}
                 </p>
 
                 <ul class="flex flex-col mb-4 lg:mb-6 gap-2">
@@ -70,7 +70,7 @@
                                 <span class="rounded-full bg-[#E91E63] w-1.5 h-1.5"></span>
                             </span>
                         </span>
-                        <span>{{ __('Manage Packages & Content') }}</span>
+                        <span>{{ __('Explore Packages & Portfolio') }}</span>
                     </li>
                     <li
                         class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:bottom-1/2 before:top-0 before:left-[0.4rem] before:absolute">
@@ -80,15 +80,15 @@
                                 <span class="rounded-full bg-[#E91E63] w-1.5 h-1.5"></span>
                             </span>
                         </span>
-                        <span>{{ __('Track Orders & Customer Details') }}</span>
+                        <span>{{ __('Track Orders & Booking Details') }}</span>
                     </li>
                 </ul>
 
                 <ul class="flex w-full mt-4 lg:mt-6">
                     <li class="w-full lg:w-auto">
-                        <a href="{{ route('filament.user.pages.home') }}"
+                        <a href="{{ route('filament.user.resources.home.index', ['record' => 1]) }}"
                             class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal transition-all active:scale-95 shadow-sm">
-                            {{ __('Access User Beranda') }}
+                            {{ __('Buka Beranda') }}
                         </a>
                     </li>
                 </ul>

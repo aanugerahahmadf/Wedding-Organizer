@@ -16,19 +16,32 @@ class PackageExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('wedding_organizer_id'),
-            ExportColumn::make('category_id'),
-            ExportColumn::make('name'),
-            ExportColumn::make('slug'),
-            ExportColumn::make('description'),
-            ExportColumn::make('price'),
-            ExportColumn::make('features'),
-            ExportColumn::make('theme'),
-            ExportColumn::make('color'),
-            ExportColumn::make('min_capacity'),
-            ExportColumn::make('max_capacity'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('wedding_organizer_id')
+                ->label(__('ID Wedding Organizer')),
+            ExportColumn::make('category_id')
+                ->label(__('ID Kategori')),
+            ExportColumn::make('name')
+                ->label(__('Nama Paket')),
+            ExportColumn::make('slug')
+                ->label(__('Slug')),
+            ExportColumn::make('description')
+                ->label(__('Deskripsi')),
+            ExportColumn::make('price')
+                ->label(__('Harga')),
+            ExportColumn::make('features')
+                ->label(__('Fitur')),
+            ExportColumn::make('theme')
+                ->label(__('Tema')),
+            ExportColumn::make('color')
+                ->label(__('Warna')),
+            ExportColumn::make('min_capacity')
+                ->label(__('Kapasitas Min')),
+            ExportColumn::make('max_capacity')
+                ->label(__('Kapasitas Max')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

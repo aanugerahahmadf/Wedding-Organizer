@@ -57,7 +57,7 @@ class CategoryController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve categories',
+                'message' => __('Gagal mengambil kategori'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -80,12 +80,12 @@ class CategoryController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Category not found',
+                'message' => __('Kategori tidak ditemukan'),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve category details',
+                'message' => __('Gagal mengambil detail kategori'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -110,7 +110,7 @@ class CategoryController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve categories with packages',
+                'message' => __('Gagal mengambil kategori dan paket'),
                 'error' => $e->getMessage(),
             ], 500);
         }

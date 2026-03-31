@@ -16,15 +16,24 @@ class ArticleExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('author_id'),
-            ExportColumn::make('title'),
-            ExportColumn::make('slug'),
-            ExportColumn::make('content'),
-            ExportColumn::make('image_url'),
-            ExportColumn::make('is_published'),
-            ExportColumn::make('published_at'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('author_id')
+                ->label(__('Penulis')),
+            ExportColumn::make('title')
+                ->label(__('Judul')),
+            ExportColumn::make('slug')
+                ->label(__('Slug')),
+            ExportColumn::make('content')
+                ->label(__('Konten')),
+            ExportColumn::make('image_url')
+                ->label(__('URL Gambar')),
+            ExportColumn::make('is_published')
+                ->label(__('Status Terbit')),
+            ExportColumn::make('published_at')
+                ->label(__('Tanggal Terbit')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

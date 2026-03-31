@@ -1,6 +1,5 @@
 /node_modules
 /vendor
-/.env
 !/lang
 /public/storage
 /storage/*.key
@@ -11,6 +10,7 @@
 /bootstrap/cache/*
 !/bootstrap/cache/.gitignore
 .phpunit.result.cache
+/tmp
 # /public/build (Commented out to ensure Vercel CLI uploads pre-built assets)
 # /public/build
 

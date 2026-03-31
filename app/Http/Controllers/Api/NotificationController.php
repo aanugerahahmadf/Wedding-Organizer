@@ -34,7 +34,7 @@ class NotificationController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve notifications',
+                'message' => __('Gagal mengambil notifikasi'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -53,12 +53,12 @@ class NotificationController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Notification marked as read',
+                'message' => __('Notifikasi ditandai sebagai sudah dibaca'),
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to mark notification as read',
+                'message' => __('Gagal menandai notifikasi sebagai sudah dibaca'),
             ], 500);
         }
     }
@@ -75,12 +75,12 @@ class NotificationController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'All notifications marked as read',
+                'message' => __('Semua notifikasi ditandai sebagai sudah dibaca'),
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to mark all notifications as read',
+                'message' => __('Gagal menandai semua notifikasi sebagai sudah dibaca'),
             ], 500);
         }
     }
@@ -103,7 +103,7 @@ class NotificationController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to get unread count',
+                'message' => __('Gagal mengambil jumlah notifikasi belum dibaca'),
             ], 500);
         }
     }

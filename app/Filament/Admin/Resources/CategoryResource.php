@@ -20,7 +20,7 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
 
     protected static ?int $navigationSort = 2;
 
@@ -119,26 +119,20 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->label(__('Nama Kategori'))
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('name')->searchable()
+                    ->label(__('Nama Kategori')),
                 Tables\Columns\TextColumn::make('slug')
-                    ->label(__('Slug URL'))
-                    ->searchable(),
+                    ->label(__('Slug URL')),
                 Tables\Columns\TextColumn::make('icon')
-                    ->label(__('Ikon'))
-                    ->searchable()
+                    ->label(__('Ikon'))
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Dibuat Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Terakhir Diperbarui'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

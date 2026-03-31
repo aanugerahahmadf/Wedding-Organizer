@@ -12,24 +12,43 @@ use Illuminate\Support\Facades\Auth;
 
 class StatsOverview extends BaseWidget
 {
+    protected static ?int $navigationSort = 1;
+    
+    protected int | string | array $columnSpan = 'full';
+
+    public function getExtraAttributes(): array
+    {
+        return [
+            'class' => '[&_.fi-wi-stats-overview-stats-ctn]:grid-cols-1 [&_.fi-wi-stats-overview-stats-ctn]:md:grid-cols-3 [&_.fi-wi-stats-overview-stats-ctn]:xl:grid-cols-5',
+        ];
+    }
+
+    protected function getColumns(): int
+    {
+        return 5;
+    }
+
     protected function getStats(): array
     {
         $user = Auth::user();
         $name = $user->full_name ?? $user->username ?? __('User');
 
         return [
-            Stat::make(__('Selamat Datang,'), $name)
+            Stat::make(new \Illuminate\Support\HtmlString(__('Selamat Datang,') . '<style>@media (min-width: 1280px) { .fi-wi-stats-overview-stats-ctn { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; } }</style>'), $name)
                 ->description(__('Ayo buat momen spesialmu hari ini!'))
                 ->descriptionIcon('heroicon-m-sparkles')
-                ->color('primary'),
+                ->color('primary')
+                ->extraAttributes([
+                    'class' => 'h-full',
+                ]),
 
             Stat::make(__('Saldo Dompet'), 'Rp ' . number_format($user->balance ?? 0, 0, ',', '.'))
                 ->description(__('Sisa saldo Anda'))
                 ->descriptionIcon('heroicon-m-wallet', IconPosition::Before)
                 ->color('success')
                 ->extraAttributes([
-                    'class' => 'cursor-pointer hover:scale-105 transition-transform',
-                    'onclick' => "window.location.href='/user/isibalance'",
+                    'class' => 'cursor-pointer hover:scale-105 transition-transform h-full',
+                    'onclick' => "window.location.href='" . route('filament.user.resources.topups.index') . "'",
                 ]),
 
             Stat::make(__('Pesanan Saya'), Order::where('user_id', $user->id)->count())
@@ -37,8 +56,8 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-shopping-bag', IconPosition::Before)
                 ->color('info')
                 ->extraAttributes([
-                    'class' => 'cursor-pointer hover:scale-105 transition-transform',
-                    'onclick' => "window.location.href='/user/my-orders'",
+                    'class' => 'cursor-pointer hover:scale-105 transition-transform h-full',
+                    'onclick' => "window.location.href='" . route('filament.user.resources.orders.index') . "'",
                 ]),
 
             Stat::make(__('Favorit'), Wishlist::where('user_id', $user->id)->count())
@@ -46,8 +65,16 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-heart', IconPosition::Before)
                 ->color('danger')
                 ->extraAttributes([
-                    'class' => 'cursor-pointer hover:scale-105 transition-transform',
-                    'onclick' => "window.location.href='/user/wishlists'",
+                    'class' => 'cursor-pointer hover:scale-105 transition-transform h-full',
+                    'onclick' => "window.location.href='" . route('filament.user.resources.wishlists.index') . "'",
+                ]),
+            Stat::make(__('Voucher Aktif'), auth()->user()->vouchers()->whereNull('user_vouchers.used_at')->count())
+                ->description(__('Gunakan diskonmu'))
+                ->descriptionIcon('heroicon-m-ticket', IconPosition::Before)
+                ->color('warning')
+                ->extraAttributes([
+                    'class' => 'cursor-pointer hover:scale-105 transition-transform h-full',
+                    'onclick' => "window.location.href='" . route('filament.user.resources.vouchers.index') . "'",
                 ]),
         ];
     }

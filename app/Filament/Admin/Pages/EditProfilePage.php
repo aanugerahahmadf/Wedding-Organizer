@@ -14,8 +14,6 @@ class EditProfilePage extends Page
 {
     protected static string $view = 'filament.pages.edit-profile';
 
-    protected static ?string $slug = 'edit-profile';
-
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     protected static bool $shouldRegisterNavigation = false;

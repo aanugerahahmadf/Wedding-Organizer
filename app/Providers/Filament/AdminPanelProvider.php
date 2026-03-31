@@ -52,7 +52,7 @@ class AdminPanelProvider extends PanelProvider
             )
             ->emailVerification(OtpEmailVerificationPrompt::class)
             // ->sidebarFullyCollapsibleOnDesktop()
-            ->brandName(config('app.name'))
+            ->brandName(__('Devi Make Up Wedding Organizer'))
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('3rem')
             // ->simplePageMaxContentWidth(MaxWidth::Small)
@@ -67,6 +67,7 @@ class AdminPanelProvider extends PanelProvider
             ->defaultThemeMode(ThemeMode::System)
             ->topNavigation()
             // ->maxContentWidth(MaxWidth::Full)
+            ->spa()
             ->databaseNotifications()
             ->renderHook(
                 'panels::global-search.after',

@@ -70,15 +70,15 @@ class WishlistResource extends Resource
                     ->description(__('Informasi pelanggan dan paket rias yang diinginkan.'))
                     ->schema([
                         Forms\Components\Select::make('user_id')
+                            ->searchable()
                             ->label(__('Pelanggan'))
                             ->relationship('user', 'full_name')
-                            ->searchable()
                             ->preload()
                             ->required(),
                         Forms\Components\Select::make('package_id')
+                            ->searchable()
                             ->label(__('Paket Rias'))
                             ->relationship('package', 'name')
-                            ->searchable()
                             ->preload()
                             ->required(),
                     ])->columns(['sm' => 2]),
@@ -90,22 +90,18 @@ class WishlistResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.full_name')
-                    ->label(__('Pelanggan'))
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Pelanggan')),
                 Tables\Columns\TextColumn::make('package.name')
-                    ->label(__('Paket Rias'))
                     ->searchable()
-                    ->sortable(),
+                    ->label(__('Paket Rias')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('Ditambahkan Pada'))
                     ->dateTime()
-                    ->sortable()
                     ->alignment('center'),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('Terakhir Diubah'))
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->alignment('center'),
             ])

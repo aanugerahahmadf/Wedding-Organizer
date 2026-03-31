@@ -16,12 +16,18 @@ class CategoryExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label(__('ID')),
-            ExportColumn::make('name'),
-            ExportColumn::make('slug'),
-            ExportColumn::make('icon'),
-            ExportColumn::make('description'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('name')
+                ->label(__('Nama')),
+            ExportColumn::make('slug')
+                ->label(__('Slug')),
+            ExportColumn::make('icon')
+                ->label(__('Ikon')),
+            ExportColumn::make('description')
+                ->label(__('Deskripsi')),
+            ExportColumn::make('created_at')
+                ->label(__('Dibuat Pada')),
+            ExportColumn::make('updated_at')
+                ->label(__('Diperbarui Pada')),
         ];
     }
 

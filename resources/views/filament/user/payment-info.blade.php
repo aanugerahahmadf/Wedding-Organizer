@@ -51,12 +51,12 @@
 
         <div class="flex flex-col gap-5 py-2">
             <div class="flex flex-col gap-1 text-center sm:text-left">
-                <span class="font-mono text-3xl font-bold tracking-[0.2em] text-gray-950 dark:text-white select-all">
+                <span class="text-3xl font-bold tracking-[0.2em] text-gray-950 dark:text-white select-all">
                     {{ $method->account_number ?? '-' }}
                 </span>
                 <span class="text-sm font-semibold text-gray-500 dark:text-gray-400 flex items-center justify-center sm:justify-start gap-2">
                     <x-filament::icon icon="heroicon-m-user-circle" class="w-4 h-4" />
-                    {{ __('a/n') }} {{ $method->account_holder ?? '-' }}
+                    {{ $method->account_holder ?? '-' }}
                 </span>
             </div>
             

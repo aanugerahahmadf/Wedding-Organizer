@@ -29,7 +29,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation error',
+                'message' => __('Gagal validasi'),
                 'errors' => $validator->errors(),
             ], 422);
         }
@@ -78,7 +78,7 @@ class AuthController extends Controller
         if (! Auth::attempt([$fieldType => $request->login, 'password' => $request->password])) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Invalid login details',
+                'message' => __('Data login tidak valid'),
             ], 401);
         }
 
@@ -117,7 +117,7 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Successfully logged out',
+            'message' => __('Berhasil keluar'),
         ]);
     }
 
@@ -151,14 +151,14 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first(['*']);
         if (! $user) {
-            return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
+            return response()->json(['status' => 'error', 'message' => __('Pengguna tidak ditemukan')], 404);
         }
 
         $user->update(['password' => Hash::make($request->password)]);
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Password reset successfully',
+            'message' => __('Reset password berhasil'),
         ]);
     }
 
@@ -173,7 +173,7 @@ class AuthController extends Controller
         // For now, we simulate success or find user by email if token contains it
         return response()->json([
             'status' => 'success',
-            'message' => 'Social login successful (simulated)',
+            'message' => __('Login sosial berhasil (simulasi)'),
             'data' => [
                 'token' => 'SOCIAL-TOKEN-'.Str::random(40),
                 'user' => Auth::user() ?: User::first(['*']), // Fallback for simulation
@@ -191,7 +191,7 @@ class AuthController extends Controller
         // Simulating OTP sending
         return response()->json([
             'status' => 'success',
-            'message' => 'OTP sent successfully to '.$request->email,
+            'message' => __('OTP berhasil dikirim ke ').$request->email,
             'otp' => '123456', // Simulated OTP
         ]);
     }
@@ -208,13 +208,13 @@ class AuthController extends Controller
         if ($request->otp === '123456') {
             return response()->json([
                 'status' => 'success',
-                'message' => 'OTP verified successfully',
+                'message' => __('OTP berhasil diverifikasi'),
             ]);
         }
 
         return response()->json([
             'status' => 'error',
-            'message' => 'Invalid OTP',
+            'message' => __('OTP tidak valid'),
         ], 422);
     }
 
@@ -262,7 +262,7 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Account deleted successfully',
+            'message' => __('Akun berhasil dihapus'),
         ]);
     }
 }
