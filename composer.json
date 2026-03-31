@@ -62,13 +62,13 @@
         "symfony/expression-language": "^8.0",
         "tangodev-it/filament-emoji-picker": "1.0.3",
         "tomatophp/filament-language-switcher": "^1.0",
-        "ysfkaya/filament-phone-input": "^3.2"
+        "ysfkaya/filament-phone-input": "^3.2",
+        "laravel-lang/common": "^6.7",
+        "laravel-lang/lang": "^15.28"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.6",
         "fakerphp/faker": "^1.23",
-        "laravel-lang/common": "^6.7",
-        "laravel-lang/lang": "^15.28",
         "laravel/boost": "^2.2",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",

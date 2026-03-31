@@ -48,6 +48,7 @@
 ^XRL\/[0-9]
 ^ZmEu
 008\/
+1Pilot
 13TABS
 192\.comAgent
 2GDPR\/
@@ -81,6 +82,7 @@ AffiliateLabz\/
 affilimate-puppeteer
 agentslug
 AHC
+Ahrefs
 aihit
 aiohttp\/
 Airmail
@@ -1060,6 +1062,7 @@ Seobility
 SEOCentro
 SeoCheck
 seocompany
+SEOGets
 SEOkicks
 SEOlizer
 Seomoz

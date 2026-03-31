@@ -29963,6 +29963,13 @@ namespace Filament\Pages {
             }
     }
 
+namespace App\Filament\Admin\Resources\BankResource\Pages {
+    /**
+     */
+    class ManageBanks extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
 namespace App\Filament\Admin\Resources\BannerResource\Pages {
     /**
      * @property-read \App\Filament\Resources\BannerResource $resource
@@ -30233,6 +30240,13 @@ namespace App\Filament\User\Resources\ArticleResource\Pages {
             }
     }
 
+namespace App\Filament\User\Resources\HistoryResource\Pages {
+    /**
+     */
+    class ListHistories extends \Filament\Resources\Pages\ListRecords {
+            }
+    }
+
 namespace App\Filament\User\Resources\OrderResource\Pages {
     /**
      */
@@ -30324,6 +30338,10 @@ namespace App\Filament\User\Widgets {
     /**
      */
     class StatsOverview extends \Filament\Widgets\StatsOverviewWidget {
+            }
+    /**
+     */
+    class UnifiedHistoryWidget extends \Filament\Widgets\TableWidget {
             }
     /**
      */
