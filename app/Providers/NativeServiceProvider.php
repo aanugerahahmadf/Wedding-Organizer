@@ -44,9 +44,11 @@ class NativeServiceProvider extends ServiceProvider
         }
 
         // 3. Heuristic: non-Windows OS with no HTTP client (embedded PHP on device)
-        // CRITICAL: Skip this on Laravel Cloud / Production / Docker.
+        // CRITICAL: Skip this on CI (GitHub Actions), Unit Tests, Cloud, or Production.
+        $isCI = env('GITHUB_ACTIONS') || app()->runningUnitTests();
         $isCloud = env('LARAVEL_CLOUD') || env('DOCKER_ENV') || env('APP_ENV') === 'production';
-        if (PHP_OS_FAMILY !== 'Windows' && ! isset($_SERVER['REMOTE_ADDR']) && ! $isCloud) {
+
+        if (PHP_OS_FAMILY !== 'Windows' && ! isset($_SERVER['REMOTE_ADDR']) && ! $isCloud && ! $isCI) {
             return $result = true;
         }
 
