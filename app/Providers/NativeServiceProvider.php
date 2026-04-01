@@ -44,7 +44,9 @@ class NativeServiceProvider extends ServiceProvider
         }
 
         // 3. Heuristic: non-Windows OS with no HTTP client (embedded PHP on device)
-        if (PHP_OS_FAMILY !== 'Windows' && ! isset($_SERVER['REMOTE_ADDR']) && ! env('DOCKER_ENV')) {
+        // CRITICAL: Skip this on Laravel Cloud / Production / Docker.
+        $isCloud = env('LARAVEL_CLOUD') || env('DOCKER_ENV') || env('APP_ENV') === 'production';
+        if (PHP_OS_FAMILY !== 'Windows' && ! isset($_SERVER['REMOTE_ADDR']) && ! $isCloud) {
             return $result = true;
         }
 
@@ -85,8 +87,8 @@ class NativeServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        // Guard: skip all NativePHP-specific code on Docker/backend envs
-        if (env('DOCKER_ENV')) {
+        // Guard: skip all NativePHP-specific code on Docker/backend/Cloud envs
+        if (env('DOCKER_ENV') || env('LARAVEL_CLOUD')) {
             return;
         }
 
@@ -107,8 +109,8 @@ class NativeServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Guard: skip on Docker / pure backend
-        if (env('DOCKER_ENV')) {
+        // Guard: skip on Docker / pure backend / Cloud
+        if (env('DOCKER_ENV') || env('LARAVEL_CLOUD')) {
             return;
         }
 
