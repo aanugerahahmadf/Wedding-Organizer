@@ -4,6 +4,11 @@ use App\Models\User;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
+use function Pest\Laravel\seed;
+
+beforeEach(function(){
+    seed();
+});
 
 test('admin login page is accessible', function (): void {
     get('/admin/login')->assertStatus(200);
