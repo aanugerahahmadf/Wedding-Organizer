@@ -74,8 +74,11 @@ php artisan migrate --seed
 
 ### Jalankan Mode Mobile (NativePHP)
 ```bash
+# Ready your app to go native
 php artisan native:install
-php artisan native:serve
+ 
+# Run your app on a mobile device
+php artisan native:run
 ```
 
 ---
