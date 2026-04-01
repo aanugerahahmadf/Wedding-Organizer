@@ -1,7 +1,7 @@
 # 💍 Weeding Organizer - AI-Powered Wedding Management Platform
 
 <p align="center">
-  <img src="public/images/image.png" width="200" alt="Weeding Organizer Logo">
+  <img src="public/favicon.ico" width="200" alt="Weeding Organizer Logo">
 </p>
 
 <p align="center">
