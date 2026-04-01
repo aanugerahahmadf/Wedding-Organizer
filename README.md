@@ -1,7 +1,7 @@
 # 💍 Weeding Organizer - AI-Powered Wedding Management Platform
 
 <p align="center">
-  <img src="https://avatars.githubusercontent.com/u/127110188?s=200&v=4" width="150" alt="Weeding Organizer Logo">
+  <img src="https://raw.githubusercontent.com/laravel/artisan/master/docs/logo-laravel.png" width="400" alt="Laravel Logo">
 </p>
 
 <p align="center">
