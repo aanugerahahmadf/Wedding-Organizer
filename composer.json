@@ -136,6 +136,8 @@
                 "laravel/boost",
                 "laravel/pail",
                 "nativephp/laravel",
+                "nativephp/mobile",
+                "srwiez/nativephp-mobile-screen",
                 "jeddsaliba/filament-messages",
                 "joaopaulolndev/filament-edit-profile",
                 "tomatophp/filament-language-switcher"
