@@ -20,7 +20,7 @@
 
 ---
 
-## ✨ Fitur Lengkap Untuk User (Calon Pengantin)
+## ✨ Fitur Lengkap Untuk User Pengantin
 
 Aplikasi mobile berbasis **NativePHP** ini hadir sebagai asisten pribadi yang cerdas untuk memandu setiap tahap perencanaan pernikahan:
 
@@ -35,7 +35,7 @@ Aplikasi mobile berbasis **NativePHP** ini hadir sebagai asisten pribadi yang ce
 
 ---
 
-## 🛠️ Fitur Admin (Dashboard Management)
+## 🛠️ Fitur Admin Panel Management
 
 Menggunakan **Filament v3**, memberikan kontrol mutlak bagi tim internal untuk mengelola operasional:
 
