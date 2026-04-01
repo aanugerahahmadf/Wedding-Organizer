@@ -26796,106 +26796,6 @@ namespace Spatie\SignalAwareCommand\Facades {
             }
     }
 
-namespace SRWieZ\NativePHP\Mobile\Screen\Facades {
-    /**
-     * @see \SRWieZ\NativePHP\Mobile\Screen\Screen
-     */
-    class Screen {
-        /**
-         * Keep the screen awake (prevent the device from sleeping)
-         *
-         * @static
-         */
-        public static function keepAwake($enabled = true)
-        {
-            /** @var \SRWieZ\NativePHP\Mobile\Screen\Screen $instance */
-            return $instance->keepAwake($enabled);
-        }
-
-        /**
-         * Allow the screen to sleep (disable wake lock)
-         *
-         * @static
-         */
-        public static function allowSleep()
-        {
-            /** @var \SRWieZ\NativePHP\Mobile\Screen\Screen $instance */
-            return $instance->allowSleep();
-        }
-
-        /**
-         * Check if the screen wake lock is currently active
-         *
-         * @static
-         */
-        public static function isAwake()
-        {
-            /** @var \SRWieZ\NativePHP\Mobile\Screen\Screen $instance */
-            return $instance->isAwake();
-        }
-
-        /**
-         * Set the screen brightness level
-         *
-         * @param float $level Brightness level from 0.0 (minimum) to 1.0 (maximum)
-         * @return bool|float Returns the actual brightness level set, or false on failure
-         * @static
-         */
-        public static function setBrightness($level)
-        {
-            /** @var \SRWieZ\NativePHP\Mobile\Screen\Screen $instance */
-            return $instance->setBrightness($level);
-        }
-
-        /**
-         * Get the current screen brightness level
-         *
-         * @return float|null Brightness level from 0.0 to 1.0, or null if unavailable
-         * @static
-         */
-        public static function getBrightness()
-        {
-            /** @var \SRWieZ\NativePHP\Mobile\Screen\Screen $instance */
-            return $instance->getBrightness();
-        }
-
-        /**
-         * Reset the screen brightness to the system default
-         *
-         * @return bool|float Returns the new brightness level, or false on failure
-         * @static
-         */
-        public static function resetBrightness()
-        {
-            /** @var \SRWieZ\NativePHP\Mobile\Screen\Screen $instance */
-            return $instance->resetBrightness();
-        }
-
-        /**
-         * Start listening for brightness changes (iOS only)
-         *
-         * @static
-         */
-        public static function startBrightnessListener()
-        {
-            /** @var \SRWieZ\NativePHP\Mobile\Screen\Screen $instance */
-            return $instance->startBrightnessListener();
-        }
-
-        /**
-         * Stop listening for brightness changes
-         *
-         * @static
-         */
-        public static function stopBrightnessListener()
-        {
-            /** @var \SRWieZ\NativePHP\Mobile\Screen\Screen $instance */
-            return $instance->stopBrightnessListener();
-        }
-
-            }
-    }
-
 namespace Illuminate\Support {
     /**
      * @template TKey of array-key
@@ -36076,7 +35976,6 @@ namespace  {
     class Health extends \Spatie\Health\Facades\Health {}
     class Menu extends \Spatie\Menu\Laravel\Facades\Menu {}
     class Signal extends \Spatie\SignalAwareCommand\Facades\Signal {}
-    class Screen extends \SRWieZ\NativePHP\Mobile\Screen\Facades\Screen {}
 }
 
 
