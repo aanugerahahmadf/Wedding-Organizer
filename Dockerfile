@@ -22,10 +22,17 @@ RUN docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Copy existing application directory contents
-COPY . /var/www
+COPY . /var/www/html
+
+# Ensure required storage directories exist
+RUN mkdir -p /var/www/html/storage/framework/views \
+             /var/www/html/storage/framework/cache/data \
+             /var/www/html/storage/framework/sessions \
+             /var/www/html/storage/logs \
+             /var/www/html/bootstrap/cache
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
@@ -34,7 +41,7 @@ RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 COPY ./docker/nginx.conf /etc/nginx/sites-available/default
 
 # Permissions
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Expose port and start
 EXPOSE 80
