@@ -53,8 +53,8 @@ Menggunakan **Filament v3**, memberikan kontrol mutlak bagi tim internal untuk m
 - **Framework**: [Laravel 11/12](https://laravel.com)
 - **Mobile Runtime**: [NativePHP - Android & iOS](https://github.com/nativephp/mobile)
 - **Dashboard Interface**: [Filament v3](https://filamentphp.com)
-- **AI Core Engine**: Flask / Python with Content-Based Image Retrieval (CBIR) Algorithm (https://www.python.org)
-- **Messaging Engine**: Laravel Reverb (Real-time Communications) (https://reverb.laravel.com/)
+- **AI Core Engine**: Flask / Python with Content-Based Image Retrieval (CBIR) Algorithm https://www.python.org
+- **Messaging Engine**: Laravel Reverb (Real-time Communications) https://reverb.laravel.com
 - **Testing Standard**: [Pest PHP](https://pestphp.com)
 
 ---
