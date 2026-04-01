@@ -1,7 +1,7 @@
-# 💍 Weeding Organizer - AI-Powered Wedding Marketplace & Management Platform
+# 💍 Weeding Organizer - AI-Powered Wedding Management Platform
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/laravel/artisan/master/docs/ls-logo.7.png" width="200" alt="Laravel Logo">
+  <img src="https://raw.githubusercontent.com/laravel/artisan/master/docs/ls-logo.7.png" width="150" alt="Laravel Logo">
 </p>
 
 <p align="center">
@@ -16,50 +16,50 @@
 
 ## 🚀 Visi & Misi
 
-**Weeding Organizer** adalah ekosistem digital pernikahan paling lengkap di Indonesia. Kami menjembatani kebutuhan calon pengantin dengan vendor profesional melalui teknologi **AI (CBIR)** dan aplikasi mobile asli yang responsif. Dari manajemen budget hingga pencarian visual, semua ada di genggaman Anda.
+**Weeding Organizer** adalah platform digital terintegrasi yang dirancang khusus untuk mempermudah calon pengantin merencanakan hari bahagia mereka. Dengan dukungan teknologi **AI (CBIR)** untuk pencarian gaya visual dan aplikasi mobile asli yang responsif, kami menghadirkan pengalaman Wedding Planning yang modern, aman, dan efisien.
 
 ---
 
-## ✨ Fitur All-in-One Untuk User (Calon Pengantin)
+## ✨ Fitur Lengkap Untuk User (Calon Pengantin)
 
-Aplikasi mobile berbasis **NativePHP** ini dirancang sebagai asisten pribadi yang cerdas untuk setiap tahap perencanaan pernikahan Anda:
+Aplikasi mobile berbasis **NativePHP** ini hadir sebagai asisten pribadi yang cerdas untuk memandu setiap tahap perencanaan pernikahan:
 
-- **🤵 Personal Wedding Planner**: Kelola **Wedding Date** dan detail acara langsung dari profil pengguna secara personal.
-- **💰 Smart Budgeting Control**: Pantau dan atur **Budget Pernikahan** Anda agar perencanaan keuangan tetap terjaga.
-- **🔍 AI Style Discovery (CBIR)**: Punya foto dekorasi impian? Unggah fotonya, dan AI akan mencarikan vendor dengan gaya visual serupa di marketplace.
-- **📍 Location-Based Experience**: Integrasi **Address & GPS** untuk menemukan vendor terbaik di lokasi terdekat Anda.
-- **💳 Wallet & Integrated Payment**: Sistem **Top-up Saldo** untuk pembayaran DP atau pelunasan paket pernikahan secara instan dan aman.
-- **💬 Direct Real-time Chat**: Konsultasi langsung dengan vendor melalui fitur chat tanpa harus keluar dari aplikasi.
-- **🛍️ Mega Marketplace**: Akses ribuan paket (MUA, Venue, Catering, Dekorasi) dengan sistem **Wishlist & Voucher** promo.
-- **⭐ Trusted Reviews**: Lihat rating dan testimoni asli dari pengantin lain untuk menjamin kualitas vendor pilihan Anda.
+- **🤵 Personal Wedding Planner**: Kelola **Wedding Date** dan detail acara pernikahan Anda secara personal.
+- **💰 Smart Budgeting Control**: Atur dan pantau **Budget Pernikahan** agar tetap sesuai dengan perencanaan keuangan.
+- **🔍 AI Style Discovery (CBIR)**: Temukan gaya dekorasi, makeup, atau venue impian hanya dengan mengunggah foto referensi melalui teknologi AI.
+- **📍 Location-Based Service**: Temukan detail lokasi acara dan integrasi alamat yang memudahkan koordinasi lapangan.
+- **💳 Integrated Wallet & Payments**: Sistem **Top-up Saldo** untuk kemudahan pembayaran DP atau pelunasan layanan secara instan dan aman.
+- **💬 Direct Real-time Chat**: Konsultasi langsung dengan tim kami melalui fitur pesan instan di dalam aplikasi.
+- **🛍️ Katalog Layanan Lengkap**: Pilih berbagai paket (Makeup, Venue, Catering, Dekorasi) dengan sistem **Wishlist & Voucher** promo eksklusif.
+- **⭐ Trusted Reviews**: Lihat testimoni dan berikan feedback untuk menjamin kualitas layanan kami.
 
 ---
 
-## 🛠️ Fitur Khusus Admin & Vendor (Management Panel)
+## 🛠️ Fitur Admin (Dashboard Management)
 
-Menggunakan **Filament v3**, memberikan kontrol mutlak atas operasional bisnis dan platform:
+Menggunakan **Filament v3**, memberikan kontrol mutlak bagi tim internal untuk mengelola operasional:
 
-- **📊 Management Analytics**: Dashboard intuitif untuk memantau transaksi, order terbaru, dan grafik pendapatan.
-- **📦 Vendor Package Manager**: Vendor dapat mengelola etalase paket (foto galeri, harga, & spesifikasi) secara mandiri.
-- **🧾 Lifecycle Order Processing**: Pantau status pesanan mulai dari reservasi, pembayaran, hingga hari H acara.
-- **🏦 Ledger & Finance Control**: Kelola verifikasi transaksi **Top-up** dan permintaan **Withdrawal** vendor dengan sistem audit yang jelas.
-- **👥 Enterprise Role Management**: Pengaturan hak akses berlapis (Super Admin, Verifikator, hingga Pemilik Vendor).
-- **📰 CRM & Content Manager**: Publikasikan tips pernikahan melalui artikel dan kelola banner promo untuk meningkatkan konversi.
+- **📊 Business Analytics**: Pantau total pesanan, grafik pendapatan terbaru, dan statistik performa bulanan secara intuitif.
+- **📦 Service Package Manager**: Kelola seluruh paket layanan (galeri foto, spesifikasi, dan harga) dengan mudah.
+- **🧾 Lifecycle Order Processing**: Kelola seluruh tahap pesanan mulai dari booking awal hingga hari pelaksanaan acara.
+- **🏦 Ledger & Finance Control**: Verifikasi transaksi **Top-up** saldo pengguna dan kelola laporan keuangan secara internal.
+- **👥 Access Control**: Pengaturan hak akses tim khusus untuk manajemen data dan operasional aplikasi.
+- **📰 CRM & Content Manager**: Publikasikan tips pernikahan melalui artikel dan kelola banner promo untuk memanjakan pengguna.
 
 ---
 
 ## 🏗️ Elite Tech Stack
 
-- **Core**: [Laravel 11/12](https://laravel.com) (Server-side API & Admin Core)
-- **Mobile Environment**: [NativePHP - Android & iOS](https://github.com/nativephp/mobile)
+- **Framework**: [Laravel 11/12](https://laravel.com)
+- **Mobile Runtime**: [NativePHP - Android & iOS](https://github.com/nativephp/mobile)
 - **Dashboard Interface**: [Filament v3](https://filamentphp.com)
-- **AI Service Engine**: Flask / Python with Content-Based Image Retrieval (CBIR) Algorithm
+- **AI Core Engine**: Flask / Python with Content-Based Image Retrieval (CBIR) Algorithm
 - **Messaging Engine**: Laravel Reverb (Real-time Communications)
 - **Testing Standard**: [Pest PHP](https://pestphp.com)
 
 ---
 
-## 📦 Instalasi & Persiapan Cepat
+## 📦 Instalasi & Setup Cepat
 
 ```bash
 # Clone & Install
@@ -80,16 +80,17 @@ php artisan native:serve
 
 ---
 
-## 🔑 Akun Default (Super Admin)
+## 🔑 Akun Akses Default
 
+Gunakan kredensial berikut untuk masuk ke dashboard admin:
 - **Email**: `devimakeup.wo@gmail.com`
 - **Password**: `@Admin123`
 
 ---
 
-## 🧪 Jaminan Kualitas (Test Suite)
+## 🧪 Automated Testing
 
-Project ini terlindungi oleh Automated Testing untuk menjaga keandalan fitur finansial dan pemrosesan data:
+Menjamin keandalan fitur finansial dan pemrosesan data secara otomatis:
 ```bash
 php artisan test
 ```
