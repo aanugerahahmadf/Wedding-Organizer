@@ -1,5 +1,4 @@
 <?php
-use Laravel\Mcp\Facades\Mcp;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 use Native\Mobile\Facades\System;
@@ -22,5 +21,3 @@ Route::get('/media/{path}', function (string $path) {
     if (!file_exists($file)) { abort(404); }
     return response()->file($file, ['Content-Type' => \Illuminate\Support\Facades\File::mimeType($file)]);
 })->where('path', '.*')->name('media.serve');
-
-Mcp::web('/mcp/demo', \App\Mcp\Servers\PublicServer::class);
