@@ -1,4 +1,4 @@
-# 💍 Admin Panel Mobile - Wedding Organizer (CBIR)
+# 💍 Weeding Organizer - AI-Powered Wedding Marketplace & Management Platform
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/laravel/artisan/master/docs/ls-logo.7.png" width="200" alt="Laravel Logo">
@@ -14,111 +14,107 @@
 
 ---
 
-## 🚀 Tentang Proyek
+## 🚀 Visi Proyek
 
-**Admin Panel Mobile** adalah solusi manajemen *Wedding Organizer* yang revolusioner. Dibangun menggunakan ekosistem **Laravel** terbaru dan **NativePHP**, platform ini memungkinkan pengelolaan operasional pernikahan langsung dari smartphone dengan performa aplikasi asli (Android/iOS).
+**Weeding Organizer (Wedding Organizer)** adalah platform *all-in-one* yang mendigitalisasi seluruh ekosistem pernikahan. Menggabungkan kemudahan aplikasi mobile untuk calon pengantin dan dashboard manajemen yang kuat untuk vendor. 
 
-Fitur unggulan proyek ini adalah integrasi **CBIR (Content-Based Image Retrieval)**, yang memungkinkan pencarian aset pernikahan (gaun, dekorasi, katering) berdasarkan kemiripan visual menggunakan teknologi AI.
+Dengan integrasi **AI Content-Based Image Retrieval (CBIR)**, pengguna dapat menemukan vendor gaun, dekorasi, hingga venue hanya dengan mengunggah gambar referensi yang mereka inginkan.
 
-## ✨ Fitur Utama
+---
 
-- **Admin Dashboard (Filament)**: Antarmuka administrasi yang elegan, cepat, dan responsif.
-- **Native Mobile Experience**: Dijalankan sebagai aplikasi asli menggunakan NativePHP (Cross-platform).
-- **CBIR Integration**: Mencari referensi vendor dan dekorasi melalui unggahan foto.
-- **Role-based Access Control**: Keamanan tingkat tinggi menggunakan Spatie Permission (`super_admin`, `admin`, `vendor`).
-- **Real-time Synchronization**: Mendukung Reverb untuk notifikasi dan update data real-time.
-- **Scalable Architecture**: Siap dideploy ke cloud atau dijalankan secara lokal dengan manajemen koneksi database yang lincah.
+## ✨ Fitur Untuk Pengguna (Client Mobile App)
 
-## 🛠️ Tech Stack
+Dijalankan sebagai aplikasi asli (Android/iOS) menggunakan **NativePHP**, memberikan pengalaman belanja yang mulus:
 
-- **Backend**: [Laravel 11/12](https://laravel.com) (PHP 8.4+)
-- **Admin Panel**: [Filament v3](https://filamentphp.com)
+- **📱 Mobile UI First**: Desain modern khusus untuk smartphone dengan performa aplikasi asli.
+- **🔍 AI CBIR Search**: Cari paket pernikahan atau dekorasi berdasarkan foto referensi/mirip.
+- **🛍️ Marketplace Paket**: Jelajahi ribuan paket wedding dari berbagai kategori (Venue, Catering, MUA, dll).
+- **💳 Digital Wallet & Payments**: Top-up saldo, bayar pesanan, dan tarik dana melalui sistem terintegrasi.
+- **💬 Direct Chat & Inbox**: Berkomunikasi langsung dengan vendor pilihan melalui sistem pesan real-time.
+- **🎟️ Vouchers & Wishlist**: Simpan paket impian dan gunakan voucher promo untuk diskon eksklusif.
+- **🤵 Wedding Management**: Kelola tanggal pernikahan, detail acara, dan koordinasi terpusat.
+
+---
+
+## 🛠️ Fitur Untuk Admin & Vendor (Dashboard Panel)
+
+Menggunakan **Filament v3**, memberikan kontrol penuh atas operasional bisnis:
+
+- **📊 Bisnis Analytics**: Pantau total transaksi, order terbaru, dan statistik pendapatan bulanan.
+- **📦 Manajemen Paket**: Vendor dapat mengunggah paket pernikahan dengan galeri foto dan spesifikasi lengkap.
+- **🧾 Order Processing**: Kelola siklus hidup pesanan mulai dari reservasi hingga penyelesaian acara.
+- **👥 User & Role Management**: Pengaturan hak akses (Super Admin, Admin Verifikator, Owner Vendor).
+- **🏦 Financial Management**: Verifikasi top-up dan permintaan tarik dana (Withdrawal) pengguna secara aman.
+- **📰 Content & Banner**: Kelola artikel tips pernikahan dan banner promo di halaman utama aplikasi mobile.
+
+---
+
+## 🏗️ Elite Tech Stack
+
+- **Framework**: [Laravel 11/12](https://laravel.com) (Server-side & API)
 - **Mobile Runtime**: [NativePHP - Android & iOS](https://github.com/nativephp/mobile)
-- **Testing Framework**: [Pest PHP](https://pestphp.com)
-- **AI Core**: Flask-based CBIR Service Engine (Python)
+- **Admin Interface**: [Filament v3](https://filamentphp.com) (Dashboard Management)
+- **AI Core Engine**: Flask / Python with CBIR Algorithm (Search by Image)
+- **Real-time Engine**: Laravel Reverb (Messaging & Notifications)
+- **Testing SDK**: [Pest PHP](https://pestphp.com) (Unit & Feature Testing)
 
-## 📦 Instalasi & Persiapan
+---
 
-### 1. Prasyarat (Prerequisites)
+## 📦 Instalasi & Setup Cepat
 
-Pastikan sistem kamu sudah terinstal:
-- PHP 8.4 (Wajib untuk fitur terbaru)
-- Composer 2.x
-- MySQL / MariaDB
-- Node.js & NPM (untuk build assets)
-
-### 2. Langkah Instalasi (Local Backend)
+### 1. Persiapan Lingkungan
+Pastikan kamu menggunakan **PHP 8.4**, Composer 2, dan Node.js terbaru.
 
 ```bash
-# Clone repository
+# Clone & Install
 git clone https://github.com/aanugerahahmadf/Admin-Panel-Mobile.git
 cd Admin-Panel-Mobile
-
-# Install dependensi PHP
 composer install
+npm install && npm run build
 
-# Install & Build assets
-npm install
-npm run build
-
-# Copy & Setup Environment
+# Environment Setup
 cp .env.example .env
 php artisan key:generate
 
-# Migrasi Database & Seeding (PENTING untuk Role Admin)
+# Database & Sample Data
 php artisan migrate --seed
 ```
 
-### 3. Setup Mobile (NativePHP)
-
-Untuk menjalankan aplikasi di emulator atau perangkat asli:
-
+### 2. Jalankan Mode Mobile (NativePHP)
+Pastikan emulator Android atau simulator iOS sudah menyala:
 ```bash
-# Instalasi plugin mobile
 php artisan native:install
-
-# Menjalankan di mode Mobile Debug
 php artisan native:serve
 ```
 
-## 🔑 Akun Default (Super Admin)
+---
 
-Gunakan kredensial berikut untuk masuk ke dashboard admin setelah menjalankan `migrate --seed`:
+## 🔑 Akses Default (Development)
 
+Gunakan kredensial berikut untuk masuk ke dashboard admin setelah migrasi:
 - **Email**: `devimakeup.wo@gmail.com`
 - **Password**: `@Admin123`
-- **Role**: `super_admin`
+- **Level**: Super Admin
 
-## 🧪 Pengujian (Testing)
+---
 
-Proyek ini mengutamakan stabilitas kode dengan cakupan pengujian melalui **Pest PHP**.
+## 🧪 Jaminan Kualitas (Test Suite)
 
+Kami menjaga integritas data (terutama transaksi finansial) dengan pengujian ketat:
 ```bash
-# Menjalankan semua test suite (Unit & Feature)
+# Menjalankan Feature & Unit Tests (Pest)
 php artisan test
 ```
 
-*Environment CI/CD di GitHub Actions telah terkonfigurasi otomatis untuk PHP 8.4 dan SQLite.*
+---
 
-## 🔒 Keamanan & Kontrol Akses
-
-Aplikasi ini menggunakan sistem *Seeder* untuk inisialisasi awal. Secara default, test suite akan menggunakan database SQLite untuk isolasi data.
-
-- **Role**: `super_admin`, `admin`, `vendor`
-- **Permissions**: Dikelola secara dinamis melalui UI Filament.
-
-## 🌉 Integrasi CBIR
-
-Pastikan server AI Core (Flask) berjalan di port 5000. `NativeServiceProvider` proyek ini secara otomatis menangani routing IP emulator (`10.0.2.2`) agar tetap bisa berkomunikasi dengan backend AI di komputer host.
-
-## 🤝 Kontribusi (Contribution)
-
-Jika ingin berkontribusi, silakan buat *Pull Request* atau laporkan *Issue* pada tab yang tersedia. Pastikan kode mengikuti standar PSR-12 dan lulus semua pengujian `php artisan test`.
+## 🌉 Arsitektur AI CBIR
+Aplikasi memproksi permintaan gambar ke server AI lokal. `NativeServiceProvider` akan secara otomatis mensinkronisasi URL IP host agar aplikasi mobile di emulator tetap bisa menjangkau server AI Core di komputer host melalui IP `10.0.2.2:5000`.
 
 ---
 
 <p align="center">
-  Dukungan Penuh Untuk Pengembangan <b>Admin Panel Mobile - Wedding Organizer</b>
+  <b>Weeding Organizer</b> - Solusi Digital Terbaik untuk Momen Terindah Anda.
 </p>
 
 <p align="center">
