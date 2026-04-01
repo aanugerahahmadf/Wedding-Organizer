@@ -14,74 +14,65 @@
 
 ---
 
-## 🚀 Visi Proyek
+## 🚀 Visi & Misi
 
-**Weeding Organizer (Wedding Organizer)** adalah platform *all-in-one* yang mendigitalisasi seluruh ekosistem pernikahan. Menggabungkan kemudahan aplikasi mobile untuk calon pengantin dan dashboard manajemen yang kuat untuk vendor. 
-
-Dengan integrasi **AI Content-Based Image Retrieval (CBIR)**, pengguna dapat menemukan vendor gaun, dekorasi, hingga venue hanya dengan mengunggah gambar referensi yang mereka inginkan.
+**Weeding Organizer** adalah ekosistem digital pernikahan paling lengkap di Indonesia. Kami menjembatani kebutuhan calon pengantin dengan vendor profesional melalui teknologi **AI (CBIR)** dan aplikasi mobile asli yang responsif. Dari manajemen budget hingga pencarian visual, semua ada di genggaman Anda.
 
 ---
 
-## ✨ Fitur Untuk Pengguna (Client Mobile App)
+## ✨ Fitur All-in-One Untuk User (Calon Pengantin)
 
-Dijalankan sebagai aplikasi asli (Android/iOS) menggunakan **NativePHP**, memberikan pengalaman belanja yang mulus:
+Aplikasi mobile berbasis **NativePHP** ini dirancang sebagai asisten pribadi yang cerdas untuk setiap tahap perencanaan pernikahan Anda:
 
-- **📱 Mobile UI First**: Desain modern khusus untuk smartphone dengan performa aplikasi asli.
-- **🔍 AI CBIR Search**: Cari paket pernikahan atau dekorasi berdasarkan foto referensi/mirip.
-- **🛍️ Marketplace Paket**: Jelajahi ribuan paket wedding dari berbagai kategori (Venue, Catering, MUA, dll).
-- **💳 Digital Wallet & Payments**: Top-up saldo, bayar pesanan, dan tarik dana melalui sistem terintegrasi.
-- **💬 Direct Chat & Inbox**: Berkomunikasi langsung dengan vendor pilihan melalui sistem pesan real-time.
-- **🎟️ Vouchers & Wishlist**: Simpan paket impian dan gunakan voucher promo untuk diskon eksklusif.
-- **🤵 Wedding Management**: Kelola tanggal pernikahan, detail acara, dan koordinasi terpusat.
+- **🤵 Personal Wedding Planner**: Kelola **Wedding Date** dan detail acara langsung dari profil pengguna secara personal.
+- **💰 Smart Budgeting Control**: Pantau dan atur **Budget Pernikahan** Anda agar perencanaan keuangan tetap terjaga.
+- **🔍 AI Style Discovery (CBIR)**: Punya foto dekorasi impian? Unggah fotonya, dan AI akan mencarikan vendor dengan gaya visual serupa di marketplace.
+- **📍 Location-Based Experience**: Integrasi **Address & GPS** untuk menemukan vendor terbaik di lokasi terdekat Anda.
+- **💳 Wallet & Integrated Payment**: Sistem **Top-up Saldo** untuk pembayaran DP atau pelunasan paket pernikahan secara instan dan aman.
+- **💬 Direct Real-time Chat**: Konsultasi langsung dengan vendor melalui fitur chat tanpa harus keluar dari aplikasi.
+- **🛍️ Mega Marketplace**: Akses ribuan paket (MUA, Venue, Catering, Dekorasi) dengan sistem **Wishlist & Voucher** promo.
+- **⭐ Trusted Reviews**: Lihat rating dan testimoni asli dari pengantin lain untuk menjamin kualitas vendor pilihan Anda.
 
 ---
 
-## 🛠️ Fitur Untuk Admin & Vendor (Dashboard Panel)
+## 🛠️ Fitur Khusus Admin & Vendor (Management Panel)
 
-Menggunakan **Filament v3**, memberikan kontrol penuh atas operasional bisnis:
+Menggunakan **Filament v3**, memberikan kontrol mutlak atas operasional bisnis dan platform:
 
-- **📊 Bisnis Analytics**: Pantau total transaksi, order terbaru, dan statistik pendapatan bulanan.
-- **📦 Manajemen Paket**: Vendor dapat mengunggah paket pernikahan dengan galeri foto dan spesifikasi lengkap.
-- **🧾 Order Processing**: Kelola siklus hidup pesanan mulai dari reservasi hingga penyelesaian acara.
-- **👥 User & Role Management**: Pengaturan hak akses (Super Admin, Admin Verifikator, Owner Vendor).
-- **🏦 Financial Management**: Verifikasi top-up dan permintaan tarik dana (Withdrawal) pengguna secara aman.
-- **📰 Content & Banner**: Kelola artikel tips pernikahan dan banner promo di halaman utama aplikasi mobile.
+- **📊 Management Analytics**: Dashboard intuitif untuk memantau transaksi, order terbaru, dan grafik pendapatan.
+- **📦 Vendor Package Manager**: Vendor dapat mengelola etalase paket (foto galeri, harga, & spesifikasi) secara mandiri.
+- **🧾 Lifecycle Order Processing**: Pantau status pesanan mulai dari reservasi, pembayaran, hingga hari H acara.
+- **🏦 Ledger & Finance Control**: Kelola verifikasi transaksi **Top-up** dan permintaan **Withdrawal** vendor dengan sistem audit yang jelas.
+- **👥 Enterprise Role Management**: Pengaturan hak akses berlapis (Super Admin, Verifikator, hingga Pemilik Vendor).
+- **📰 CRM & Content Manager**: Publikasikan tips pernikahan melalui artikel dan kelola banner promo untuk meningkatkan konversi.
 
 ---
 
 ## 🏗️ Elite Tech Stack
 
-- **Framework**: [Laravel 11/12](https://laravel.com) (Server-side & API)
-- **Mobile Runtime**: [NativePHP - Android & iOS](https://github.com/nativephp/mobile)
-- **Admin Interface**: [Filament v3](https://filamentphp.com) (Dashboard Management)
-- **AI Core Engine**: Flask / Python with CBIR Algorithm (Search by Image)
-- **Real-time Engine**: Laravel Reverb (Messaging & Notifications)
-- **Testing SDK**: [Pest PHP](https://pestphp.com) (Unit & Feature Testing)
+- **Core**: [Laravel 11/12](https://laravel.com) (Server-side API & Admin Core)
+- **Mobile Environment**: [NativePHP - Android & iOS](https://github.com/nativephp/mobile)
+- **Dashboard Interface**: [Filament v3](https://filamentphp.com)
+- **AI Service Engine**: Flask / Python with Content-Based Image Retrieval (CBIR) Algorithm
+- **Messaging Engine**: Laravel Reverb (Real-time Communications)
+- **Testing Standard**: [Pest PHP](https://pestphp.com)
 
 ---
 
-## 📦 Instalasi & Setup Cepat
-
-### 1. Persiapan Lingkungan
-Pastikan kamu menggunakan **PHP 8.4**, Composer 2, dan Node.js terbaru.
+## 📦 Instalasi & Persiapan Cepat
 
 ```bash
 # Clone & Install
 git clone https://github.com/aanugerahahmadf/Admin-Panel-Mobile.git
 cd Admin-Panel-Mobile
-composer install
-npm install && npm run build
+composer install && npm install && npm run build
 
-# Environment Setup
-cp .env.example .env
-php artisan key:generate
-
-# Database & Sample Data
+# Setup
+cp .env.example .env && php artisan key:generate
 php artisan migrate --seed
 ```
 
-### 2. Jalankan Mode Mobile (NativePHP)
-Pastikan emulator Android atau simulator iOS sudah menyala:
+### Jalankan Mode Mobile (NativePHP)
 ```bash
 php artisan native:install
 php artisan native:serve
@@ -89,32 +80,24 @@ php artisan native:serve
 
 ---
 
-## 🔑 Akses Default (Development)
+## 🔑 Akun Default (Super Admin)
 
-Gunakan kredensial berikut untuk masuk ke dashboard admin setelah migrasi:
 - **Email**: `devimakeup.wo@gmail.com`
 - **Password**: `@Admin123`
-- **Level**: Super Admin
 
 ---
 
 ## 🧪 Jaminan Kualitas (Test Suite)
 
-Kami menjaga integritas data (terutama transaksi finansial) dengan pengujian ketat:
+Project ini terlindungi oleh Automated Testing untuk menjaga keandalan fitur finansial dan pemrosesan data:
 ```bash
-# Menjalankan Feature & Unit Tests (Pest)
 php artisan test
 ```
 
 ---
 
-## 🌉 Arsitektur AI CBIR
-Aplikasi memproksi permintaan gambar ke server AI lokal. `NativeServiceProvider` akan secara otomatis mensinkronisasi URL IP host agar aplikasi mobile di emulator tetap bisa menjangkau server AI Core di komputer host melalui IP `10.0.2.2:5000`.
-
----
-
 <p align="center">
-  <b>Weeding Organizer</b> - Solusi Digital Terbaik untuk Momen Terindah Anda.
+  <b>Weeding Organizer</b> - Mewujudkan Pernikahan Impian Anda Menjadi Nyata.
 </p>
 
 <p align="center">
