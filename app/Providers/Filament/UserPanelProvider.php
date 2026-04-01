@@ -49,7 +49,7 @@ class UserPanelProvider extends PanelProvider
             )
             ->emailVerification(OtpEmailVerificationPrompt::class)
             // ->sidebarFullyCollapsibleOnDesktop()
-            ->brandName(__('Devi Make Up Wedding Organizer'))
+            ->brandName(fn() => __('Devi Make Up Wedding Organizer'))
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('3rem')
             // ->simplePageMaxContentWidth(MaxWidth::Small)

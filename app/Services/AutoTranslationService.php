@@ -101,16 +101,41 @@ class AutoTranslationService
             return $text;
         }
 
-        // 3. Load Mapping (0,01ms Strategy)
+        // --- CEK KONDISI BOOT / CLI / DB ---
+        // Jangan paksa DB/Cache jika sedang discovery atau DB tidak reachable (seperti saat build Laravel Cloud)
+        try {
+            if (app()->runningInConsole()) {
+                $args = implode(' ', $_SERVER['argv'] ?? []);
+                if (str_contains($args, 'package:discover') || str_contains($args, 'dump-autoload')) {
+                    return $text;
+                }
+            }
+            \DB::connection()->getPdo();
+        } catch (\Throwable $e) {
+            return $text; // FAIL SAFE
+        }
+
+        // 3. Prevent DB/Cache access during boot/console commands that don't need it (like package:discover)
+        if (app()->runningInConsole() && !app()->bound('translator')) {
+            return $text;
+        }
+
+        // 4. Load Mapping (0,01ms Strategy)
         if (self::$activeLocale !== $targetLocale) {
             $cacheKey = "active_trans_map_{$targetLocale}";
-            self::$activeMap = Cache::get($cacheKey, []);
             
-            if (empty(self::$activeMap)) {
-                self::$activeMap = Translation::query()->whereTargetLocale($targetLocale)
-                    ->pluck('translated_text', 'source_text')
-                    ->toArray();
-                Cache::put($cacheKey, self::$activeMap, now()->addHours(24));
+            try {
+                self::$activeMap = Cache::get($cacheKey, []);
+                
+                if (empty(self::$activeMap)) {
+                    self::$activeMap = Translation::query()->whereTargetLocale($targetLocale)
+                        ->pluck('translated_text', 'source_text')
+                        ->toArray();
+                    Cache::put($cacheKey, self::$activeMap, now()->addHours(24));
+                }
+            } catch (\Throwable $e) {
+                // Return original text if DB/Cache is not ready
+                return $text;
             }
             self::$activeLocale = $targetLocale;
         }
@@ -145,9 +170,11 @@ class AutoTranslationService
                 
                 // Update Cache Global per-item tanpa menghapus yang sudah ada
                 $cacheKey = "active_trans_map_{$targetLocale}";
-                $currentCache = Cache::get($cacheKey, []);
-                $currentCache[$text] = $translated;
-                Cache::put($cacheKey, $currentCache, now()->addHours(24));
+                try {
+                    $currentCache = Cache::get($cacheKey, []);
+                    $currentCache[$text] = $translated;
+                    Cache::put($cacheKey, $currentCache, now()->addHours(24));
+                } catch (\Throwable $e) {}
             } catch (\Throwable $e) {}
         }
 

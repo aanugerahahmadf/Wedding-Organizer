@@ -400,17 +400,6 @@
       0 => 'MallardDuck\\BladeBoxicons\\BladeBoxiconsServiceProvider',
     ),
   ),
-  'microweber-deps/filament-modules' => 
-  array (
-    'aliases' => 
-    array (
-      'FilamentModules' => 'FilamentModules',
-    ),
-    'providers' => 
-    array (
-      0 => 'Coolsam\\Modules\\ModulesServiceProvider',
-    ),
-  ),
   'nativephp/mobile' => 
   array (
     'providers' => 
@@ -508,17 +497,6 @@
     'providers' => 
     array (
       0 => 'RyanChandler\\BladeCaptureDirective\\BladeCaptureDirectiveServiceProvider',
-    ),
-  ),
-  'savannabits/filament-modules' => 
-  array (
-    'aliases' => 
-    array (
-      'FilamentModules' => 'FilamentModules',
-    ),
-    'providers' => 
-    array (
-      0 => 'Coolsam\\Modules\\ModulesServiceProvider',
     ),
   ),
   'shuvroroy/filament-spatie-laravel-health' => 
