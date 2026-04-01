@@ -43,5 +43,6 @@
 
     "files.associations": {
         "*.blade.php": "blade"
-    }
+    },
+    "kiroAgent.configureMCP": "Disabled"
 }
