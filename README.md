@@ -105,5 +105,5 @@ php artisan test
 </p>
 
 <p align="center">
-  Dibuat dengan ❤️ oleh <b>Ahmad Anugerah</b>
+  Dibuat dengan oleh <b>Anugerah Ahmad Fachrurochim</b>
 </p>
