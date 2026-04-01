@@ -165,28 +165,13 @@ class NativeServiceProvider extends ServiceProvider
             $hostServerUrl = $appUrl;
         }
 
-        // ── 2. CHOOSE DB CONNECTION ───────────────────────────────────────
-        // Mobile: proxy via HTTP (no pdo_mysql needed on device)
-        // Web   : direct MySQL connection
-        $dbConnection = $isMobile ? 'mysql_proxy' : 'mysql';
-
-        // Build the proxy URL the mobile app will POST SQL queries to
-        $proxyUrl = $isMobile ? $hostServerUrl.'/api/db-proxy' : null;
-
         // ── 3. APPLY RUNTIME CONFIG ───────────────────────────────────────
-        config([
-            'app.url' => $appUrl, // DO NOT mutate app.url for local embedded routing!
-
-            'database.default' => $dbConnection,
+        $runtimeConfig = [
             'database.connections.mysql.host' => $dbHost,
             'database.connections.mysql.port' => env('DB_PORT', '3306'),
             'database.connections.mysql.database' => env('DB_DATABASE', 'admin_panel_cbir'),
             'database.connections.mysql.username' => env('DB_USERNAME', 'root'),
             'database.connections.mysql.password' => env('DB_PASSWORD', ''),
-
-            'database.connections.mysql_proxy.proxy_url' => $proxyUrl,
-            'database.connections.mysql_proxy.proxy_secret' => env('NATIVE_DB_PROXY_SECRET', 'nativephp-db-proxy-secret-2024'),
-            'database.connections.mysql_proxy.database' => env('DB_DATABASE', 'admin_panel_cbir'),
 
             // Reverb / Broadcasting
             'reverb.apps.0.host' => $reverbHost,
@@ -194,10 +179,18 @@ class NativeServiceProvider extends ServiceProvider
             'broadcasting.connections.pusher.options.host' => $reverbHost,
 
             // AI / CBIR Service Synchronization
-            // Ensures mobile apps can reach the Flask server on the host machine
             'services.ai_core_url' => str_replace(['127.0.0.1', 'localhost'], $hostIp, env('AI_CORE_URL', 'http://127.0.0.1:5000')),
             'services.cbir_api_url' => str_replace(['127.0.0.1', 'localhost'], $hostIp, env('CBIR_API_URL', 'http://127.0.0.1:5000')),
-        ]);
+        ];
+
+        if ($isMobile) {
+            $runtimeConfig['database.default'] = 'mysql_proxy';
+            $runtimeConfig['database.connections.mysql_proxy.proxy_url'] = $proxyUrl;
+            $runtimeConfig['database.connections.mysql_proxy.proxy_secret'] = env('NATIVE_DB_PROXY_SECRET', 'nativephp-db-proxy-secret-2024');
+            $runtimeConfig['database.connections.mysql_proxy.database'] = env('DB_DATABASE', 'admin_panel_cbir');
+        }
+
+        config($runtimeConfig);
 
         if ($isMobile) {
             error_log(sprintf(
