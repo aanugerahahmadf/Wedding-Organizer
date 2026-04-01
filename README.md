@@ -15,35 +15,40 @@
 ---
 
 ## 🚀 Tentang Proyek
+
 **Admin Panel Mobile** adalah solusi manajemen *Wedding Organizer* yang revolusioner. Dibangun menggunakan ekosistem **Laravel** terbaru dan **NativePHP**, platform ini memungkinkan pengelolaan operasional pernikahan langsung dari smartphone dengan performa aplikasi asli (Android/iOS).
 
 Fitur unggulan proyek ini adalah integrasi **CBIR (Content-Based Image Retrieval)**, yang memungkinkan pencarian aset pernikahan (gaun, dekorasi, katering) berdasarkan kemiripan visual menggunakan teknologi AI.
 
 ## ✨ Fitur Utama
--   **Admin Dashboard (Filament)**: Antarmuka administrasi yang elegan, cepat, dan responsif.
--   **Native Mobile Experience**: Dijalankan sebagai aplikasi asli menggunakan NativePHP (Cross-platform).
--   **CBIR Integration**: Mencari referensi vendor dan dekorasi melalui unggahan foto.
--   **Role-based Access Control**: Keamanan tingkat tinggi menggunakan Spatie Permission (`super_admin`, `admin`, `vendor`).
--   **Real-time Synchronization**: Mendukung Reverb untuk notifikasi dan update data real-time.
--   **Scalable Architecture**: Siap dideploy ke cloud atau dijalankan secara lokal dengan manajemen koneksi database yang lincah.
+
+- **Admin Dashboard (Filament)**: Antarmuka administrasi yang elegan, cepat, dan responsif.
+- **Native Mobile Experience**: Dijalankan sebagai aplikasi asli menggunakan NativePHP (Cross-platform).
+- **CBIR Integration**: Mencari referensi vendor dan dekorasi melalui unggahan foto.
+- **Role-based Access Control**: Keamanan tingkat tinggi menggunakan Spatie Permission (`super_admin`, `admin`, `vendor`).
+- **Real-time Synchronization**: Mendukung Reverb untuk notifikasi dan update data real-time.
+- **Scalable Architecture**: Siap dideploy ke cloud atau dijalankan secara lokal dengan manajemen koneksi database yang lincah.
 
 ## 🛠️ Tech Stack
--   **Backend**: [Laravel 11/12](https://laravel.com) (PHP 8.4+)
--   **Admin Panel**: [Filament v3](https://filamentphp.com)
--   **Mobile Runtime**: [NativePHP - Android & iOS](https://github.com/nativephp/mobile)
--   **Testing Framework**: [Pest PHP](https://pestphp.com)
--   **AI Core**: Flask-based CBIR Service Engine (Python)
+
+- **Backend**: [Laravel 11/12](https://laravel.com) (PHP 8.4+)
+- **Admin Panel**: [Filament v3](https://filamentphp.com)
+- **Mobile Runtime**: [NativePHP - Android & iOS](https://github.com/nativephp/mobile)
+- **Testing Framework**: [Pest PHP](https://pestphp.com)
+- **AI Core**: Flask-based CBIR Service Engine (Python)
 
 ## 📦 Instalasi & Persiapan
 
 ### 1. Prasyarat (Prerequisites)
+
 Pastikan sistem kamu sudah terinstal:
--   PHP 8.4 (Wajib untuk fitur terbaru)
--   Composer 2.x
--   MySQL / MariaDB
--   Node.js & NPM (untuk build assets)
+- PHP 8.4 (Wajib untuk fitur terbaru)
+- Composer 2.x
+- MySQL / MariaDB
+- Node.js & NPM (untuk build assets)
 
 ### 2. Langkah Instalasi (Local Backend)
+
 ```bash
 # Clone repository
 git clone https://github.com/aanugerahahmadf/Admin-Panel-Mobile.git
@@ -65,7 +70,9 @@ php artisan migrate --seed
 ```
 
 ### 3. Setup Mobile (NativePHP)
+
 Untuk menjalankan aplikasi di emulator atau perangkat asli:
+
 ```bash
 # Instalasi plugin mobile
 php artisan native:install
@@ -74,24 +81,38 @@ php artisan native:install
 php artisan native:serve
 ```
 
+## 🔑 Akun Default (Super Admin)
+
+Gunakan kredensial berikut untuk masuk ke dashboard admin setelah menjalankan `migrate --seed`:
+
+- **Email**: `devimakeup.wo@gmail.com`
+- **Password**: `@Admin123`
+- **Role**: `super_admin`
+
 ## 🧪 Pengujian (Testing)
+
 Proyek ini mengutamakan stabilitas kode dengan cakupan pengujian melalui **Pest PHP**.
 
 ```bash
 # Menjalankan semua test suite (Unit & Feature)
 php artisan test
 ```
+
 *Environment CI/CD di GitHub Actions telah terkonfigurasi otomatis untuk PHP 8.4 dan SQLite.*
 
 ## 🔒 Keamanan & Kontrol Akses
+
 Aplikasi ini menggunakan sistem *Seeder* untuk inisialisasi awal. Secara default, test suite akan menggunakan database SQLite untuk isolasi data.
--   **Role**: `super_admin`, `admin`, `vendor`
--   **Permissions**: Dikelola secara dinamis melalui UI Filament.
+
+- **Role**: `super_admin`, `admin`, `vendor`
+- **Permissions**: Dikelola secara dinamis melalui UI Filament.
 
 ## 🌉 Integrasi CBIR
+
 Pastikan server AI Core (Flask) berjalan di port 5000. `NativeServiceProvider` proyek ini secara otomatis menangani routing IP emulator (`10.0.2.2`) agar tetap bisa berkomunikasi dengan backend AI di komputer host.
 
 ## 🤝 Kontribusi (Contribution)
+
 Jika ingin berkontribusi, silakan buat *Pull Request* atau laporkan *Issue* pada tab yang tersedia. Pastikan kode mengikuti standar PSR-12 dan lulus semua pengujian `php artisan test`.
 
 ---
@@ -99,6 +120,7 @@ Jika ingin berkontribusi, silakan buat *Pull Request* atau laporkan *Issue* pada
 <p align="center">
   Dukungan Penuh Untuk Pengembangan <b>Admin Panel Mobile - Wedding Organizer</b>
 </p>
+
 <p align="center">
   Dibuat dengan ❤️ oleh <b>Ahmad Anugerah</b>
 </p>
