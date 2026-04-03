@@ -279,10 +279,13 @@ class WeddingOrganizer extends Model implements HasMedia
             return null;
         }
 
-        // Di cloud environment, Storage::disk()->exists() bisa mengembalikan false
-        // meski file sebenarnya ada. Cukup percaya pada URL yang dihasilkan Spatie.
-        $url = $media->getUrl();
+        $disk = $media->disk ?: config('filesystems.default');
+        $relativePath = ltrim((string) $media->getPathRelativeToRoot(), '/');
 
-        return filled($url) ? $url : null;
+        if (! $relativePath || ! Storage::disk($disk)->exists($relativePath)) {
+            return null;
+        }
+
+        return $media->getUrl();
     }
 }
