@@ -115,10 +115,11 @@ class Article extends Model implements HasMedia
     {
         $url = $this->getFirstMediaUrl('images') ?: ($this->attributes['image_url'] ?? null);
 
-        // Izinkan URL yang dimulai dengan http atau / (path relatif)
-        if (!$url || (!str_starts_with($url, 'http') && !str_starts_with($url, '/'))) {
-            return 'https://ui-avatars.com/api/?name=' . urlencode($this->title) . '&color=FDE047&background=111827';
-        }
+        if (!$url) return 'https://ui-avatars.com/api/?name=' . urlencode($this->title);
+        
+        if (str_starts_with($url, 'http')) return $url;
+
+        return \Illuminate\Support\Facades\Storage::disk('public')->url(ltrim($url, '/'));
 
         return $url;
     }

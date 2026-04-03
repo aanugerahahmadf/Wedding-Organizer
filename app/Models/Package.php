@@ -214,7 +214,7 @@ class Package extends Model implements HasMedia
             return $url;
         }
 
-        return asset(ltrim($url, '/'));
+        return \Illuminate\Support\Facades\Storage::disk('public')->url(ltrim($url, '/'));
     }
 
     private function getValidMediaUrl(?Media $media): ?string
