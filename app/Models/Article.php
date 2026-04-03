@@ -115,8 +115,8 @@ class Article extends Model implements HasMedia
     {
         $url = $this->getFirstMediaUrl('images') ?: ($this->attributes['image_url'] ?? null);
 
-        if (!$url || !str_starts_with($url, 'http')) {
-            // Return a premium placeholder if both media and URL are missing/invalid
+        // Izinkan URL yang dimulai dengan http atau / (path relatif)
+        if (!$url || (!str_starts_with($url, 'http') && !str_starts_with($url, '/'))) {
             return 'https://ui-avatars.com/api/?name=' . urlencode($this->title) . '&color=FDE047&background=111827';
         }
 
