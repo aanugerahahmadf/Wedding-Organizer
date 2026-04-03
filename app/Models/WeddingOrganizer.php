@@ -280,13 +280,6 @@ class WeddingOrganizer extends Model implements HasMedia
             return null;
         }
 
-        $disk = $media->disk ?: config('filesystems.default');
-        $relativePath = ltrim((string) $media->getPathRelativeToRoot(), '/');
-
-        if (! $relativePath || ! Storage::disk($disk)->exists($relativePath)) {
-            return null;
-        }
-
         return $media->getUrl();
     }
 }
