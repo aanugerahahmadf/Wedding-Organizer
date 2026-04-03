@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
@@ -280,13 +279,10 @@ class WeddingOrganizer extends Model implements HasMedia
             return null;
         }
 
-        $disk = $media->disk ?: config('filesystems.default');
-        $relativePath = ltrim((string) $media->getPathRelativeToRoot(), '/');
+        // Di cloud environment, Storage::disk()->exists() bisa mengembalikan false
+        // meski file sebenarnya ada. Cukup percaya pada URL yang dihasilkan Spatie.
+        $url = $media->getUrl();
 
-        if (! $relativePath || ! Storage::disk($disk)->exists($relativePath)) {
-            return null;
-        }
-
-        return $media->getUrl();
+        return filled($url) ? $url : null;
     }
 }

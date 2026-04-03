@@ -233,9 +233,13 @@ class AppServiceProvider extends ServiceProvider
              });
         });
 
-        // 🌐 AUTO TRANSLATE ALL FORM FIELDS & FILTERS
+        // 🌐 AUTO TRANSLATE ALL FORM FIELDS & FILTERS (safe: ensures string return)
         Field::configureUsing(function (Field $field): void {
-            $field->translateLabel();
+            $field->label(function () use ($field): string {
+                $original = $field->getName();
+                $translated = __($original);
+                return is_string($translated) ? $translated : $original;
+            });
         });
 
         BaseFilter::configureUsing(function (BaseFilter $filter): void {
@@ -243,7 +247,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Entry::configureUsing(function (Entry $entry): void {
-            $entry->translateLabel();
+            $entry->label(function () use ($entry): string {
+                $original = $entry->getName();
+                $translated = __($original);
+                return is_string($translated) ? $translated : $original;
+            });
         });
 
         ExportColumn::configureUsing(function (ExportColumn $column): void {
