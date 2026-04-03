@@ -25,13 +25,17 @@ class LanguageController extends Controller
             session()->put('locale', $locale);
             app()->setLocale($locale);
 
-            // 2. Find authenticated user across all potential guards,'livewire'
+            // 2. Find authenticated user across all defined guards
             $user = null;
             $guards = ['web', 'filament','livewire', 'mobile', 'nativephp', 'admin', 'api'];
             foreach ($guards as $guard) {
-                if (Auth::guard($guard)->check()) {
-                    $user = Auth::guard($guard)->user();
-                    break;
+                try {
+                    if (Auth::guard($guard)->check()) {
+                        $user = Auth::guard($guard)->user();
+                        break;
+                    }
+                } catch (\Exception $e) {
+                    continue;
                 }
             }
 

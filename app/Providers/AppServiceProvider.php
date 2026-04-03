@@ -235,15 +235,15 @@ class AppServiceProvider extends ServiceProvider
 
         // 🌐 AUTO TRANSLATE ALL FORM FIELDS & FILTERS
         Field::configureUsing(function (Field $field): void {
-            // $field->translateLabel();
+            $field->translateLabel();
         });
 
         BaseFilter::configureUsing(function (BaseFilter $filter): void {
-            // $filter->translateLabel();
+            $filter->translateLabel();
         });
 
         Entry::configureUsing(function (Entry $entry): void {
-            // $entry->translateLabel();
+            $entry->translateLabel();
         });
 
         ExportColumn::configureUsing(function (ExportColumn $column): void {

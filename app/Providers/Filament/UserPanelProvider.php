@@ -9,6 +9,7 @@ use App\Filament\User\Auth\OtpResetPassword;
 use App\Filament\User\Auth\Register;
 use App\Filament\User\Auth\VerifyOtp;
 use App\Filament\User\Pages\Dashboard;
+use App\Http\Middleware\SetLocale;
 use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -113,6 +114,7 @@ class UserPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
+                SetLocale::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,

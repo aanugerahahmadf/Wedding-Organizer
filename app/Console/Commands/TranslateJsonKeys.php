@@ -97,20 +97,35 @@ class TranslateJsonKeys extends Command
             // Sort keys alphabetically
             ksort($idTranslations);
             File::put($idFile, json_encode($idTranslations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
-            $this->info("✅ id.json diperbarui ($addedCount key baru).");
-        } else {
-            $this->info("ℹ️ Tidak ada label baru ditemukan.");
         }
 
-        $files = File::glob($langPath . '/*.json');
+        $this->line("🏁 Selesai! id.json diperbarui ($addedCount key baru).");
+
+        // 🟢 BARU: Ambil locales dari config filament-language-switcher
+        $configLocals = array_keys(config('filament-language-switcher.locals', []));
+        foreach ($configLocals as $local) {
+            $localFile = $langPath . '/' . $local . '.json';
+            if (!File::exists($localFile)) {
+                File::put($localFile, json_encode([], JSON_PRETTY_PRINT));
+                $this->info(" ✨ Membuat file bahasa baru: <info>$local.json</info>");
+            }
+        }
+
+        // 🟢 SINKRONISASI HANYA BAHASA YANG TERDAFTAR DI CONFIG
+        $this->info("🌍 Menyelaraskan Bahasa berdasarkan config...");
         
-        foreach ($files as $file) {
-            $fileName = basename($file);
-            if ($fileName === 'id.json') continue;
+        foreach ($configLocals as $targetLangCode) {
+            if ($targetLangCode === 'id') continue; // id.json sudah diproses di awal
             
-            $targetLangCode = str_replace('.json', '', $fileName);
+            $file = $langPath . '/' . $targetLangCode . '.json';
+            $fileName = $targetLangCode . '.json';
+            
             $this->info("🌍 Menyelaraskan Bahasa: " . strtoupper($targetLangCode) . "...");
             
+            if (!File::exists($file)) {
+                File::put($file, json_encode([], JSON_PRETTY_PRINT));
+            }
+
             $content = File::get($file);
             $targetTranslations = json_decode($content, true) ?? [];
             

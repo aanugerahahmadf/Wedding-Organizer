@@ -15,13 +15,17 @@ class SetLocale
         $sessionLocale = (string) session()->get('locale');
         $locale = $sessionLocale ?: null;
 
-        // Force check across all guards
+        // Force check across all defined guards
         $user = null;
         $guards = ['web'];
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                $user = Auth::guard($guard)->user();
-                break; // Found the user
+            try {
+                if (Auth::guard($guard)->check()) {
+                    $user = Auth::guard($guard)->user();
+                    break; // Found the user
+                }
+            } catch (\Exception $e) {
+                continue;
             }
         }
 
