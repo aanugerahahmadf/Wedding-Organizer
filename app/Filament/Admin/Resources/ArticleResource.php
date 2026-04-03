@@ -11,6 +11,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Support\Enums\FontWeight;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -134,12 +135,11 @@ class ArticleResource extends Resource
                             ->description(__('Kumpulan gambar dan video artikel.'))
                             ->icon('heroicon-o-photo')
                             ->schema([
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('article_image')
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('article_thumbnail')
                                     ->label(__('Gambar Utama (Thumbnail)'))
-                                    ->collection('article-images')
-                                    ->image()
-                                    ->imageEditor(),
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('videos')
+                                    ->collection('images')
+                                    ->image(),
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('article_video')
                                     ->label(__('Video Pendukung'))
                                     ->collection('videos')
                                     ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'])
@@ -183,15 +183,21 @@ class ArticleResource extends Resource
                     ->badge()
                     ->color('info'),
                 Tables\Columns\TextColumn::make('slug')
-                    ->label(__('Slug'))
+                    ->label(__('Slug'))
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label(__('Gambar Utama'))
+                    ->circular()
                     ->alignment('center'),
                 Tables\Columns\IconColumn::make('is_published')
                     ->label(__('Diterbitkan'))
                     ->alignment('center')
                     ->boolean(),
+                Tables\Columns\IconColumn::make('video_url')
+                    ->label(__('Video'))
+                    ->icon('heroicon-m-video-camera')
+                    ->color('warning')
+                    ->alignment('center'),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label(__('Tanggal Terbit'))
                     ->dateTime()

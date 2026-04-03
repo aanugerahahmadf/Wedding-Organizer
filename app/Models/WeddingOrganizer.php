@@ -76,8 +76,6 @@ class WeddingOrganizer extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    public const BRAND_SLUG = 'devi-makeup-wedding';
-
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('logo')->singleFile();
@@ -128,12 +126,10 @@ class WeddingOrganizer extends Model implements HasMedia
 
     protected $fillable = [
         'name',
-        'slug',
         'description',
         'address',
         'latitude',
         'longitude',
-        'rating',
         'is_verified',
     ];
 
@@ -182,8 +178,9 @@ class WeddingOrganizer extends Model implements HasMedia
 
     public static function getBrand(): ?self
     {
+        // Hanya mencari record utama Devi Make Up
         return self::query()
-            ->where('slug', self::BRAND_SLUG)
+            ->where('id', 1)
             ->first() ?? self::query()->first();
     }
 
@@ -236,18 +233,12 @@ class WeddingOrganizer extends Model implements HasMedia
 
     public function getLogoUrlAttribute()
     {
-        $fallback = asset('images/placeholders/image-placeholder.svg');
-        $url = $this->getValidMediaUrl($this->getFirstMedia('logo'));
-
-        return $this->normalizeImageUrl($url, $fallback);
+        return $this->normalizeImageUrl($this->getValidMediaUrl($this->getFirstMedia('logo')), null);
     }
 
     public function getCoverImageUrlAttribute()
     {
-        $fallback = asset('images/placeholders/image-placeholder.svg');
-        $url = $this->getValidMediaUrl($this->getFirstMedia('gallery'));
-
-        return $this->normalizeImageUrl($url, $fallback);
+        return $this->normalizeImageUrl($this->getValidMediaUrl($this->getFirstMedia('gallery')), null);
     }
 
     public function getVideoUrlAttribute(): ?string
@@ -270,7 +261,7 @@ class WeddingOrganizer extends Model implements HasMedia
         return $this->hasMany(Review::class);
     }
 
-    private function normalizeImageUrl(?string $url, string $fallback): string
+    private function normalizeImageUrl(?string $url, ?string $fallback = null): ?string
     {
         if (! filled($url)) {
             return $fallback;

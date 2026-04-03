@@ -22,7 +22,7 @@ class WeddingOrganizerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 1;
 
     public static function getNavigationBadge(): ?string
     {
@@ -77,16 +77,7 @@ class WeddingOrganizerResource extends Resource
                                     ->maxLength(255)
                                     ->default('Devi Make Up & Wedding')
                                     ->dehydrated()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', str($state)->slug()))
                                     ->prefixIcon('heroicon-o-sparkles'),
-                                Forms\Components\TextInput::make('slug')
-                                    ->label(__('Slug'))
-                                    ->required()
-                                    ->unique(ignorable: fn (?WeddingOrganizer $record) => $record)
-                                    ->maxLength(255)
-                                    ->dehydrated()
-                                    ->prefixIcon('heroicon-o-link'),
                                 Forms\Components\RichEditor::make('description')
                                     ->label(__('Deskripsi Lengkap Studio'))
                                     ->default('Artis rias pengantin profesional yang mengkhususkan diri dalam gaya pernikahan tradisional dan modern.')
@@ -123,14 +114,6 @@ class WeddingOrganizerResource extends Resource
                         Forms\Components\Section::make(__('Reputasi & Kontak'))
                             ->icon('heroicon-o-star')
                             ->schema([
-                                Forms\Components\TextInput::make('rating')
-                                    ->label(__('Rating Studio'))
-                                    ->required()
-                                    ->default(0.00)
-                                    ->minValue(0)
-                                    ->maxValue(5)
-                                    ->step(0.1)
-                                    ->prefixIcon('heroicon-s-star'),
                                 Forms\Components\Toggle::make('is_verified')
                                     ->label(__('Akun Terverifikasi'))
                                     ->required()
@@ -239,9 +222,7 @@ class WeddingOrganizerResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->label(__('Nama Studio')),
-                Tables\Columns\TextColumn::make('slug')
-                    ->label(__('Slug'))
-                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('address')
                     ->searchable()
                     ->label(__('Alamat'))
@@ -254,10 +235,7 @@ class WeddingOrganizerResource extends Resource
                     ->label(__('Longitude'))
 
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('rating')
-                    ->label(__('Rating'))
-                    ->numeric()
-                    ->alignment('center'),
+
                 Tables\Columns\IconColumn::make('is_verified')
                     ->label(__('Terverifikasi'))
                     ->boolean()
@@ -316,7 +294,7 @@ class WeddingOrganizerResource extends Resource
 
     public static function canCreate(): bool
     {
-        return false;
+        return true;
     }
 
     public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool

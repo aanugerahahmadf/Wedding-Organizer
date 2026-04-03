@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class VoucherResource extends Resource
 {
+    protected static ?string $model = Voucher::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
 
     public static function getGloballySearchableAttributes(): array

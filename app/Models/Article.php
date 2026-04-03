@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\WeddingOrganizer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use App\Models\Category;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
-use App\Models\User;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
@@ -60,10 +62,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Article extends Model implements HasMedia
 {
     use InteractsWithMedia;
+    use \App\Traits\BelongsToBrand;
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('article-images')->singleFile();
+        $this->addMediaCollection('images')->singleFile();
         $this->addMediaCollection('videos')->singleFile();
     }
 
@@ -86,6 +89,8 @@ class Article extends Model implements HasMedia
         'published_at' => 'datetime',
     ];
 
+    protected $appends = [];
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
@@ -103,7 +108,19 @@ class Article extends Model implements HasMedia
 
     public function getMediaVideoUrlAttribute(): ?string
     {
-        return $this->getFirstMediaUrl('videos') ?: null;
+        return $this->getFirstMediaUrl('videos') ?: $this->video_url;
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        $url = $this->getFirstMediaUrl('images') ?: ($this->attributes['image_url'] ?? null);
+
+        if (!$url || !str_starts_with($url, 'http')) {
+            // Return a premium placeholder if both media and URL are missing/invalid
+            return 'https://ui-avatars.com/api/?name=' . urlencode($this->title) . '&color=FDE047&background=111827';
+        }
+
+        return $url;
     }
 
     public function packages()

@@ -65,8 +65,8 @@ class BankResource extends Resource
                             ->label(__('Tipe'))
                             ->searchable()
                             ->options([
-                                'bank' => 'Bank',
-                                'ewallet' => 'E-Wallet',
+                                'bank' => __('Bank'),
+                                'ewallet' => __('E-Wallet'),
                             ])
                             ->required(),
                         Forms\Components\Toggle::make('is_active')

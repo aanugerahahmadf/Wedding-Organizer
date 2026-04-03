@@ -17,8 +17,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesAndPermissionsSeeder::class,
             SuperAdminSeeder::class,
-            BankSeeder::class,
-            PaymentMethodSeeder::class,
+            WeddingOrganizerSeeder::class, // 1. Profil Studio Utama
+            CategorySeeder::class,         // 2. Service Category
+            PackageSeeder::class,          // 3. Makeup Package
+            BannerSeeder::class,           // 4. Promotional Banner
+            ArticleSeeder::class,          // 5. Blog Article
+            BankSeeder::class,             // 6. Rekening Bank
+            PaymentMethodSeeder::class,    // 7. Cara Pembayaran
         ]);
     }
 }

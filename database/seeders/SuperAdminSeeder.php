@@ -22,6 +22,7 @@ class SuperAdminSeeder extends Seeder
                 'username' => 'superadmin',
                 'password' => Hash::make('@Admin123'),
                 'email_verified_at' => now(),
+                'avatar_url' => 'https://i.pravatar.cc/300?u=superadmin',
             ]
         );
 

@@ -13,26 +13,89 @@ class PaymentMethodSeeder extends Seeder
     public function run(): void
     {
         $methods = [
+            // --- TRANSFER BANK ---
             [
                 'name' => 'Bank BCA',
                 'type' => 'bank_transfer',
                 'code' => 'bca',
                 'account_number' => '8760123456',
-                'account_holder' => 'PT Devi Make Up Wedding Organizer',
+                'account_holder' => 'PT Devi Make Up',
                 'fee' => 0,
                 'is_active' => true,
-                'instructions' => 'Transfer ke rekening BCA yang tertera, lalu upload bukti pembayaran di menu Pesanan Saya.',
+                'instructions' => 'Transfer ke rekening BCA yang tertera, lalu upload bukti pembayaran.',
             ],
             [
                 'name' => 'Bank Mandiri',
                 'type' => 'bank_transfer',
                 'code' => 'mandiri',
                 'account_number' => '1370012345678',
-                'account_holder' => 'PT Devi Make Up Wedding Organizer',
+                'account_holder' => 'PT Devi Make Up',
                 'fee' => 0,
                 'is_active' => true,
-                'instructions' => 'Transfer ke rekening Mandiri yang tertera, lalu upload bukti pembayaran di menu Pesanan Saya.',
+                'instructions' => 'Transfer ke rekening Mandiri yang tertera, lalu upload bukti pembayaran.',
             ],
+            [
+                'name' => 'Bank BNI',
+                'type' => 'bank_transfer',
+                'code' => 'bni',
+                'account_number' => '0987123456',
+                'account_holder' => 'PT Devi Make Up',
+                'fee' => 0,
+                'is_active' => true,
+                'instructions' => 'Transfer ke rekening BNI yang tertera, lalu upload bukti pembayaran.',
+            ],
+            [
+                'name' => 'Bank BRI',
+                'type' => 'bank_transfer',
+                'code' => 'bri',
+                'account_number' => '012301004567890',
+                'account_holder' => 'PT Devi Make Up',
+                'fee' => 0,
+                'is_active' => true,
+                'instructions' => 'Transfer ke rekening BRI yang tertera, lalu upload bukti pembayaran.',
+            ],
+            [
+                'name' => 'Bank CIMB Niaga',
+                'type' => 'bank_transfer',
+                'code' => 'cimb',
+                'account_number' => '800123456700',
+                'account_holder' => 'PT Devi Make Up',
+                'fee' => 0,
+                'is_active' => true,
+                'instructions' => 'Transfer ke rekening CIMB Niaga yang tertera, lalu upload bukti pembayaran.',
+            ],
+            [
+                'name' => 'Bank Permata',
+                'type' => 'bank_transfer',
+                'code' => 'permata',
+                'account_number' => '4101234567',
+                'account_holder' => 'PT Devi Make Up',
+                'fee' => 0,
+                'is_active' => true,
+                'instructions' => 'Transfer ke rekening Permata yang tertera, lalu upload bukti pembayaran.',
+            ],
+            [
+                'name' => 'Bank Danamon',
+                'type' => 'bank_transfer',
+                'code' => 'danamon',
+                'account_number' => '003123456789',
+                'account_holder' => 'PT Devi Make Up',
+                'fee' => 0,
+                'is_active' => true,
+                'instructions' => 'Transfer ke rekening Danamon yang tertera, lalu upload bukti pembayaran.',
+            ],
+            [
+                'name' => 'Bank BSI (Syariah)',
+                'type' => 'bank_transfer',
+                'code' => 'bsi',
+                'account_number' => '7001234567',
+                'account_holder' => 'PT Devi Make Up',
+                'fee' => 0,
+                'is_active' => true,
+                'instructions' => 'Transfer ke rekening BSI yang tertera, lalu upload bukti pembayaran.',
+            ],
+
+            // --- E-WALLETS ---
             [
                 'name' => 'GoPay',
                 'type' => 'ewallet',
@@ -61,6 +124,26 @@ class PaymentMethodSeeder extends Seeder
                 'instructions' => 'Transfer ke nomor DANA yang tertera, lalu upload bukti pembayaran.',
             ],
             [
+                'name' => 'ShopeePay',
+                'type' => 'ewallet',
+                'code' => 'shopeepay',
+                'account_number' => '081234567890',
+                'fee' => 0,
+                'is_active' => true,
+                'instructions' => 'Transfer ke nomor ShopeePay yang tertera, lalu upload bukti pembayaran.',
+            ],
+            [
+                'name' => 'LinkAja',
+                'type' => 'ewallet',
+                'code' => 'linkaja',
+                'account_number' => '081234567890',
+                'fee' => 0,
+                'is_active' => true,
+                'instructions' => 'Transfer ke nomor LinkAja yang tertera, lalu upload bukti pembayaran.',
+            ],
+
+            // --- LAINNYA ---
+            [
                 'name' => 'QRIS',
                 'type' => 'qris',
                 'code' => 'qris',
@@ -87,6 +170,11 @@ class PaymentMethodSeeder extends Seeder
         ];
 
         foreach ($methods as $method) {
+            $bank = \App\Models\Bank::where('code', $method['code'])->first();
+            if ($bank) {
+                $method['bank_id'] = $bank->id;
+            }
+
             PaymentMethod::updateOrCreate(
                 ['code' => $method['code']],
                 $method

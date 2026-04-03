@@ -25,6 +25,8 @@ use Filament\Infolists\Components\RepeatableEntry;
 
 class WeddingOrganizerResource extends Resource
 {
+    protected static ?string $model = WeddingOrganizer::class;
+
     protected static ?string $slug = 'home';
 
     protected static ?string $navigationIcon = 'heroicon-o-home';

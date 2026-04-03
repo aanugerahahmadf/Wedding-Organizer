@@ -11,10 +11,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Support\Enums\FontWeight;
 use Illuminate\Support\Facades\DB;
+use App\Models\History;
 
 class HistoryResource extends Resource
 {
-    protected static ?string $model = \App\Models\History::class;
+    protected static ?string $model = History::class;
 
     protected static ?int $navigationSort = 6;
 

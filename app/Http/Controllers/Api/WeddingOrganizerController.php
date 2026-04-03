@@ -38,9 +38,10 @@ class WeddingOrganizerController extends Controller
                 'per_page' => 'nullable|integer|min:1|max:100',
             ]);
 
-            $query = WeddingOrganizer::with(['media'])
+            $query = WeddingOrganizer::with(['media', 'packages', 'reviews'])
                 ->withCount(['reviews', 'packages'])
-                ->where('is_verified', true);
+                ->where('id', 1); // Enforce single-vendor: ID 1 only
+
 
             // Filter by location
             if (! empty($validatedData['location'])) {
@@ -138,6 +139,7 @@ class WeddingOrganizerController extends Controller
                 },
             ])
                 ->withCount(['reviews', 'packages'])
+                ->where('id', 1) // Always ensure we only show our own brand
                 ->findOrFail($id, ['*']);
 
             return response()->json([
@@ -352,8 +354,8 @@ class WeddingOrganizerController extends Controller
         try {
             $organizers = WeddingOrganizer::with(['media'])
                 ->withCount(['reviews', 'packages'])
-                ->where('is_verified', true)
-                ->where('is_featured', true)
+                ->where('id', 1) // Only featured Devi Make Up
+
                 ->orderBy('rating', 'desc')
                 ->paginate($request->get('per_page', 10), ['*']);
 

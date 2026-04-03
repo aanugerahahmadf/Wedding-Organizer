@@ -19,9 +19,12 @@ class SearchController extends Controller
         $query = $request->input('query');
 
         /** @var Collection $organizers */
-        $organizers = WeddingOrganizer::where('name', 'like', "%{$query}%")
-            ->orWhere('description', 'like', "%{$query}%")
-            ->orWhere('address', 'like', "%{$query}%")
+        $organizers = WeddingOrganizer::where('id', 1) // Only search in the one brand
+            ->where(function($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                  ->orWhere('description', 'like', "%{$query}%")
+                  ->orWhere('address', 'like', "%{$query}%");
+            })
             ->get(['*']);
 
         $formattedResults = $organizers->map(function (\App\Models\WeddingOrganizer $wo) {
@@ -57,7 +60,7 @@ class SearchController extends Controller
         }
 
         $formattedResults = collect($results)->map(function (mixed $result) {
-            $wo = WeddingOrganizer::find($result['owner_id'], ['*']);
+            $wo = WeddingOrganizer::where('id', 1)->find($result['owner_id'], ['*']); // Filter and find by only allowed ID
             if (! $wo) {
                 return null;
             }

@@ -51,7 +51,8 @@ class Register extends BaseRegister
         return $form
             ->schema([
                 Wizard::make([
-                    Step::make(__('Akun'))
+                    Step::make('akun')
+                        ->label(__('Akun'))
                         ->description(__('Info akun dasar'))
                         ->icon('heroicon-m-user-circle')
                         ->schema([
@@ -76,7 +77,8 @@ class Register extends BaseRegister
                             $this->getPasswordFormComponent(),
                             $this->getPasswordConfirmationFormComponent(),
                         ]),
-                    Step::make(__('Detail Pribadi'))
+                    Step::make('detail_pribadi')
+                        ->label(__('Detail Pribadi'))
                         ->description(__('Info kontak Anda'))
                         ->icon('heroicon-m-identification')
                         ->schema([

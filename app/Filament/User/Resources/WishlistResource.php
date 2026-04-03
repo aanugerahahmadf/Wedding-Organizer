@@ -13,6 +13,8 @@ use App\Filament\User\Resources\PackageResource;
 
 class WishlistResource extends Resource
 {
+    protected static ?string $model = Wishlist::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-heart';
 
     public static function getGloballySearchableAttributes(): array

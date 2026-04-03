@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class PackageResource extends Resource
 {
+    protected static ?string $model = Package::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-gift';
 
     public static function getGloballySearchableAttributes(): array

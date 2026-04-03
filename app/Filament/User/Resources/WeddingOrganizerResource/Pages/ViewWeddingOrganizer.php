@@ -25,8 +25,15 @@ class ViewWeddingOrganizer extends ViewRecord
      */
     public function mount(int|string|null $record = null): void
     {
-        $record = 1;
-        parent::mount($record);
+        // Langsung arahkan router ke record 1 (bisa asli atau placeholder memori)
+        $this->record = $this->resolveRecord(1);
+        
+        parent::mount(1);
+    }
+
+    protected function resolveRecord(int|string $key): WeddingOrganizer
+    {
+        return WeddingOrganizer::getBrand() ?? new WeddingOrganizer();
     }
 
     /**

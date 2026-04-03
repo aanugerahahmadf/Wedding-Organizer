@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ArticleResource extends Resource
 {
+    protected static ?string $model = Article::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
 
@@ -69,33 +71,81 @@ class ArticleResource extends Resource
             ])
             ->columns([
                 Tables\Columns\Layout\Stack::make([
-                    // Cover Image (Shopee product-style)
-                    Tables\Columns\ImageColumn::make('image_url')
-                        ->label('')
-                        ->height('10rem')
-                        ->width('100%')
-                        ->extraAttributes(['class' => 'w-full overflow-hidden rounded-t-xl'])
-                        ->extraImgAttributes([
-                            'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
-                            'style' => 'width: 100%; height: 100%; object-fit: cover;'
-                        ]),
-
+                    // Cover Image Section with Video Overlay
+                    Tables\Columns\Layout\Stack::make([
+                        Tables\Columns\ImageColumn::make('image_url')
+                            ->label('')
+                            ->height('12rem')
+                            ->width('100%')
+                            ->alignment('center')
+                            ->getStateUsing(fn($record) => $record->image_url)
+                            ->extraAttributes([
+                                'class' => 'w-full h-full overflow-hidden bg-white/5 flex items-center justify-center rounded-t-xl shadow-inner',
+                            ])
+                            ->extraImgAttributes([
+                                'class' => 'w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110 blur-0',
+                            ]),
+                        
+                        // Video Indicator (Premium Play Icon)
+                        Tables\Columns\TextColumn::make('video_indicator')
+                            ->label('')
+                            ->getStateUsing(fn() => '')
+                            ->icon('heroicon-s-play-circle')
+                            ->iconColor('warning')
+                            ->extraAttributes([
+                                'class' => 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-2xl scale-[2.5] opacity-70 group-hover:opacity-100 group-hover:scale-[3] transition-all duration-300',
+                            ])
+                            ->visible(fn ($record) => $record && ((bool) $record->video_url || $record->hasMedia('videos'))),
+                    ])
+                    ->extraAttributes(['class' => 'relative overflow-hidden rounded-t-xl'])
+                    ->visible(fn($record) => $record && $record->image_url),
+                    
                     // Text content block
                     Tables\Columns\Layout\Stack::make([
+                        // Category Badge - Now clearly at the top of content section
+                        Tables\Columns\TextColumn::make('category.name')
+                            ->badge()
+                            ->color('info')
+                            ->size('xs')
+                            ->extraAttributes(['class' => 'mb-2']),
+
                         Tables\Columns\TextColumn::make('title')
                             ->searchable()
                             ->weight(FontWeight::Bold)
-                            ->size('sm')
+                            ->size('sm')
                             ->lineClamp(2),
-                        Tables\Columns\TextColumn::make('created_at')
-                            ->date('d M Y')
+                        
+                        Tables\Columns\TextColumn::make('excerpt')
                             ->size('xs')
                             ->color('gray')
-                            ->icon('heroicon-o-clock'),
-                    ])->space(1)->extraAttributes(['class' => 'p-2']),
+                            ->lineClamp(2)
+                            ->wrap(),
+
+                        Tables\Columns\Layout\Split::make([
+                            Tables\Columns\TextColumn::make('author.full_name')
+                                ->size('xs')
+                                ->color('gray')
+                                ->icon('heroicon-o-user')
+                                ->grow(false),
+                            
+                            Tables\Columns\TextColumn::make('published_at')
+                                ->date('d M Y')
+                                ->size('xs')
+                                ->color('gray')
+                                ->icon('heroicon-o-calendar')
+                                ->alignEnd(),
+                        ])->extraAttributes(['class' => 'mt-4 pt-4 border-t border-gray-100 dark:border-gray-800']),
+                    ])->extraAttributes(['class' => 'p-4']),
                 ])->extraAttributes([
                     'class' => 'bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-800 transition-all duration-300 group overflow-hidden cursor-pointer'
                 ]),
+            ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('category_id')
+                    ->label(__('Kategori'))
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
@@ -112,28 +162,60 @@ class ArticleResource extends Resource
             ->actionsAlignment('center');
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['author', 'category', 'packages'])
+            ->where('is_published', true)
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
+    }
+
     public static function infolist(\Filament\Infolists\Infolist $infolist): \Filament\Infolists\Infolist
     {
         return $infolist
             ->schema([
                 \Filament\Infolists\Components\Section::make()
                     ->schema([
+                        // Main Visual
                         \Filament\Infolists\Components\ImageEntry::make('image_url')
                             ->hiddenLabel()
-                            ->height('16rem')
+                            ->height('20rem')
                             ->width('100%')
-                            ->extraImgAttributes(['class' => 'object-cover rounded-2xl mb-4']),
+                            ->extraImgAttributes(['class' => 'object-contain rounded-2xl mb-4 shadow-lg mx-auto bg-gray-50/30 dark:bg-gray-800/30']),
+                        
+                        \Filament\Infolists\Components\Grid::make(2)
+                            ->schema([
+                                \Filament\Infolists\Components\TextEntry::make('category.name')
+                                    ->label(__('Kategori'))
+                                    ->badge()
+                                    ->color('info'),
+                                \Filament\Infolists\Components\TextEntry::make('author.full_name')
+                                    ->label(__('Penulis'))
+                                    ->icon('heroicon-o-user')
+                                    ->color('gray'),
+                            ]),
+
                         \Filament\Infolists\Components\TextEntry::make('title')
                             ->hiddenLabel()
                             ->weight(\Filament\Support\Enums\FontWeight::Bold)
-                            ->size(\Filament\Infolists\Components\TextEntry\TextEntrySize::Large),
-                        \Filament\Infolists\Components\TextEntry::make('created_at')
+                            ->size(\Filament\Infolists\Components\TextEntry\TextEntrySize::Large)
+                            ->extraAttributes(['class' => 'mt-4']),
+
+                        \Filament\Infolists\Components\TextEntry::make('published_at')
                             ->hiddenLabel()
                             ->date('d F Y')
-                            ->icon('heroicon-o-clock')
+                            ->icon('heroicon-o-calendar')
                             ->color('gray'),
+                        
+                        \Filament\Infolists\Components\TextEntry::make('excerpt')
+                            ->label(__('Ringkasan'))
+                            ->color('gray')
+                            ->extraAttributes(['class' => 'bg-gray-50 dark:bg-white/5 p-4 rounded-xl border-l-4 border-warning-500 mt-4']),
                     ])
-                    ->extraAttributes(['class' => 'bg-gray-50 dark:bg-white/5 border-0 shadow-none rounded-3xl mb-4']),
+                    ->extraAttributes(['class' => 'border-0 shadow-none p-0']),
+
+                // Content Section
                 \Filament\Infolists\Components\Section::make()
                     ->schema([
                         \Filament\Infolists\Components\TextEntry::make('content')
@@ -142,7 +224,17 @@ class ArticleResource extends Resource
                             ->prose()
                             ->columnSpanFull(),
                     ])
-                    ->extraAttributes(['class' => 'border-0 shadow-none']),
+                    ->extraAttributes(['class' => 'border-0 shadow-none mt-4']),
+
+                // Video Section (If Available)
+                \Filament\Infolists\Components\Section::make(__('Video Pendukung'))
+                    ->icon('heroicon-o-play-circle')
+                    ->visible(fn ($record) => (bool) $record->getMediaVideoUrlAttribute())
+                    ->schema([
+                        \Filament\Infolists\Components\ViewEntry::make('video_player')
+                            ->view('filament.user.article-video-player')
+                            ->columnSpanFull(),
+                    ]),
                 
                 \Filament\Infolists\Components\Section::make(__('Paket Layanan Terkait'))
                     ->icon('heroicon-o-shopping-bag')

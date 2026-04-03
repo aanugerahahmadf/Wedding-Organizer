@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PaymentResource extends Resource
 {
+    protected static ?string $model = Payment::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
     public static function getGloballySearchableAttributes(): array

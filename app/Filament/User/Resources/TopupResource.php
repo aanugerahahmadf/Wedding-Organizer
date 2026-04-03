@@ -21,6 +21,8 @@ use Illuminate\Support\HtmlString;
 
 class TopupResource extends Resource
 {
+    protected static ?string $model = Topup::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-wallet';
 
     public static function getGloballySearchableAttributes(): array
