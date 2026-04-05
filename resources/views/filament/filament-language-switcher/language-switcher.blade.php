@@ -5,6 +5,23 @@
     $isFilament = str_contains(request()->url(), config('filament.path', 'admin')) || request()->routeIs('filament.*');
 @endphp
 
+<style>
+    /* Global scrollbar hide for Filament Panels */
+    html, body, .fi-main, .fi-sidebar, .fi-topbar, .ffi-dropdown-panel, .ffi-dropdown-panel * {
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+    }
+    html::-webkit-scrollbar, 
+    body::-webkit-scrollbar,
+    .fi-main::-webkit-scrollbar,
+    .fi-sidebar::-webkit-scrollbar,
+    .fi-topbar::-webkit-scrollbar,
+    .ffi-dropdown-panel::-webkit-scrollbar,
+    .ffi-dropdown-panel *::-webkit-scrollbar {
+        display: none !important;
+    }
+</style>
+
 <div x-data="{
     open: false,
     toggle: function() {
@@ -39,12 +56,14 @@
     <div x-ref="panel" x-show="open" x-on:click.away="close" x-transition:enter-start="opacity-0 scale-95"
         x-transition:leave-end="opacity-0 scale-95"
         @class([
-            'ffi-dropdown-panel absolute right-0 top-full mt-2 min-w-[200px] divide-y rounded-lg shadow-2xl ring-1 transition overflow-hidden',
+            'ffi-dropdown-panel absolute right-0 top-full mt-2 min-w-[200px] divide-y rounded-lg shadow-2xl ring-1 transition',
             $isFilament
                 ? 'bg-white divide-gray-100 ring-gray-950/10 dark:divide-white/5 dark:bg-gray-900 dark:ring-white/20'
                 : 'bg-[#FDFDFC] divide-[#19140015] ring-[#19140015] dark:bg-[#0a0a0a] dark:divide-[#ffffff10] dark:ring-[#ffffff10]',
-        ]) style="z-index: 1000;" x-cloak>
-        <div class="filament-dropdown-list p-1 max-h-64 overflow-y-auto w-full scrollbar-thin">
+        ]) :style="(typeof $store !== 'undefined' && $store.theme === 'dark') || document.documentElement.classList.contains('dark') 
+            ? 'z-index: 2000; max-height: 250px !important; overflow-y: auto !important; background-color: #030712 !important;' 
+            : 'z-index: 2000; max-height: 250px !important; overflow-y: auto !important; background-color: white !important;'" x-cloak>
+        <div class="filament-dropdown-list p-1 w-full scrollbar-thin">
             @foreach ($locals as $key => $language)
                 @php $isCurrent = $currentLocale === $key; @endphp
                 <a @if (!$isCurrent) href="{{ route('language.switch', ['locale' => $key]) }}"

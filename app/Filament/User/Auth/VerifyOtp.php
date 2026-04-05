@@ -10,6 +10,7 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\SimplePage;
 use Filament\Panel;
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -114,6 +115,14 @@ class VerifyOtp extends SimplePage
         return Action::make('verify')
             ->label(__('Verifikasi Kode'))
             ->submit('verify');
+    }
+
+    public function loginAction(): Action
+    {
+        return Action::make('login')
+            ->label(__('Sudah punya akun? Masuk'))
+            ->url(Filament::getLoginUrl())
+            ->color('gray');
     }
 
     protected function hasFullWidthFormActions(): bool

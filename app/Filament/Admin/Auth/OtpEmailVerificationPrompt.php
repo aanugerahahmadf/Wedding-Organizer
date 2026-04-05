@@ -138,4 +138,11 @@ class OtpEmailVerificationPrompt extends EmailVerificationPrompt
                     ->send();
             });
     }
+
+    public function loginAction(): Action
+    {
+        return parent::loginAction()
+            ->label(__('Sudah punya akun? Masuk'))
+            ->url(Filament::getLoginUrl());
+    }
 }

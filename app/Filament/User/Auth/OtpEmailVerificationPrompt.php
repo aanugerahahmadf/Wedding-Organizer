@@ -84,6 +84,7 @@ class OtpEmailVerificationPrompt extends EmailVerificationPrompt
             Notification::make()
                 ->title(__('Kode verifikasi tidak valid atau telah kadaluarsa.'))
                 ->danger()
+                ->autofocus()
                 ->send();
         }
     }
@@ -137,5 +138,11 @@ class OtpEmailVerificationPrompt extends EmailVerificationPrompt
                     ->success()
                     ->send();
             });
+    }
+
+    public function loginAction(): Action
+    {
+        return parent::loginAction()
+            ->label(__('Sudah punya akun? Masuk'));
     }
 }

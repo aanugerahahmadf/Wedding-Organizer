@@ -70,4 +70,10 @@ class OtpRequestPasswordReset extends BaseRequestPasswordReset
             ->autocomplete()
             ->autofocus();
     }
+
+    public function loginAction(): \Filament\Actions\Action
+    {
+        return parent::loginAction()
+            ->label(__('Kembali ke Halaman Masuk'));
+    }
 }

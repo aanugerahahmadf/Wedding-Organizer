@@ -29932,11 +29932,25 @@ namespace App\Filament\Admin\Resources\PaymentResource\Pages {
             }
     }
 
+namespace App\Filament\Admin\Resources\PrivacyPolicyResource\Pages {
+    /**
+     */
+    class ManagePrivacyPolicies extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
 namespace App\Filament\Admin\Resources\ReviewResource\Pages {
     /**
      * @property-read \App\Filament\Resources\ReviewResource $resource
      */
     class ManageReviews extends \Filament\Resources\Pages\ManageRecords {
+            }
+    }
+
+namespace App\Filament\Admin\Resources\TermsOfServiceResource\Pages {
+    /**
+     */
+    class ManageTermsOfServices extends \Filament\Resources\Pages\ManageRecords {
             }
     }
 
@@ -30243,6 +30257,14 @@ namespace App\Filament\User\Pages {
     /**
      */
     class MessagesPage extends \Filament\Pages\Page {
+            }
+    /**
+     */
+    class Privacy extends \Filament\Pages\Page {
+            }
+    /**
+     */
+    class Terms extends \Filament\Pages\Page {
             }
     }
 
@@ -35995,11 +36017,6 @@ namespace  {
 }
 
 
-namespace Facades\Livewire\Features\SupportFileUploads {
-    /**
-     * @mixin \Livewire\Features\SupportFileUploads\GenerateSignedUploadUrl     */
-    class GenerateSignedUploadUrl extends \Livewire\Features\SupportFileUploads\GenerateSignedUploadUrl {}
-}
 
 namespace {
     

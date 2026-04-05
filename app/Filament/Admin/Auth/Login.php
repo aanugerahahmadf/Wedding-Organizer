@@ -41,6 +41,30 @@ class Login extends BaseLogin
             ->extraInputAttributes(['tabindex' => 1]);
     }
 
+    public function registerAction(): \Filament\Actions\Action
+    {
+        return parent::registerAction()
+            ->label(__('Daftar Akun Baru'));
+    }
+
+    public function passwordResetAction(): \Filament\Actions\Action
+    {
+        return parent::passwordResetAction()
+            ->label(__('Lupa Kata Sandi?'));
+    }
+
+    protected function getAuthenticateFormAction(): \Filament\Actions\Action
+    {
+        return parent::getAuthenticateFormAction()
+            ->label(__('Masuk'));
+    }
+
+    protected function getRememberFormComponent(): Component
+    {
+        return parent::getRememberFormComponent()
+            ->label(__('Ingat Saya'));
+    }
+
     protected function getCredentialsFromFormData(array $data): array
     {
         $login = $data['login'];

@@ -206,6 +206,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName, 
         'event_concept',
         'dream_venue',
         'active_status',
+        'social_id',
+        'social_type',
     ];
 
     /**

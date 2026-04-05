@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Auth;
 
 use Filament\Actions\Action;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
 use Filament\Forms\Form;
@@ -114,6 +115,14 @@ class VerifyOtp extends SimplePage
         return Action::make('verify')
             ->label(__('Verifikasi Kode'))
             ->submit('verify');
+    }
+
+    public function loginAction(): Action
+    {
+        return Action::make('login')
+            ->label(__('Sudah punya akun? Masuk'))
+            ->url(Filament::getLoginUrl())
+            ->color('gray');
     }
 
     protected function hasFullWidthFormActions(): bool

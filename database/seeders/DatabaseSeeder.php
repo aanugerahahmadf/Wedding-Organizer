@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             ArticleSeeder::class,          // 5. Blog Article
             BankSeeder::class,             // 6. Rekening Bank
             PaymentMethodSeeder::class,    // 7. Cara Pembayaran
+            TermsAndConditionsSeeder::class,
+            
         ]);
     }
 }

@@ -29,12 +29,14 @@
         "jeffgreco13/filament-breezy": "^2.6",
         "joaopaulolndev/filament-edit-profile": "^1.0",
         "joaopaulolndev/filament-pdf-viewer": "^1.1",
+        "laravel-lang/common": "^6.7",
+        "laravel-lang/lang": "^15.28",
         "laravel/framework": "^12.0",
         "laravel/ranger": "^0.1.8",
         "laravel/reverb": "^1.7",
         "laravel/sanctum": "^4.0",
         "laravel/slack-notification-channel": "^3.7",
-        "laravel/socialite": "^5.24",
+        "laravel/socialite": "^5.26",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.12",
         "livewire/livewire": "^3.7",
@@ -60,9 +62,7 @@
         "symfony/expression-language": "^8.0",
         "tangodev-it/filament-emoji-picker": "^1.0.3",
         "tomatophp/filament-language-switcher": "^1.0",
-        "ysfkaya/filament-phone-input": "^3.2",
-        "laravel-lang/common": "^6.7",
-        "laravel-lang/lang": "^15.28"
+        "ysfkaya/filament-phone-input": "^3.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.6",

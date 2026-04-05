@@ -21,6 +21,12 @@ class Login extends BaseLogin
             ->label(__('Kata Sandi'));
     }
 
+    protected function getRememberFormComponent(): Component
+    {
+        return parent::getRememberFormComponent()
+            ->label(__('Ingat Saya'));
+    }
+
     public function getHeading(): string|Htmlable
     {
         return __('Masuk ke Sistem');
@@ -39,6 +45,24 @@ class Login extends BaseLogin
             ->autocomplete()
             ->autofocus()
             ->extraInputAttributes(['tabindex' => 1]);
+    }
+
+    public function registerAction(): \Filament\Actions\Action
+    {
+        return parent::registerAction()
+            ->label(__('Daftar Akun Baru'));
+    }
+
+    public function passwordResetAction(): \Filament\Actions\Action
+    {
+        return parent::passwordResetAction()
+            ->label(__('Lupa Kata Sandi?'));
+    }
+
+    protected function getAuthenticateFormAction(): \Filament\Actions\Action
+    {
+        return parent::getAuthenticateFormAction()
+            ->label(__('Masuk'));
     }
 
     protected function getCredentialsFromFormData(array $data): array

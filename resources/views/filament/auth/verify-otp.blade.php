@@ -1,4 +1,7 @@
 <x-filament-panels::page.simple>
+    <x-slot name="subheading">
+        {{ $this->loginAction }}
+    </x-slot>
     <x-filament-panels::form id="form" wire:submit="verify">
         {{ $this->form }}
 

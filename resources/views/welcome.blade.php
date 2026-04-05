@@ -23,10 +23,24 @@
             display: none !important;
         }
     </style>
+    <script>
+        (function() {
+            try {
+                const theme = localStorage.getItem('theme') || localStorage.getItem('filament_theme') || 'system';
+                if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {
+                console.error('Theme sync failed:', e);
+            }
+        })();
+    </script>
 </head>
 
 <body
-    class="nativephp-safe-area bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+    class="nativephp-safe-area bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col transition-colors duration-500">
     @livewireScripts
     <header class="relative z-50 w-full lg:max-w-4xl max-w-[335px] text-sm mb-6">
         <nav class="flex items-center justify-end gap-3 lg:gap-6">
@@ -46,6 +60,36 @@
                 </a>
             @endauth
 
+            {{-- Theme Switcher Component --}}
+            <div x-data="{
+                theme: localStorage.getItem('theme') || 'system',
+                updateTheme(val) {
+                    this.theme = val;
+                    localStorage.setItem('theme', val);
+                    this.apply();
+                },
+                apply() {
+                    if (this.theme === 'dark' || (this.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                }
+            }" x-init="apply()" class="flex items-center gap-1 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-inner">
+                <button @click="updateTheme('light')" :class="theme === 'light' ? 'bg-white dark:bg-gray-700 shadow-sm text-yellow-500' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'" class="p-1 px-2 rounded-md flex items-center gap-1 text-[10px] uppercase font-bold transition-all">
+                    <x-heroicon-m-sun class="w-4 h-4" />
+                    <span class="hidden sm:inline">{{ __('Light') }}</span>
+                </button>
+                <button @click="updateTheme('dark')" :class="theme === 'dark' ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'" class="p-1 px-2 rounded-md flex items-center gap-1 text-[10px] uppercase font-bold transition-all">
+                    <x-heroicon-m-moon class="w-4 h-4" />
+                    <span class="hidden sm:inline">{{ __('Night') }}</span>
+                </button>
+                <button @click="updateTheme('system')" :class="theme === 'system' ? 'bg-white dark:bg-gray-700 shadow-sm text-gray-600 dark:text-gray-300' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'" class="p-1 px-2 rounded-md flex items-center gap-1 text-[10px] uppercase font-bold transition-all">
+                    <x-heroicon-m-computer-desktop class="w-4 h-4" />
+                    <span class="hidden sm:inline">{{ __('System') }}</span>
+                </button>
+            </div>
+
             {{-- Language Switcher Sync --}}
             @include('filament.filament-language-switcher.language-switcher')
         </nav>
@@ -55,9 +99,9 @@
         <main
             class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row shadow-sm rounded-lg overflow-hidden border border-[#19140015] dark:border-[#ffffff10]">
             <div
-                class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC]">
-                <h1 class="mb-1 font-medium text-lg">{{ __('Welcome To Devi Panel Make Up') }}</h1>
-                <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
+                class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                <h1 class="mb-1 font-semibold text-lg text-gray-950 dark:text-white">{{ __('Welcome To Devi Panel Make Up') }}</h1>
+                <p class="mb-2 text-gray-600 dark:text-gray-400">
                     {{ __('Manage your wedding organizer needs efficiently with our comprehensive system.') }}
                 </p>
 
@@ -87,7 +131,7 @@
                 <ul class="flex w-full mt-4 lg:mt-6">
                     <li class="w-full lg:w-auto">
                         <a href="{{ route('filament.user.resources.home.index', ['record' => 1]) }}"
-                            class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal transition-all active:scale-95 shadow-sm">
+                            class="inline-block dark:bg-white dark:text-gray-950 dark:hover:bg-gray-200 hover:bg-black hover:border-black px-5 py-1.5 bg-gray-900 rounded-sm border border-black text-white text-sm font-semibold leading-normal transition-all active:scale-95 shadow-sm">
                             {{ __('Buka Beranda') }}
                         </a>
                     </li>

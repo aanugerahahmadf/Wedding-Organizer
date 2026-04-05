@@ -116,4 +116,10 @@ class OtpResetPassword extends BaseResetPassword
         return parent::getPasswordConfirmationFormComponent()
             ->label(__('Konfirmasi Kata Sandi Baru'));
     }
+
+    public function resetPasswordAction(): \Filament\Actions\Action
+    {
+        return parent::resetPasswordAction()
+            ->label(__('Atur Ulang Kata Sandi'));
+    }
 }
