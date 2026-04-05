@@ -11,6 +11,8 @@
         scrollbar-width: none !important;
         -ms-overflow-style: none !important;
     }
+    
+    /* Chrome, Safari and Opera target */
     html::-webkit-scrollbar, 
     body::-webkit-scrollbar,
     .fi-main::-webkit-scrollbar,
@@ -19,6 +21,9 @@
     .ffi-dropdown-panel::-webkit-scrollbar,
     .ffi-dropdown-panel *::-webkit-scrollbar {
         display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        background: transparent !important;
     }
 </style>
 
