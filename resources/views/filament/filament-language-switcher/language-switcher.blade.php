@@ -5,28 +5,6 @@
     $isFilament = str_contains(request()->url(), config('filament.path', 'admin')) || request()->routeIs('filament.*');
 @endphp
 
-<style>
-    /* Global scrollbar hide for Filament Panels */
-    html, body, .fi-main, .fi-sidebar, .fi-topbar, .ffi-dropdown-panel, .ffi-dropdown-panel * {
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
-    }
-    
-    /* Chrome, Safari and Opera target */
-    html::-webkit-scrollbar, 
-    body::-webkit-scrollbar,
-    .fi-main::-webkit-scrollbar,
-    .fi-sidebar::-webkit-scrollbar,
-    .fi-topbar::-webkit-scrollbar,
-    .ffi-dropdown-panel::-webkit-scrollbar,
-    .ffi-dropdown-panel *::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-        background: transparent !important;
-    }
-</style>
-
 <div x-data="{
     open: false,
     toggle: function() {

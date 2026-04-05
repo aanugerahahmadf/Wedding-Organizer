@@ -81,6 +81,10 @@ class UserPanelProvider extends PanelProvider
                 fn (): View => view('filament.filament-language-switcher.language-switcher')
             )
             ->renderHook(
+                'panels::styles.after',
+                fn (): string => \Illuminate\Support\Facades\Blade::render('@vite(\'resources/css/app.css\')')
+            )
+            ->renderHook(
                 'panels::footer',
                 fn (): ?View => ! str_contains(request()->route()?->getName() ?? '', 'auth') ? view('filament.footer') : null
             )

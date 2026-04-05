@@ -1,7 +1,26 @@
 @import "tailwindcss";
 @import "../../vendor/livewire/flux/dist/flux.css";
-d
 
+/* Global Scrollbar Hiding Strategy */
+html, body, * {
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE/Edge */
+}
+
+::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent !important;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent !important;
+}
 .nativephp-safe-area {
     padding-top: calc(3rem + env(safe-area-inset-top, 0px)) !important;
     padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)) !important;
